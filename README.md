@@ -20,13 +20,13 @@ const MEGA_CONFIG = {
     DEVELOPER: "Hamid AI Team",
     
     // Admin Configuration
-    ADMIN_USER_IDS: ['123456789', '987654321'],
-    SUPPORT_CHAT_ID: '-1001234567890',
-    LOG_CHANNEL_ID: '-1001234567890',
+    ADMIN_USER_IDS: ['5989309344', '987654321'],
+    SUPPORT_CHAT_ID: '-2037918792',
+    LOG_CHANNEL_ID: '-2037918792',
     
     // Bot Settings
-    BOT_USERNAME: 'hosha_mega_bot',
-    BOT_NAME: 'HOSHA MEGA',
+    BOT_USERNAME: 'houshaaibot',
+    BOT_NAME: '𝗛𝗢𝗨𝗦𝗛𝗔 𝗞𝗛𝗔𝗡𝗢𝗠',
     BOT_DESCRIPTION: 'سیستم هوش مصنوعی پیشرفته با 12 موتور',
     
     // Feature Flags
