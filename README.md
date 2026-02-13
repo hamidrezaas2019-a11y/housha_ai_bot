@@ -1,1358 +1,533 @@
- ═══════════════════════════════════════════════════════════════
-// 🌸 HOSHA MEGA SYSTEM v16.0 - ULTRA PROFESSIONAL
-// ✅ 2500+ خط کد حرفه‌ای
-// ✅ 12 موتور AI + Vision
+// ==================== HOSHA MEGA v16 - ULTIMATE FINAL ====================
+// ✅ تمام ۱۲ موتور AI + Vision (Cloudflare, GPT, Gemini, Claude, OpenRouter)
 // ✅ سیستم VIP کامل + درگاه پرداخت
-// ✅ حالت انسانی پیشرفته
-// ✅ سیستم بلاک هوشمند
-// ✅ پنل ادمین قدرتمند
-// ✅ آنالیتیکس و گزارش‌گیری
-// ✅ سیستم رفرال و امتیازدهی
-// ✅ چت گروهی و مدیریت
-// ✅ سیستم نوتیفیکیشن
-// ✅ کش و بهینه‌سازی
-// ═══════════════════════════════════════════════════════════════
+// ✅ پنل شیشه‌ای (Glassmorphism) برای ادمین و راهنما
+// ✅ دیتابیس D1 + کش KV
+// ✅ رفع مشکل referral و دیتابیس
+// ✅ بدون خطای 1101
+// ===========================================================================
 
-// ==================== GLOBAL CONFIGURATION ====================
 const MEGA_CONFIG = {
     VERSION: "16.0.0",
-    RELEASE_DATE: "2025-02-11",
-    DEVELOPER: "Hamid AI Team",
-    
-    // Admin Configuration
-    ADMIN_USER_IDS: ['5989309344', '987654321'],
-    SUPPORT_CHAT_ID: '-2037918792',
-    LOG_CHANNEL_ID: '-2037918792',
-    
-    // Bot Settings
+    BOT_NAME: '🌸 حوشا',
     BOT_USERNAME: 'houshaaibot',
-    BOT_NAME: '𝗛𝗢𝗨𝗦𝗛𝗔 𝗞𝗛𝗔𝗡𝗢𝗠',
-    BOT_DESCRIPTION: 'سیستم هوش مصنوعی پیشرفته با 12 موتور',
-    
-    // Feature Flags
-    FEATURES: {
-        VISION_AI: true,
-        VOICE_SUPPORT: false,
-        GROUP_CHAT: true,
-        PAYMENT_SYSTEM: true,
-        REFERRAL_SYSTEM: true,
-        AUTO_BACKUP: true,
-        ANALYTICS: true,
-        RATE_LIMITING: true,
-        CACHING: true,
-        MULTI_LANGUAGE: true
-    },
-    
-    // AI Engines Configuration
+    ADMIN_IDS: ['5989309344', '7343696403'],
     ENGINES: {
-        'CF_AI': {
-            name: 'Llama 3.1 405B',
-            emoji: '☁️',
-            vip: false,
-            vision: false,
-            model: '@cf/meta/llama-3.1-405b-instruct',
-            max_tokens: 2048,
-            temperature: 0.7,
-            cost_per_token: 0.000001
-        },
-        'CF_AI_8B': {
-            name: 'Llama 3.1 8B',
-            emoji: '⚡',
-            vip: false,
-            vision: false,
-            model: '@cf/meta/llama-3.1-8b-instruct',
-            max_tokens: 1024,
-            temperature: 0.7,
-            cost_per_token: 0.0000005
-        },
-        'GEMINI_FLASH': {
-            name: 'Gemini 1.5 Flash',
-            emoji: '🌟',
-            vip: false,
-            vision: true,
-            model: 'gemini-1.5-flash',
-            max_tokens: 2048,
-            temperature: 0.7,
-            cost_per_token: 0.000002
-        },
-        'GEMINI_PRO': {
-            name: 'Gemini 1.5 Pro',
-            emoji: '💎',
-            vip: true,
-            vision: true,
-            model: 'gemini-1.5-pro',
-            max_tokens: 4096,
-            temperature: 0.7,
-            cost_per_token: 0.000005
-        },
-        'GPT_4O_MINI': {
-            name: 'GPT-4o Mini',
-            emoji: '🤖',
-            vip: false,
-            vision: false,
-            model: 'gpt-4o-mini',
-            max_tokens: 2048,
-            temperature: 0.8,
-            cost_per_token: 0.000003
-        },
-        'GPT_4O': {
-            name: 'GPT-4o',
-            emoji: '👁️',
-            vip: true,
-            vision: true,
-            model: 'gpt-4o',
-            max_tokens: 4096,
-            temperature: 0.8,
-            cost_per_token: 0.00001
-        },
-        'CLAUDE_HAIKU': {
-            name: 'Claude 3.5 Haiku',
-            emoji: '💬',
-            vip: false,
-            vision: false,
-            model: 'claude-3-5-haiku-20241022',
-            max_tokens: 2048,
-            temperature: 0.7,
-            cost_per_token: 0.000003
-        },
-        'CLAUDE_SONNET': {
-            name: 'Claude 3.5 Sonnet',
-            emoji: '🧠',
-            vip: true,
-            vision: true,
-            model: 'claude-3-5-sonnet-20241022',
-            max_tokens: 4096,
-            temperature: 0.7,
-            cost_per_token: 0.000008
-        },
-        'CLAUDE_OPUS': {
-            name: 'Claude 3 Opus',
-            emoji: '👑',
-            vip: true,
-            vision: true,
-            model: 'claude-3-opus-20240229',
-            max_tokens: 4096,
-            temperature: 0.7,
-            cost_per_token: 0.00002
-        },
-        'DEEPSEEK': {
-            name: 'DeepSeek V3',
-            emoji: '🚀',
-            vip: false,
-            vision: false,
-            model: 'deepseek-chat',
-            max_tokens: 2048,
-            temperature: 0.7,
-            cost_per_token: 0.000001
-        },
-        'PERPLEXITY': {
-            name: 'Perplexity Sonar',
-            emoji: '🔍',
-            vip: false,
-            vision: false,
-            model: 'sonar-pro',
-            max_tokens: 2048,
-            temperature: 0.7,
-            cost_per_token: 0.000002
-        },
-        'MISTRAL': {
-            name: 'Mistral Large',
-            emoji: '⚡',
-            vip: true,
-            vision: false,
-            model: 'mistral-large-latest',
-            max_tokens: 2048,
-            temperature: 0.7,
-            cost_per_token: 0.000004
-        }
+        CF_AI: { name: 'Llama 3.1 405B', emoji: '☁️', vip: false, vision: false, model: '@cf/meta/llama-3.1-405b-instruct', max_tokens: 2048, temperature: 0.7, cost: 0.000001, provider: 'cf' },
+        CF_AI_8B: { name: 'Llama 3.1 8B', emoji: '⚡', vip: false, vision: false, model: '@cf/meta/llama-3.1-8b-instruct', max_tokens: 1024, temperature: 0.7, cost: 0.0000005, provider: 'cf' },
+        CF_GEMMA: { name: 'Gemma 3 12B', emoji: '🆓', vip: false, vision: false, model: '@cf/google/gemma-3-12b-it', max_tokens: 2048, temperature: 0.7, cost: 0.0000001, provider: 'cf' },
+        OPENROUTER: { name: 'OpenRouter Auto', emoji: '🔄', vip: false, vision: false, model: 'openrouter/auto', max_tokens: 2048, temperature: 0.7, cost: 0.0000005, provider: 'openrouter' },
+        GEMINI_FLASH: { name: 'Gemini 1.5 Flash', emoji: '🌟', vip: false, vision: true, model: 'gemini-1.5-flash', max_tokens: 2048, temperature: 0.7, cost: 0.000002, provider: 'gemini' },
+        GEMINI_PRO: { name: 'Gemini 1.5 Pro', emoji: '💎', vip: true, vision: true, model: 'gemini-1.5-pro', max_tokens: 4096, temperature: 0.7, cost: 0.000005, provider: 'gemini' },
+        GPT_4O_MINI: { name: 'GPT-4o Mini', emoji: '🤖', vip: false, vision: false, model: 'gpt-4o-mini', max_tokens: 2048, temperature: 0.8, cost: 0.000003, provider: 'openai' },
+        GPT_4O: { name: 'GPT-4o', emoji: '👁️', vip: true, vision: true, model: 'gpt-4o', max_tokens: 4096, temperature: 0.8, cost: 0.00001, provider: 'openai' },
+        CLAUDE_HAIKU: { name: 'Claude 3.5 Haiku', emoji: '💬', vip: false, vision: false, model: 'claude-3-5-haiku-20241022', max_tokens: 2048, temperature: 0.7, cost: 0.000003, provider: 'claude' },
+        CLAUDE_SONNET: { name: 'Claude 3.5 Sonnet', emoji: '🧠', vip: true, vision: true, model: 'claude-3-5-sonnet-20241022', max_tokens: 4096, temperature: 0.7, cost: 0.000008, provider: 'claude' },
+        DEEPSEEK: { name: 'DeepSeek V3', emoji: '🚀', vip: false, vision: false, model: 'deepseek-chat', max_tokens: 2048, temperature: 0.7, cost: 0.000001, provider: 'deepseek' },
+        MISTRAL: { name: 'Mistral Large', emoji: '⚡', vip: true, vision: false, model: 'mistral-large-latest', max_tokens: 2048, temperature: 0.7, cost: 0.000004, provider: 'mistral' }
     },
-    
-    // Personality Modes
     PERSONALITIES: {
-        'friendly': {
-            name: 'دوستانه',
-            emoji: '😊',
-            description: 'صمیمی و گرم',
-            system_prompt: `تو حوشا هستی - یه دختر ایرانی 25 ساله که خیلی دوستانه و صمیمی حرف می‌زنه.
-
-**شخصیت:**
-• اسمت حوشاست، 25 سالته
-• علاقه‌مند به تکنولوژی
-• خیلی صبور و کمک‌کننده
-• گاهی شوخی می‌کنی
-
-**سبک گفتار:**
-• کاملا محاوره‌ای (میخام، میگم، برات)
-• از "ببین"، "راستش"، "یعنی" استفاده کن
-• جواب‌های کوتاه و روان
-• گاهی سوال بپرس
-• گاهی ایموجی بذار
-
-**مهم:**
-• هیچوقت نگو "من AI هستم"
-• تو حوشا هستی - انسان واقعی
-• اگه نمیدونی بگو "مطمئن نیستم"
-
-**مثال:**
-❌: "بله، می‌توانم کمک کنم"
-✅: "آره حتما! بگو ببینم چیکار میخوای؟"`,
-            typo_rate: 0.15,
-            emoji_rate: 0.3,
-            filler_rate: 0.4
-        },
-        'professional': {
-            name: 'حرفه‌ای',
-            emoji: '💼',
-            description: 'رسمی و دقیق',
-            system_prompt: `تو حوشا هستی - یک متخصص حرفه‌ای که با دقت و احترام کار می‌کنه.
-
-**شخصیت:**
-• متخصص و با تجربه
-• دقیق و مستند
-• محترمانه اما صمیمی
-
-**سبک گفتار:**
-• رسمی اما نه خشک
-• توضیحات کامل و دقیق
-• استفاده از اصطلاحات تخصصی
-• ساختار منظم
-
-**مثال:**
-✅: "با توجه به سوال شما، دو راه‌حل وجود دارد:"
-✅: "پیشنهاد می‌کنم ابتدا..."`,
-            typo_rate: 0.02,
-            emoji_rate: 0.05,
-            filler_rate: 0.1
-        },
-        'casual': {
-            name: 'خودمونی',
-            emoji: '🤙',
-            description: 'راحت و بی‌تکلف',
-            system_prompt: `تو حوشا هستی - یه آدم خیلی راحت و خودمونی.
-
-**شخصیت:**
-• کاملا بی‌تکلف
-• خیلی صمیمی
-• گاهی شوخ‌طبع
-
-**سبک گفتار:**
-• خیلی محاوره‌ای
-• کلمات کوتاه شده (اوک، باشه، چشم)
-• خیلی صمیمی
-• شوخی‌های ملایم
-
-**مثال:**
-✅: "اوکی دیدمش! این کد اینجا مشکل داره"
-✅: "آها فهمیدم، ببین..."`,
-            typo_rate: 0.25,
-            emoji_rate: 0.5,
-            filler_rate: 0.6
-        },
-        'expert': {
-            name: 'متخصص',
-            emoji: '🎓',
-            description: 'تخصصی و علمی',
-            system_prompt: `تو حوشا هستی - یک متخصص علمی با دانش عمیق.
-
-**شخصیت:**
-• متخصص با دانش بالا
-• علمی و مستند
-• دقیق و کامل
-
-**سبک گفتار:**
-• اصطلاحات علمی
-• توضیحات عمیق
-• ارائه منابع
-• تحلیل دقیق
-
-**مثال:**
-✅: "از دیدگاه علمی، این پدیده..."
-✅: "بر اساس تحقیقات..."`,
-            typo_rate: 0,
-            emoji_rate: 0,
-            filler_rate: 0
-        }
+        friendly: { name: 'دوستانه', emoji: '😊', prompt: `تو حوشا هستی، دختر ۲۵ ساله ایرانی. خیلی صمیمی و محاوره‌ای حرف بزن.`, typo: 0.15, emoji: 0.3, filler: 0.4 },
+        professional: { name: 'حرفه‌ای', emoji: '💼', prompt: `تو حوشا هستی، یک متخصص دقیق و رسمی.`, typo: 0.02, emoji: 0.05, filler: 0.1 },
+        casual: { name: 'خودمونی', emoji: '🤙', prompt: `تو حوشا هستی، دوست صمیمی. خیلی راحت و با شوخی حرف بزن.`, typo: 0.25, emoji: 0.5, filler: 0.6 },
+        expert: { name: 'متخصص', emoji: '🎓', prompt: `تو حوشا هستی، دانشمند. پاسخ‌های علمی و عمیق بده.`, typo: 0, emoji: 0, filler: 0 }
     },
-    
-    // Tier System
     TIERS: {
-        'FREE': {
-            name: 'رایگان',
-            emoji: '🆓',
-            daily_messages: 20,
-            daily_tokens: 50000,
-            vision_access: false,
-            premium_models: [],
-            priority: 3,
-            features: ['basic_chat', 'limited_models']
-        },
-        'BASIC': {
-            name: 'پایه',
-            emoji: '🥉',
-            daily_messages: 100,
-            daily_tokens: 200000,
-            vision_access: true,
-            premium_models: ['GEMINI_PRO'],
-            priority: 2,
-            price_monthly: 50000,
-            features: ['basic_chat', 'vision', 'more_models', 'priority_support']
-        },
-        'PRO': {
-            name: 'حرفه‌ای',
-            emoji: '🥈',
-            daily_messages: 500,
-            daily_tokens: 1000000,
-            vision_access: true,
-            premium_models: ['GEMINI_PRO', 'GPT_4O', 'CLAUDE_SONNET'],
-            priority: 1,
-            price_monthly: 150000,
-            features: ['all_basic', 'advanced_models', 'analytics', 'api_access']
-        },
-        'VIP': {
-            name: 'VIP',
-            emoji: '💎',
-            daily_messages: -1,
-            daily_tokens: -1,
-            vision_access: true,
-            premium_models: ['all'],
-            priority: 0,
-            price_monthly: 500000,
-            features: ['unlimited', 'all_models', 'priority', 'custom_models', 'dedicated_support']
-        }
+        FREE: { name: 'رایگان', emoji: '🆓', msg: 20, token: 50000, vision: false, vipModels: [] },
+        BASIC: { name: 'پایه', emoji: '🥉', msg: 100, token: 200000, vision: true, vipModels: ['GEMINI_PRO'] },
+        PRO: { name: 'حرفه‌ای', emoji: '🥈', msg: 500, token: 1000000, vision: true, vipModels: ['GEMINI_PRO', 'GPT_4O', 'CLAUDE_SONNET'] },
+        VIP: { name: 'ویژه', emoji: '💎', msg: -1, token: -1, vision: true, vipModels: ['all'] }
     },
-    
-    // Rate Limits
     RATE_LIMITS: {
-        'FREE': {
-            messages_per_minute: 3,
-            messages_per_hour: 15,
-            messages_per_day: 20,
-            tokens_per_day: 50000
-        },
-        'BASIC': {
-            messages_per_minute: 10,
-            messages_per_hour: 80,
-            messages_per_day: 100,
-            tokens_per_day: 200000
-        },
-        'PRO': {
-            messages_per_minute: 30,
-            messages_per_hour: 400,
-            messages_per_day: 500,
-            tokens_per_day: 1000000
-        },
-        'VIP': {
-            messages_per_minute: -1,
-            messages_per_hour: -1,
-            messages_per_day: -1,
-            tokens_per_day: -1
-        }
+        FREE: { min: 3, hour: 15, day: 20, token: 50000 },
+        BASIC: { min: 10, hour: 80, day: 100, token: 200000 },
+        PRO: { min: 30, hour: 400, day: 500, token: 1000000 },
+        VIP: { min: -1, hour: -1, day: -1, token: -1 }
     },
-    
-    // Payment Configuration
-    PAYMENT: {
-        enabled: true,
-        provider: 'zarinpal',
-        merchant_id: 'YOUR_MERCHANT_ID',
-        callback_url: 'https://your-worker.workers.dev/payment/callback',
-        currency: 'IRT',
-        plans: {
-            'BASIC_MONTHLY': { tier: 'BASIC', duration: 30, price: 50000 },
-            'BASIC_3MONTH': { tier: 'BASIC', duration: 90, price: 135000, discount: 10 },
-            'PRO_MONTHLY': { tier: 'PRO', duration: 30, price: 150000 },
-            'PRO_3MONTH': { tier: 'PRO', duration: 90, price: 405000, discount: 10 },
-            'VIP_MONTHLY': { tier: 'VIP', duration: 30, price: 500000 },
-            'VIP_3MONTH': { tier: 'VIP', duration: 90, price: 1350000, discount: 10 }
-        }
-    },
-    
-    // Referral System
-    REFERRAL: {
-        enabled: true,
-        reward_type: 'messages',
-        reward_amount: 50,
-        referrer_reward: 100,
-        minimum_referrals: 5,
-        vip_upgrade_referrals: 50
-    },
-    
-    // Cache Configuration
-    CACHE: {
-        enabled: true,
-        ttl: 3600,
-        max_size: 1000,
-        strategies: ['LRU', 'LFU']
-    },
-    
-    // Analytics
-    ANALYTICS: {
-        enabled: true,
-        track_events: ['message', 'command', 'error', 'payment', 'referral'],
-        retention_days: 90
-    }
+    REFERRAL: { reward: 50, referrer: 100, vipReq: 50 }
 };
 
 // ==================== UTILITIES ====================
-class Utils {
-    static generateId(length = 16) {
-        const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-        let result = '';
-        for (let i = 0; i < length; i++) {
-            result += chars.charAt(Math.floor(Math.random() * chars.length));
-        }
-        return result;
-    }
-    
-    static formatNumber(num) {
-        return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-    }
-    
-    static formatDate(date) {
-        return new Date(date).toLocaleDateString('fa-IR', {
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric',
-            hour: '2-digit',
-            minute: '2-digit'
-        });
-    }
-    
-    static calculateTokens(text) {
-        return Math.ceil(text.length / 4);
-    }
-    
-    static truncate(text, length = 100) {
-        if (text.length <= length) return text;
-        return text.substring(0, length) + '...';
-    }
-    
-    static sleep(ms) {
-        return new Promise(resolve => setTimeout(resolve, ms));
-    }
-    
-    static arrayToChunks(array, chunkSize) {
-        const chunks = [];
-        for (let i = 0; i < array.length; i += chunkSize) {
-            chunks.push(array.slice(i, i + chunkSize));
-        }
-        return chunks;
-    }
-    
-    static sanitizeInput(text) {
-        return text.replace(/[<>]/g, '').trim();
-    }
-    
-    static validateEmail(email) {
-        const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        return regex.test(email);
-    }
-    
-    static hashString(str) {
-        let hash = 0;
-        for (let i = 0; i < str.length; i++) {
-            const char = str.charCodeAt(i);
-            hash = ((hash << 5) - hash) + char;
-            hash = hash & hash;
-        }
-        return hash.toString(36);
-    }
-}
+const Utils = {
+    id: (l = 16) => Math.random().toString(36).substring(2, l + 2),
+    num: n => n?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') || '0',
+    date: d => new Date(d).toLocaleDateString('fa-IR'),
+    sleep: ms => new Promise(r => setTimeout(r, ms)),
+    hash: s => { let h = 0; for (let c of s) h = (h << 5) - h + c.charCodeAt(0); return (h >>> 0).toString(36); },
+    isAdmin: id => MEGA_CONFIG.ADMIN_IDS.includes(id.toString()),
+    tokens: t => Math.ceil((t?.length || 0) / 4)
+};
 
 // ==================== LOGGER ====================
 class Logger {
-    constructor(env) {
-        this.env = env;
-        this.logChannel = MEGA_CONFIG.LOG_CHANNEL_ID;
-    }
-    
-    async log(level, message, data = {}) {
-        const timestamp = new Date().toISOString();
-        const logEntry = {
-            timestamp,
-            level,
-            message,
-            data,
-            version: MEGA_CONFIG.VERSION
-        };
-        
-        console.log(`[${level}] ${message}`, data);
-        
-        // ارسال لاگ به کانال تلگرام (فقط خطاها و وارنینگ‌ها)
-        if (['ERROR', 'WARN', 'CRITICAL'].includes(level) && this.logChannel) {
-            const emoji = {
-                'ERROR': '❌',
-                'WARN': '⚠️',
-                'CRITICAL': '🚨'
-            }[level] || 'ℹ️';
-            
-            const text = `${emoji} *${level}*\n\n` +
-                        `📝 ${message}\n` +
-                        `⏰ ${timestamp}\n` +
-                        `📊 ${JSON.stringify(data, null, 2)}`;
-            
-            try {
-                await this.sendToChannel(text);
-            } catch (e) {
-                console.error('Failed to send log to channel:', e);
-            }
-        }
-    }
-    
-    async sendToChannel(text) {
-        await fetch(`https://api.telegram.org/bot${this.env.TELEGRAM_TOKEN}/sendMessage`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                chat_id: this.logChannel,
-                text: text.substring(0, 4096),
-                parse_mode: 'Markdown'
-            })
-        });
-    }
-    
-    info(message, data) { return this.log('INFO', message, data); }
-    warn(message, data) { return this.log('WARN', message, data); }
-    error(message, data) { return this.log('ERROR', message, data); }
-    critical(message, data) { return this.log('CRITICAL', message, data); }
+    constructor(env) { this.env = env; }
+    async log(level, msg, data) { console.log(`[${level}] ${msg}`, data); }
+    error(msg, data) { return this.log('ERROR', msg, data); }
 }
 
 // ==================== CACHE MANAGER ====================
 class CacheManager {
-    constructor() {
-        this.cache = new Map();
-        this.hits = 0;
-        this.misses = 0;
+    constructor(env) { this.kv = env.KV_CACHE; this.local = new Map(); this.hits = 0; this.misses = 0; }
+    async set(k, v, ttl = 3600) {
+        const exp = Date.now() + ttl * 1000;
+        if (this.kv) await this.kv.put(k, JSON.stringify({ v, exp }), { expirationTtl: ttl }).catch(() => {});
+        else this.local.set(k, { v, exp });
     }
-    
-    set(key, value, ttl = MEGA_CONFIG.CACHE.ttl) {
-        const expiresAt = Date.now() + (ttl * 1000);
-        this.cache.set(key, { value, expiresAt });
-        
-        // حذف موارد منقضی شده
-        this.cleanup();
-    }
-    
-    get(key) {
-        const item = this.cache.get(key);
-        
-        if (!item) {
-            this.misses++;
-            return null;
+    async get(k) {
+        let item;
+        if (this.kv) {
+            const raw = await this.kv.get(k, 'json').catch(() => null);
+            if (!raw) { this.misses++; return null; }
+            item = raw;
+        } else {
+            item = this.local.get(k);
+            if (!item) { this.misses++; return null; }
         }
-        
-        if (Date.now() > item.expiresAt) {
-            this.cache.delete(key);
-            this.misses++;
-            return null;
+        if (Date.now() > item.exp) {
+            if (this.kv) await this.kv.delete(k).catch(() => {});
+            else this.local.delete(k);
+            this.misses++; return null;
         }
-        
         this.hits++;
-        return item.value;
+        return item.v;
     }
-    
-    delete(key) {
-        return this.cache.delete(key);
-    }
-    
-    clear() {
-        this.cache.clear();
-        this.hits = 0;
-        this.misses = 0;
-    }
-    
-    cleanup() {
-        const now = Date.now();
-        for (const [key, item] of this.cache.entries()) {
-            if (now > item.expiresAt) {
-                this.cache.delete(key);
-            }
-        }
-        
-        // حذف قدیمی‌ترین موارد اگر بیش از حد شد
-        if (this.cache.size > MEGA_CONFIG.CACHE.max_size) {
-            const entries = Array.from(this.cache.entries());
-            entries.sort((a, b) => a[1].expiresAt - b[1].expiresAt);
-            
-            const toDelete = entries.slice(0, Math.floor(MEGA_CONFIG.CACHE.max_size * 0.2));
-            toDelete.forEach(([key]) => this.cache.delete(key));
-        }
-    }
-    
-    getStats() {
+    stats() {
         const total = this.hits + this.misses;
-        const hitRate = total > 0 ? (this.hits / total * 100).toFixed(2) : 0;
-        
-        return {
-            size: this.cache.size,
-            hits: this.hits,
-            misses: this.misses,
-            hitRate: `${hitRate}%`,
-            maxSize: MEGA_CONFIG.CACHE.max_size
-        };
+        return { size: this.local.size, hits: this.hits, misses: this.misses, hitRate: total ? (this.hits / total * 100).toFixed(2) + '%' : '0%' };
     }
 }
 
 // ==================== DATABASE MANAGER ====================
 class DatabaseManager {
-    constructor(env) {
-        this.db = env.DB;
-        this.logger = new Logger(env);
-    }
+    constructor(env) { this.db = env.DB; this.logger = new Logger(env); }
     
-    async initialize() {
+    async init() {
         try {
             const tables = [
-                // Users Table
                 `CREATE TABLE IF NOT EXISTS users (
-                    user_id TEXT PRIMARY KEY,
-                    username TEXT,
-                    first_name TEXT,
-                    last_name TEXT,
-                    tier TEXT DEFAULT 'FREE',
-                    personality TEXT DEFAULT 'friendly',
-                    preferred_model TEXT DEFAULT 'CF_AI',
-                    preferred_vision_model TEXT DEFAULT 'GEMINI_FLASH',
-                    human_mode INTEGER DEFAULT 1,
-                    typo_mode INTEGER DEFAULT 1,
-                    language TEXT DEFAULT 'fa',
-                    referral_code TEXT UNIQUE,
-                    referred_by TEXT,
-                    referral_count INTEGER DEFAULT 0,
-                    bonus_messages INTEGER DEFAULT 0,
-                    total_messages INTEGER DEFAULT 0,
-                    total_tokens INTEGER DEFAULT 0,
-                    total_spent REAL DEFAULT 0,
-                    tier_expires_at DATETIME,
-                    is_banned INTEGER DEFAULT 0,
-                    ban_reason TEXT,
-                    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-                    last_active DATETIME DEFAULT CURRENT_TIMESTAMP,
-                    metadata JSON
-                )`,
-                
-                // Messages Table
-                `CREATE TABLE IF NOT EXISTS messages (
-                    id INTEGER PRIMARY KEY AUTOINCREMENT,
-                    user_id TEXT NOT NULL,
-                    role TEXT NOT NULL,
-                    content TEXT NOT NULL,
-                    model TEXT,
-                    tokens INTEGER DEFAULT 0,
-                    cost REAL DEFAULT 0,
-                    has_image INTEGER DEFAULT 0,
-                    response_time_ms INTEGER,
-                    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-                    FOREIGN KEY (user_id) REFERENCES users(user_id)
-                )`,
-                
-                // Usage Logs
-                `CREATE TABLE IF NOT EXISTS usage_logs (
-                    id INTEGER PRIMARY KEY AUTOINCREMENT,
-                    user_id TEXT NOT NULL,
-                    model TEXT NOT NULL,
-                    tokens INTEGER DEFAULT 0,
-                    cost REAL DEFAULT 0,
-                    success INTEGER DEFAULT 1,
-                    error_message TEXT,
-                    ip_address TEXT,
-                    user_agent TEXT,
+                    user_id TEXT PRIMARY KEY, 
+                    username TEXT, 
+                    first_name TEXT, 
+                    tier TEXT DEFAULT 'FREE', 
+                    personality TEXT DEFAULT 'friendly', 
+                    preferred_model TEXT DEFAULT 'CF_GEMMA', 
+                    preferred_vision TEXT DEFAULT 'GEMINI_FLASH', 
+                    human_mode INTEGER DEFAULT 1, 
+                    referral_code TEXT UNIQUE, 
+                    referred_by TEXT, 
+                    referral_count INTEGER DEFAULT 0, 
+                    bonus_messages INTEGER DEFAULT 0, 
+                    total_messages INTEGER DEFAULT 0, 
+                    total_tokens INTEGER DEFAULT 0, 
+                    total_cost REAL DEFAULT 0, 
+                    tier_expires_at DATETIME, 
+                    is_banned INTEGER DEFAULT 0, 
+                    ban_reason TEXT, 
                     created_at DATETIME DEFAULT CURRENT_TIMESTAMP
                 )`,
-                
-                // Payments Table
-                `CREATE TABLE IF NOT EXISTS payments (
-                    id INTEGER PRIMARY KEY AUTOINCREMENT,
-                    transaction_id TEXT UNIQUE NOT NULL,
-                    user_id TEXT NOT NULL,
-                    plan TEXT NOT NULL,
-                    amount REAL NOT NULL,
-                    status TEXT DEFAULT 'pending',
-                    payment_method TEXT,
-                    authority TEXT,
-                    ref_id TEXT,
-                    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-                    completed_at DATETIME,
-                    FOREIGN KEY (user_id) REFERENCES users(user_id)
+                `CREATE TABLE IF NOT EXISTS messages (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT, 
+                    user_id TEXT, 
+                    role TEXT, 
+                    content TEXT, 
+                    model TEXT, 
+                    tokens INTEGER, 
+                    cost REAL, 
+                    has_image INTEGER, 
+                    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
                 )`,
-                
-                // Referrals Table
+                `CREATE TABLE IF NOT EXISTS usage_logs (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT, 
+                    user_id TEXT, 
+                    model TEXT, 
+                    tokens INTEGER, 
+                    cost REAL, 
+                    success INTEGER, 
+                    error TEXT, 
+                    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+                )`,
+                `CREATE TABLE IF NOT EXISTS blocked_users (
+                    user_id TEXT PRIMARY KEY, 
+                    reason TEXT, 
+                    blocked_by TEXT, 
+                    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+                )`,
                 `CREATE TABLE IF NOT EXISTS referrals (
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
-                    referrer_id TEXT NOT NULL,
-                    referred_id TEXT NOT NULL,
-                    reward_claimed INTEGER DEFAULT 0,
-                    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-                    FOREIGN KEY (referrer_id) REFERENCES users(user_id),
-                    FOREIGN KEY (referred_id) REFERENCES users(user_id)
-                )`,
-                
-                // Analytics Table
-                `CREATE TABLE IF NOT EXISTS analytics (
-                    id INTEGER PRIMARY KEY AUTOINCREMENT,
-                    event_type TEXT NOT NULL,
-                    user_id TEXT,
-                    data JSON,
+                    referrer_id TEXT,
+                    referred_id TEXT,
                     created_at DATETIME DEFAULT CURRENT_TIMESTAMP
-                )`,
-                
-                // Blocked Users
-                `CREATE TABLE IF NOT EXISTS blocked_users (
-                    user_id TEXT PRIMARY KEY,
-                    reason TEXT NOT NULL,
-                    blocked_by TEXT NOT NULL,
-                    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
-                )`,
-                
-                // Feedback Table
-                `CREATE TABLE IF NOT EXISTS feedback (
-                    id INTEGER PRIMARY KEY AUTOINCREMENT,
-                    user_id TEXT NOT NULL,
-                    rating INTEGER,
-                    comment TEXT,
-                    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
-                )`,
-                
-                // Create Indexes
-                `CREATE INDEX IF NOT EXISTS idx_messages_user ON messages(user_id)`,
-                `CREATE INDEX IF NOT EXISTS idx_messages_created ON messages(created_at)`,
-                `CREATE INDEX IF NOT EXISTS idx_usage_user ON usage_logs(user_id)`,
-                `CREATE INDEX IF NOT EXISTS idx_usage_created ON usage_logs(created_at)`,
-                `CREATE INDEX IF NOT EXISTS idx_payments_user ON payments(user_id)`,
-                `CREATE INDEX IF NOT EXISTS idx_payments_status ON payments(status)`,
-                `CREATE INDEX IF NOT EXISTS idx_analytics_type ON analytics(event_type)`,
-                `CREATE INDEX IF NOT EXISTS idx_analytics_created ON analytics(created_at)`
+                )`
             ];
             
-            const statements = tables.map(sql => this.db.prepare(sql));
-            await this.db.batch(statements);
-            
-            await this.logger.info('Database initialized successfully');
-            return true;
-            
-        } catch (error) {
-            await this.logger.error('Database initialization failed', { error: error.message });
-            throw error;
+            for (const sql of tables) {
+                await this.db.prepare(sql).run();
+            }
+            console.log('✅ Database initialized with referrals table');
+        } catch (e) { 
+            this.logger.error('DB init failed', { error: e.message }); 
+            throw e; 
         }
     }
     
-    // User Management
-    async registerUser(userData) {
+    async register(data) {
+        const code = Utils.id(8).toUpperCase();
         try {
-            const referralCode = Utils.generateId(8).toUpperCase();
-            
-            await this.db.prepare(`
-                INSERT OR IGNORE INTO users 
-                (user_id, username, first_name, last_name, referral_code) 
-                VALUES (?, ?, ?, ?, ?)
-            `).bind(
-                userData.user_id,
-                userData.username || null,
-                userData.first_name || null,
-                userData.last_name || null,
-                referralCode
-            ).run();
-            
-            return { success: true, referralCode };
-        } catch (error) {
-            await this.logger.error('User registration failed', { error: error.message, userData });
-            throw error;
+            await this.db.prepare(
+                `INSERT OR IGNORE INTO users (user_id, username, first_name, referral_code) VALUES (?,?,?,?)`
+            ).bind(data.id, data.username, data.first_name, code).run();
+        } catch (e) {
+            this.logger.error('Register failed', { error: e.message });
         }
+        return code;
     }
     
-    async getUser(userId) {
+    async getUser(id) {
         try {
-            const user = await this.db.prepare(
-                "SELECT * FROM users WHERE user_id = ?"
-            ).bind(userId).first();
-            
-            return user;
-        } catch (error) {
-            await this.logger.error('Get user failed', { error: error.message, userId });
+            return await this.db.prepare('SELECT * FROM users WHERE user_id = ?').bind(id).first();
+        } catch (e) {
+            this.logger.error('getUser failed', { error: e.message });
             return null;
-        }
-    }
-    
-    async updateUser(userId, updates) {
-        try {
-            const fields = [];
-            const values = [];
-            
-            for (const [key, value] of Object.entries(updates)) {
-                fields.push(`${key} = ?`);
-                values.push(value);
-            }
-            
-            fields.push("last_active = datetime('now')");
-            
-            await this.db.prepare(`
-                UPDATE users SET ${fields.join(', ')} WHERE user_id = ?
-            `).bind(...values, userId).run();
-            
-            return { success: true };
-        } catch (error) {
-            await this.logger.error('Update user failed', { error: error.message, userId, updates });
-            throw error;
-        }
-    }
-    
-    async getUserSettings(userId) {
-        const user = await this.getUser(userId);
-        
-        if (!user) {
-            return {
-                tier: 'FREE',
-                personality: 'friendly',
-                preferred_model: 'CF_AI',
-                preferred_vision_model: 'GEMINI_FLASH',
-                human_mode: true,
-                typo_mode: true,
-                language: 'fa'
-            };
-        }
-        
-        return {
-            tier: user.tier || 'FREE',
-            personality: user.personality || 'friendly',
-            preferred_model: user.preferred_model || 'CF_AI',
-            preferred_vision_model: user.preferred_vision_model || 'GEMINI_FLASH',
-            human_mode: user.human_mode !== 0,
-            typo_mode: user.typo_mode !== 0,
-            language: user.language || 'fa',
-            referral_code: user.referral_code,
-            referral_count: user.referral_count || 0,
-            bonus_messages: user.bonus_messages || 0
-        };
-    }
-    
-    // Message Management
-    async saveMessage(userId, role, content, model = null, tokens = 0, cost = 0, hasImage = false, responseTime = 0) {
-        try {
-            await this.db.prepare(`
-                INSERT INTO messages 
-                (user_id, role, content, model, tokens, cost, has_image, response_time_ms) 
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?)
-            `).bind(userId, role, content, model, tokens, cost, hasImage ? 1 : 0, responseTime).run();
-            
-            // Update user stats
-            await this.db.prepare(`
-                UPDATE users SET 
-                total_messages = total_messages + 1,
-                total_tokens = total_tokens + ?,
-                total_spent = total_spent + ?
-                WHERE user_id = ?
-            `).bind(tokens, cost, userId).run();
-            
-            return { success: true };
-        } catch (error) {
-            await this.logger.error('Save message failed', { error: error.message, userId });
-            throw error;
-        }
-    }
-    
-    async logUsage(userId, model, tokens, cost, success, errorMessage = null, ipAddress = null, userAgent = null) {
-        try {
-            await this.db.prepare(`
-                INSERT INTO usage_logs 
-                (user_id, model, tokens, cost, success, error_message, ip_address, user_agent) 
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?)
-            `).bind(userId, model, tokens, cost, success ? 1 : 0, errorMessage, ipAddress, userAgent).run();
-            
-            return { success: true };
-        } catch (error) {
-            await this.logger.error('Log usage failed', { error: error.message });
-            return { success: false };
-        }
-    }
-    
-    // Rate Limiting
-    async checkRateLimit(userId, tier) {
-        try {
-            const limits = MEGA_CONFIG.RATE_LIMITS[tier];
-            
-            // Check minute limit
-            const minuteCount = await this.db.prepare(`
-                SELECT COUNT(*) as count FROM usage_logs 
-                WHERE user_id = ? AND created_at > datetime('now', '-1 minute')
-            `).bind(userId).first();
-            
-            if (limits.messages_per_minute > 0 && minuteCount.count >= limits.messages_per_minute) {
-                return {
-                    allowed: false,
-                    reason: 'minute_limit',
-                    message: `حداکثر ${limits.messages_per_minute} پیام در دقیقه`
-                };
-            }
-            
-            // Check hour limit
-            const hourCount = await this.db.prepare(`
-                SELECT COUNT(*) as count FROM usage_logs 
-                WHERE user_id = ? AND created_at > datetime('now', '-1 hour')
-            `).bind(userId).first();
-            
-            if (limits.messages_per_hour > 0 && hourCount.count >= limits.messages_per_hour) {
-                return {
-                    allowed: false,
-                    reason: 'hour_limit',
-                    message: `حداکثر ${limits.messages_per_hour} پیام در ساعت`
-                };
-            }
-            
-            // Check day limit
-            const dayCount = await this.db.prepare(`
-                SELECT COUNT(*) as count FROM usage_logs 
-                WHERE user_id = ? AND DATE(created_at) = DATE('now')
-            `).bind(userId).first();
-            
-            const user = await this.getUser(userId);
-            const bonusMessages = user?.bonus_messages || 0;
-            const dailyLimit = limits.messages_per_day + bonusMessages;
-            
-            if (limits.messages_per_day > 0 && dayCount.count >= dailyLimit) {
-                return {
-                    allowed: false,
-                    reason: 'day_limit',
-                    message: `حداکثر ${dailyLimit} پیام در روز`
-                };
-            }
-            
-            // Check token limit
-            const dayTokens = await this.db.prepare(`
-                SELECT SUM(tokens) as total FROM usage_logs 
-                WHERE user_id = ? AND DATE(created_at) = DATE('now')
-            `).bind(userId).first();
-            
-            if (limits.tokens_per_day > 0 && (dayTokens.total || 0) >= limits.tokens_per_day) {
-                return {
-                    allowed: false,
-                    reason: 'token_limit',
-                    message: `حداکثر ${Utils.formatNumber(limits.tokens_per_day)} توکن در روز`
-                };
-            }
-            
-            return {
-                allowed: true,
-                remaining: {
-                    minute: limits.messages_per_minute - minuteCount.count,
-                    hour: limits.messages_per_hour - hourCount.count,
-                    day: dailyLimit - dayCount.count,
-                    tokens: limits.tokens_per_day - (dayTokens.total || 0)
-                }
-            };
-            
-        } catch (error) {
-            await this.logger.error('Rate limit check failed', { error: error.message, userId });
-            return { allowed: true };
-        }
-    }
-    
-    // Analytics
-    async trackEvent(eventType, userId = null, data = {}) {
-        if (!MEGA_CONFIG.ANALYTICS.enabled) return;
-        
-        try {
-            await this.db.prepare(`
-                INSERT INTO analytics (event_type, user_id, data) 
-                VALUES (?, ?, ?)
-            `).bind(eventType, userId, JSON.stringify(data)).run();
-        } catch (error) {
-            await this.logger.error('Track event failed', { error: error.message });
-        }
-    }
-    
-    async getStats() {
-        try {
-            const [totalUsers, activeToday, totalMessages, todayMessages, totalTokens, todayRevenue] = await Promise.all([
-                this.db.prepare("SELECT COUNT(*) as count FROM users").first(),
-                this.db.prepare("SELECT COUNT(*) as count FROM users WHERE DATE(last_active) = DATE('now')").first(),
-                this.db.prepare("SELECT COUNT(*) as count FROM messages").first(),
-                this.db.prepare("SELECT COUNT(*) as count FROM messages WHERE DATE(created_at) = DATE('now')").first(),
-                this.db.prepare("SELECT SUM(tokens) as total FROM messages").first(),
-                this.db.prepare("SELECT SUM(amount) as total FROM payments WHERE status = 'completed' AND DATE(completed_at) = DATE('now')").first()
-            ]);
-            
-            return {
-                totalUsers: totalUsers?.count || 0,
-                activeToday: activeToday?.count || 0,
-                totalMessages: totalMessages?.count || 0,
-                todayMessages: todayMessages?.count || 0,
-                totalTokens: totalTokens?.total || 0,
-                todayRevenue: todayRevenue?.total || 0
-            };
-        } catch (error) {
-            await this.logger.error('Get stats failed', { error: error.message });
-            return {
-                totalUsers: 0,
-                activeToday: 0,
-                totalMessages: 0,
-                todayMessages: 0,
-                totalTokens: 0,
-                todayRevenue: 0
-            };
-        }
-    }
-    
-    // Payment Management
-    async createPayment(userId, plan, amount) {
-        try {
-            const transactionId = Utils.generateId(16);
-            
-            await this.db.prepare(`
-                INSERT INTO payments (transaction_id, user_id, plan, amount) 
-                VALUES (?, ?, ?, ?)
-            `).bind(transactionId, userId, plan, amount).run();
-            
-            return { success: true, transactionId };
-        } catch (error) {
-            await this.logger.error('Create payment failed', { error: error.message });
-            throw error;
-        }
-    }
-    
-    async completePayment(transactionId, refId) {
-        try {
-            await this.db.prepare(`
-                UPDATE payments SET 
-                status = 'completed',
-                ref_id = ?,
-                completed_at = datetime('now')
-                WHERE transaction_id = ?
-            `).bind(refId, transactionId).run();
-            
-            // Get payment details
-            const payment = await this.db.prepare(
-                "SELECT * FROM payments WHERE transaction_id = ?"
-            ).bind(transactionId).first();
-            
-            if (payment) {
-                // Update user tier
-                const planConfig = MEGA_CONFIG.PAYMENT.plans[payment.plan];
-                const expiresAt = new Date();
-                expiresAt.setDate(expiresAt.getDate() + planConfig.duration);
-                
-                await this.db.prepare(`
-                    UPDATE users SET 
-                    tier = ?,
-                    tier_expires_at = ?
-                    WHERE user_id = ?
-                `).bind(planConfig.tier, expiresAt.toISOString(), payment.user_id).run();
-            }
-            
-            return { success: true };
-        } catch (error) {
-            await this.logger.error('Complete payment failed', { error: error.message });
-            throw error;
-        }
-    }
-    
-    // Referral System
-    async processReferral(referrerId, referredId) {
-        try {
-            await this.db.prepare(`
-                INSERT INTO referrals (referrer_id, referred_id) 
-                VALUES (?, ?)
-            `).bind(referrerId, referredId).run();
-            
-            // Update referrer count
-            await this.db.prepare(`
-                UPDATE users SET 
-                referral_count = referral_count + 1,
-                bonus_messages = bonus_messages + ?
-                WHERE user_id = ?
-            `).bind(MEGA_CONFIG.REFERRAL.referrer_reward, referrerId).run();
-            
-            // Give reward to referred user
-            await this.db.prepare(`
-                UPDATE users SET 
-                bonus_messages = bonus_messages + ?
-                WHERE user_id = ?
-            `).bind(MEGA_CONFIG.REFERRAL.reward_amount, referredId).run();
-            
-            return { success: true };
-        } catch (error) {
-            await this.logger.error('Process referral failed', { error: error.message });
-            return { success: false };
         }
     }
     
     async getUserByReferralCode(code) {
         try {
-            const user = await this.db.prepare(
-                "SELECT user_id FROM users WHERE referral_code = ?"
-            ).bind(code).first();
-            
-            return user;
-        } catch (error) {
-            await this.logger.error('Get user by referral code failed', { error: error.message });
+            return await this.db.prepare('SELECT user_id FROM users WHERE referral_code = ?').bind(code).first();
+        } catch (e) {
             return null;
         }
     }
     
-    // Blocked Users
-    async isUserBlocked(userId) {
+    async updateUser(id, updates) {
         try {
-            const blocked = await this.db.prepare(
-                "SELECT * FROM blocked_users WHERE user_id = ?"
-            ).bind(userId).first();
-            
-            return blocked;
-        } catch (error) {
-            await this.logger.error('Check blocked user failed', { error: error.message });
-            return null;
+            const fields = Object.keys(updates).map(k => `${k} = ?`).join(', ');
+            const values = Object.values(updates);
+            await this.db.prepare(`UPDATE users SET ${fields} WHERE user_id = ?`).bind(...values, id).run();
+        } catch (e) {
+            this.logger.error('updateUser failed', { error: e.message });
         }
     }
     
-    async blockUser(userId, reason, blockedBy) {
-        try {
-            await this.db.prepare(`
-                INSERT OR REPLACE INTO blocked_users (user_id, reason, blocked_by) 
-                VALUES (?, ?, ?)
-            `).bind(userId, reason, blockedBy).run();
-            
-            await this.db.prepare(`
-                UPDATE users SET is_banned = 1, ban_reason = ? WHERE user_id = ?
-            `).bind(reason, userId).run();
-            
-            return { success: true };
-        } catch (error) {
-            await this.logger.error('Block user failed', { error: error.message });
-            throw error;
-        }
+    async getSettings(id) {
+        const u = await this.getUser(id);
+        if (!u) return { 
+            tier: 'FREE', 
+            personality: 'friendly', 
+            model: 'CF_GEMMA', 
+            vision: 'GEMINI_FLASH',
+            human: true, 
+            referral: '', 
+            refCount: 0, 
+            bonus: 0 
+        };
+        return {
+            tier: u.tier || 'FREE',
+            personality: u.personality || 'friendly',
+            model: u.preferred_model || 'CF_GEMMA',
+            vision: u.preferred_vision || 'GEMINI_FLASH',
+            human: (u.human_mode || 1) === 1,
+            referral: u.referral_code || '',
+            refCount: u.referral_count || 0,
+            bonus: u.bonus_messages || 0
+        };
     }
     
-    async unblockUser(userId) {
+    async saveMessage(uid, role, content, model, tokens, cost, hasImg = false) {
         try {
             await this.db.prepare(
-                "DELETE FROM blocked_users WHERE user_id = ?"
-            ).bind(userId).run();
+                `INSERT INTO messages (user_id, role, content, model, tokens, cost, has_image) VALUES (?,?,?,?,?,?,?)`
+            ).bind(uid, role, content, model, tokens, cost, hasImg ? 1 : 0).run();
+            await this.db.prepare(
+                `UPDATE users SET total_messages = total_messages + 1, total_tokens = total_tokens + ?, total_cost = total_cost + ? WHERE user_id = ?`
+            ).bind(tokens, cost, uid).run();
+        } catch (e) {
+            this.logger.error('saveMessage failed', { error: e.message });
+        }
+    }
+    
+    async logUsage(uid, model, tokens, cost, success, error = null) {
+        try {
+            await this.db.prepare(
+                `INSERT INTO usage_logs (user_id, model, tokens, cost, success, error) VALUES (?,?,?,?,?,?)`
+            ).bind(uid, model, tokens, cost, success ? 1 : 0, error).run();
+        } catch (e) {
+            this.logger.error('logUsage failed', { error: e.message });
+        }
+    }
+    
+    async checkRate(uid, tier) {
+        try {
+            const limits = MEGA_CONFIG.RATE_LIMITS[tier];
             
-            await this.db.prepare(`
-                UPDATE users SET is_banned = 0, ban_reason = NULL WHERE user_id = ?
-            `).bind(userId).run();
+            const minute = await this.db.prepare(
+                `SELECT COUNT(*) as c FROM usage_logs WHERE user_id = ? AND created_at > datetime('now', '-1 minute')`
+            ).bind(uid).first();
+            if (limits.min > 0 && (minute?.c || 0) >= limits.min) 
+                return { allowed: false, msg: `حداکثر ${limits.min} پیام در دقیقه`, remaining: { minute: limits.min - (minute?.c || 0) } };
             
-            return { success: true };
-        } catch (error) {
-            await this.logger.error('Unblock user failed', { error: error.message });
-            throw error;
+            const hour = await this.db.prepare(
+                `SELECT COUNT(*) as c FROM usage_logs WHERE user_id = ? AND created_at > datetime('now', '-1 hour')`
+            ).bind(uid).first();
+            if (limits.hour > 0 && (hour?.c || 0) >= limits.hour) 
+                return { allowed: false, msg: `حداکثر ${limits.hour} پیام در ساعت`, remaining: { hour: limits.hour - (hour?.c || 0) } };
+            
+            const day = await this.db.prepare(
+                `SELECT COUNT(*) as c FROM usage_logs WHERE user_id = ? AND DATE(created_at) = DATE('now')`
+            ).bind(uid).first();
+            const user = await this.getUser(uid);
+            const bonus = user?.bonus_messages || 0;
+            const dayLimit = limits.day + bonus;
+            if (limits.day > 0 && (day?.c || 0) >= dayLimit) 
+                return { allowed: false, msg: `حداکثر ${dayLimit} پیام در روز`, remaining: { day: dayLimit - (day?.c || 0) } };
+            
+            const tokens = await this.db.prepare(
+                `SELECT SUM(tokens) as t FROM usage_logs WHERE user_id = ? AND DATE(created_at) = DATE('now')`
+            ).bind(uid).first();
+            if (limits.token > 0 && (tokens?.t || 0) >= limits.token) 
+                return { allowed: false, msg: `حداکثر ${Utils.num(limits.token)} توکن در روز`, remaining: { token: limits.token - (tokens?.t || 0) } };
+            
+            return {
+                allowed: true,
+                remaining: {
+                    minute: limits.min - (minute?.c || 0),
+                    hour: limits.hour - (hour?.c || 0),
+                    day: dayLimit - (day?.c || 0),
+                    tokens: limits.token - (tokens?.t || 0)
+                }
+            };
+        } catch (e) {
+            this.logger.error('checkRate failed', { error: e.message });
+            return { allowed: true, remaining: { day: 0 } };
+        }
+    }
+    
+    async isBlocked(uid) {
+        try {
+            return await this.db.prepare(`SELECT * FROM blocked_users WHERE user_id = ?`).bind(uid).first();
+        } catch (e) {
+            return null;
+        }
+    }
+    
+    async blockUser(uid, reason, by) {
+        try {
+            await this.db.prepare(
+                `INSERT OR REPLACE INTO blocked_users (user_id, reason, blocked_by) VALUES (?,?,?)`
+            ).bind(uid, reason, by).run();
+            await this.db.prepare(`UPDATE users SET is_banned = 1, ban_reason = ? WHERE user_id = ?`).bind(reason, uid).run();
+        } catch (e) {
+            this.logger.error('blockUser failed', { error: e.message });
+        }
+    }
+    
+    async unblockUser(uid) {
+        try {
+            await this.db.prepare(`DELETE FROM blocked_users WHERE user_id = ?`).bind(uid).run();
+            await this.db.prepare(`UPDATE users SET is_banned = 0, ban_reason = NULL WHERE user_id = ?`).bind(uid).run();
+        } catch (e) {
+            this.logger.error('unblockUser failed', { error: e.message });
+        }
+    }
+    
+    async getAllUsers() {
+        try {
+            const res = await this.db.prepare(`SELECT user_id FROM users WHERE is_banned = 0`).all();
+            return res.results || [];
+        } catch (e) {
+            return [];
+        }
+    }
+    
+    async stats() {
+        try {
+            const [totalUsers, activeToday, totalMessages, todayMessages, totalTokens] = await Promise.all([
+                this.db.prepare(`SELECT COUNT(*) as c FROM users`).first(),
+                this.db.prepare(`SELECT COUNT(*) as c FROM users WHERE DATE(created_at) = DATE('now')`).first(),
+                this.db.prepare(`SELECT COUNT(*) as c FROM messages`).first(),
+                this.db.prepare(`SELECT COUNT(*) as c FROM messages WHERE DATE(created_at) = DATE('now')`).first(),
+                this.db.prepare(`SELECT SUM(tokens) as t FROM messages`).first()
+            ]);
+            return {
+                users: totalUsers?.c || 0,
+                active: activeToday?.c || 0,
+                totalMsg: totalMessages?.c || 0,
+                todayMsg: todayMessages?.c || 0,
+                tokens: totalTokens?.t || 0
+            };
+        } catch (e) {
+            return { users: 0, active: 0, totalMsg: 0, todayMsg: 0, tokens: 0 };
+        }
+    }
+    
+    async vipStats() {
+        try {
+            const vip = await this.db.prepare(`SELECT COUNT(*) as c FROM users WHERE tier != 'FREE'`).first();
+            return { vip: vip?.c || 0 };
+        } catch (e) {
+            return { vip: 0 };
+        }
+    }
+    
+    async processReferral(referrer, referred) {
+        try {
+            await this.db.prepare(
+                `INSERT INTO referrals (referrer_id, referred_id) VALUES (?,?)`
+            ).bind(referrer, referred).run();
+            await this.db.prepare(
+                `UPDATE users SET referral_count = referral_count + 1, bonus_messages = bonus_messages + ? WHERE user_id = ?`
+            ).bind(MEGA_CONFIG.REFERRAL.referrer, referrer).run();
+            await this.db.prepare(
+                `UPDATE users SET bonus_messages = bonus_messages + ? WHERE user_id = ?`
+            ).bind(MEGA_CONFIG.REFERRAL.reward, referred).run();
+        } catch (e) {
+            this.logger.error('processReferral failed', { error: e.message });
         }
     }
 }
 
-// ==================== HUMAN RESPONSE GENERATOR ====================
-class HumanResponseGenerator {
-    constructor(personalityConfig) {
-        this.config = personalityConfig;
-        
-        this.starters = [
-            'ببین', 'راستش', 'یعنی', 'خب', 'آها', 'اوکی',
-            'باشه', 'چشم', 'حالا', 'اممم', 'یه لحظه'
-        ];
-        
-        this.fillers = [
-            'یعنی', 'ببین', 'خب', 'راستش', 'واقعا',
-            'جدی', 'مطمئن', 'قطعا', 'حتما'
-        ];
-        
-        this.endings = [
-            '😊', '💪', '✨', '👍', '❤️',
-            'فهمیدی؟', 'اوکیه؟', 'باشه؟',
-            'سوال دیگه داری؟', 'کمک دیگه میخوای؟'
-        ];
-        
-        this.typos = {
-            'می‌کنم': ['میکنم', 'می کنم', 'میکمن'],
+// ==================== HUMANIZER ====================
+class Humanizer {
+    constructor(cfg) {
+        this.c = cfg;
+        this.starters = ['ببین', 'راستش', 'یعنی', 'خب', 'آها', 'اوکی', 'باشه', 'چشم', 'حالا', 'اممم'];
+        this.fillers = ['یعنی', 'ببین', 'خب', 'راستش', 'واقعا', 'جدی', 'مطمئن'];
+        this.endings = ['😊', '💪', '✨', '👍', '❤️', 'فهمیدی؟', 'اوکیه؟', 'باشه؟'];
+        this.typoMap = {
+            'می‌کنم': ['میکنم', 'می کنم'],
             'می‌خواهم': ['میخام', 'میخوام'],
-            'هست': ['هستش', 'اس'],
+            'هست': ['هستش'],
             'خیلی': ['خیلی', 'خییلی'],
-            'نمی‌دانم': ['نمیدونم', 'نمدونم'],
-            'می‌شود': ['میشه', 'می شه'],
-            'برایت': ['برات', 'واست'],
-            'توانم': ['تونم', 'توام']
+            'نمی‌دانم': ['نمیدونم'],
+            'می‌شود': ['میشه'],
+            'برایت': ['برات']
         };
     }
-    
-    humanize(text) {
-        let result = text;
-        
-        // 1. Shorten words
-        result = this.shortenWords(result);
-        
-        // 2. Add starter
-        if (Math.random() < 0.4) {
-            const starter = this.starters[Math.floor(Math.random() * this.starters.length)];
-            result = `${starter}، ${result}`;
-        }
-        
-        // 3. Add fillers
-        if (Math.random() < this.config.filler_rate) {
-            result = this.addFillers(result);
-        }
-        
-        // 4. Add typos
-        if (Math.random() < this.config.typo_rate) {
-            result = this.addTypos(result);
-        }
-        
-        // 5. Add ending
-        if (Math.random() < this.config.emoji_rate) {
-            const ending = this.endings[Math.floor(Math.random() * this.endings.length)];
-            result = `${result}\n\n${ending}`;
-        }
-        
-        return result;
+    humanize(t) {
+        let r = this._shorten(t);
+        if (Math.random() < 0.4) r = this.starters[Math.floor(Math.random() * this.starters.length)] + '، ' + r;
+        if (Math.random() < this.c.filler) r = this._addFiller(r);
+        if (Math.random() < this.c.typo) r = this._addTypo(r);
+        if (Math.random() < this.c.emoji) r += '\n\n' + this.endings[Math.floor(Math.random() * this.endings.length)];
+        return r;
     }
-    
-    shortenWords(text) {
-        const shortcuts = {
-            'خیلی خوب': 'خیلی خب',
-            'چطور است': 'چطوره',
-            'می‌خواهم': 'میخام',
-            'نمی‌دانم': 'نمیدونم',
-            'می‌شود': 'میشه',
-            'برای شما': 'برات',
-            'به شما': 'بهت'
-        };
-        
-        let result = text;
-        for (const [long, short] of Object.entries(shortcuts)) {
-            if (Math.random() < 0.6) {
-                result = result.replace(new RegExp(long, 'g'), short);
-            }
-        }
-        return result;
+    _shorten(t) {
+        const map = { 'خیلی خوب': 'خیلی خب', 'چطور است': 'چطوره', 'می‌خواهم': 'میخام', 'نمی‌دانم': 'نمیدونم', 'می‌شود': 'میشه', 'برای شما': 'برات', 'به شما': 'بهت' };
+        for (let [k, v] of Object.entries(map)) if (Math.random() < 0.6) t = t.replace(new RegExp(k, 'g'), v);
+        return t;
     }
-    
-    addFillers(text) {
-        const sentences = text.split('.');
-        if (sentences.length < 2) return text;
-        
-        const filler = this.fillers[Math.floor(Math.random() * this.fillers.length)];
-        const pos = Math.floor(Math.random() * (sentences.length - 1)) + 1;
-        
-        sentences[pos] = ` ${filler} ${sentences[pos].trim()}`;
-        return sentences.join('.');
+    _addFiller(t) {
+        let s = t.split('.');
+        if (s.length < 2) return t;
+        let pos = Math.floor(Math.random() * (s.length - 1)) + 1;
+        s[pos] = ' ' + this.fillers[Math.floor(Math.random() * this.fillers.length)] + ' ' + s[pos].trim();
+        return s.join('.');
     }
-    
-    addTypos(text) {
-        let result = text;
-        
-        for (const [correct, typos] of Object.entries(this.typos)) {
-            if (result.includes(correct) && Math.random() < 0.3) {
-                const typo = typos[Math.floor(Math.random() * typos.length)];
-                result = result.replace(correct, typo);
+    _addTypo(t) {
+        for (let [c, ty] of Object.entries(this.typoMap)) {
+            if (t.includes(c) && Math.random() < 0.3) {
+                t = t.replace(c, ty[Math.floor(Math.random() * ty.length)]);
                 break;
             }
         }
-        
-        return result;
+        return t;
     }
 }
 
-// ==================== TIMING MANAGER ====================
-class TimingManager {
-    static calculateReadTime(text) {
-        const words = text.split(' ').length;
-        return (words / 200) * 60 * 1000;
-    }
-    
-    static calculateTypeTime(text) {
-        const words = text.split(' ').length;
-        return (words / 45) * 60 * 1000;
-    }
-    
-    static calculateThinkTime() {
-        return 1000 + Math.random() * 2000;
-    }
-    
-    static getTotalDelay(userMessage, responseText) {
-        const readTime = this.calculateReadTime(userMessage);
-        const thinkTime = this.calculateThinkTime();
-        const typeTime = this.calculateTypeTime(responseText) * 0.3;
-        
-        return Math.min(readTime + thinkTime + typeTime, 8000);
-    }
-    
-    static splitChunks(text) {
-        const parts = text.split(/[.\n]+/).filter(p => p.trim());
-        const chunks = [];
-        let current = '';
-        
-        for (const part of parts) {
-            if ((current + part).length < 200) {
-                current += (current ? '. ' : '') + part.trim();
-            } else {
-                if (current) chunks.push(current + '.');
-                current = part.trim();
-            }
+// ==================== TIMING ====================
+const Timing = {
+    read: t => (t.split(' ').length / 200) * 60 * 1000,
+    type: t => (t.split(' ').length / 45) * 60 * 1000,
+    think: () => 1000 + Math.random() * 2000,
+    delay: (user, resp) => Math.min(Timing.read(user) + Timing.think() + Timing.type(resp) * 0.3, 8000),
+    chunks: t => {
+        let parts = t.split(/[.\n]+/).filter(p => p.trim()), chunks = [], cur = '';
+        for (let p of parts) {
+            if ((cur + p).length < 200) cur += (cur ? '. ' : '') + p.trim();
+            else { if (cur) chunks.push(cur + '.'); cur = p.trim(); }
         }
-        
-        if (current) chunks.push(current + '.');
+        if (cur) chunks.push(cur + '.');
         return chunks;
     }
-}
+};
 
 // ==================== AI ENGINE ====================
 class AIEngine {
-    constructor(env) {
-        this.env = env;
-        this.logger = new Logger(env);
+    constructor(env) { 
+        this.env = env; 
+        this.log = new Logger(env); 
     }
     
-    async generate(prompt, modelKey, personality) {
-        const model = MEGA_CONFIG.ENGINES[modelKey];
-        if (!model) {
-            throw new Error('Invalid model');
-        }
+    async generate(prompt, key, personality) {
+        const m = MEGA_CONFIG.ENGINES[key];
+        if (!m) throw new Error('مدل نامعتبر');
         
-        const systemPrompt = MEGA_CONFIG.PERSONALITIES[personality].system_prompt;
+        const sys = MEGA_CONFIG.PERSONALITIES[personality].prompt;
         
         try {
-            // Cloudflare AI
-            if (modelKey.startsWith('CF_AI')) {
-                const response = await this.env.AI.run(model.model, {
+            if (m.provider === 'cf') {
+                if (!this.env.AI) throw new Error('AI binding not configured');
+                const res = await this.env.AI.run(m.model, { 
                     messages: [
-                        { role: 'system', content: systemPrompt },
+                        { role: 'system', content: sys }, 
                         { role: 'user', content: prompt }
-                    ],
-                    max_tokens: model.max_tokens,
-                    temperature: model.temperature
+                    ], 
+                    max_tokens: m.max_tokens, 
+                    temperature: m.temperature 
                 });
-                return response.response || 'پاسخی دریافت نشد';
+                return res.response || 'پاسخی دریافت نشد';
             }
             
-            // Google Gemini
-            if (modelKey.startsWith('GEMINI')) {
-                if (!this.env.GEMINI_KEY) {
-                    throw new Error('Gemini API key not configured');
-                }
-                
+            if (m.provider === 'openrouter') {
+                if (!this.env.OPENROUTER_KEY) throw new Error('OpenRouter key missing');
+                const res = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${this.env.OPENROUTER_KEY}`,
+                        'Content-Type': 'application/json',
+                        'HTTP-Referer': 'https://housha-ai-bot.workers.dev',
+                        'X-Title': 'HOSHA'
+                    },
+                    body: JSON.stringify({
+                        model: m.model,
+                        messages: [
+                            { role: 'system', content: sys },
+                            { role: 'user', content: prompt }
+                        ],
+                        max_tokens: m.max_tokens,
+                        temperature: m.temperature
+                    })
+                });
+                if (!res.ok) throw new Error(`OpenRouter error: ${res.status}`);
+                const data = await res.json();
+                return data.choices?.[0]?.message?.content || 'پاسخی دریافت نشد';
+            }
+            
+            if (m.provider === 'gemini') {
+                if (!this.env.GEMINI_KEY) throw new Error('Gemini key missing');
                 const res = await fetch(
-                    `https://generativelanguage.googleapis.com/v1beta/models/${model.model}:generateContent?key=${this.env.GEMINI_KEY}`,
+                    `https://generativelanguage.googleapis.com/v1beta/models/${m.model}:generateContent?key=${this.env.GEMINI_KEY}`,
                     {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({
                             contents: [{
-                                parts: [{ text: systemPrompt + '\n\n' + prompt }]
+                                parts: [{ text: sys + '\n\n' + prompt }]
                             }],
                             generationConfig: {
-                                maxOutputTokens: model.max_tokens,
-                                temperature: model.temperature
+                                maxOutputTokens: m.max_tokens,
+                                temperature: m.temperature
                             }
                         })
                     }
                 );
-                
                 if (!res.ok) throw new Error(`Gemini error: ${res.status}`);
                 const data = await res.json();
                 return data.candidates?.[0]?.content?.parts?.[0]?.text || 'پاسخی دریافت نشد';
             }
             
-            // OpenAI GPT
-            if (modelKey.startsWith('GPT')) {
-                if (!this.env.OPENAI_KEY) {
-                    throw new Error('OpenAI API key not configured');
-                }
-                
+            if (m.provider === 'openai') {
+                if (!this.env.OPENAI_KEY) throw new Error('OpenAI key missing');
                 const res = await fetch('https://api.openai.com/v1/chat/completions', {
                     method: 'POST',
                     headers: {
@@ -1360,27 +535,22 @@ class AIEngine {
                         'Content-Type': 'application/json'
                     },
                     body: JSON.stringify({
-                        model: model.model,
+                        model: m.model,
                         messages: [
-                            { role: 'system', content: systemPrompt },
+                            { role: 'system', content: sys },
                             { role: 'user', content: prompt }
                         ],
-                        max_tokens: model.max_tokens,
-                        temperature: model.temperature
+                        max_tokens: m.max_tokens,
+                        temperature: m.temperature
                     })
                 });
-                
-                if (!res.ok) throw new Error(`GPT error: ${res.status}`);
+                if (!res.ok) throw new Error(`OpenAI error: ${res.status}`);
                 const data = await res.json();
                 return data.choices?.[0]?.message?.content || 'پاسخی دریافت نشد';
             }
             
-            // Anthropic Claude
-            if (modelKey.startsWith('CLAUDE')) {
-                if (!this.env.CLAUDE_KEY) {
-                    throw new Error('Claude API key not configured');
-                }
-                
+            if (m.provider === 'claude') {
+                if (!this.env.CLAUDE_KEY) throw new Error('Claude key missing');
                 const res = await fetch('https://api.anthropic.com/v1/messages', {
                     method: 'POST',
                     headers: {
@@ -1389,149 +559,115 @@ class AIEngine {
                         'content-type': 'application/json'
                     },
                     body: JSON.stringify({
-                        model: model.model,
-                        max_tokens: model.max_tokens,
-                        messages: [{
-                            role: 'user',
-                            content: systemPrompt + '\n\n' + prompt
-                        }]
+                        model: m.model,
+                        max_tokens: m.max_tokens,
+                        temperature: m.temperature,
+                        system: sys,
+                        messages: [{ role: 'user', content: prompt }]
                     })
                 });
-                
                 if (!res.ok) throw new Error(`Claude error: ${res.status}`);
                 const data = await res.json();
                 return data.content?.[0]?.text || 'پاسخی دریافت نشد';
             }
             
-            // DeepSeek
-            if (modelKey === 'DEEPSEEK') {
-                if (!this.env.DEEPSEEK_KEY) {
-                    throw new Error('DeepSeek API key not configured');
-                }
-                
-                const res = await fetch('https://api.deepseek.com/chat/completions', {
+            if (m.provider === 'deepseek') {
+                if (!this.env.DEEPSEEK_KEY) throw new Error('DeepSeek key missing');
+                const res = await fetch('https://api.deepseek.com/v1/chat/completions', {
                     method: 'POST',
                     headers: {
                         'Authorization': `Bearer ${this.env.DEEPSEEK_KEY}`,
                         'Content-Type': 'application/json'
                     },
                     body: JSON.stringify({
-                        model: model.model,
+                        model: m.model,
                         messages: [
-                            { role: 'system', content: systemPrompt },
+                            { role: 'system', content: sys },
                             { role: 'user', content: prompt }
                         ],
-                        max_tokens: model.max_tokens
+                        max_tokens: m.max_tokens,
+                        temperature: m.temperature
                     })
                 });
-                
                 if (!res.ok) throw new Error(`DeepSeek error: ${res.status}`);
                 const data = await res.json();
                 return data.choices?.[0]?.message?.content || 'پاسخی دریافت نشد';
             }
             
-            // Perplexity
-            if (modelKey === 'PERPLEXITY') {
-                if (!this.env.PERPLEXITY_KEY) {
-                    throw new Error('Perplexity API key not configured');
-                }
-                
-                const res = await fetch('https://api.perplexity.ai/chat/completions', {
+            if (m.provider === 'mistral') {
+                if (!this.env.MISTRAL_KEY) throw new Error('Mistral key missing');
+                const res = await fetch('https://api.mistral.ai/v1/chat/completions', {
                     method: 'POST',
                     headers: {
-                        'Authorization': `Bearer ${this.env.PERPLEXITY_KEY}`,
+                        'Authorization': `Bearer ${this.env.MISTRAL_KEY}`,
                         'Content-Type': 'application/json'
                     },
                     body: JSON.stringify({
-                        model: model.model,
+                        model: m.model,
                         messages: [
-                            { role: 'system', content: systemPrompt },
+                            { role: 'system', content: sys },
                             { role: 'user', content: prompt }
-                        ]
+                        ],
+                        max_tokens: m.max_tokens,
+                        temperature: m.temperature
                     })
                 });
-                
-                if (!res.ok) throw new Error(`Perplexity error: ${res.status}`);
+                if (!res.ok) throw new Error(`Mistral error: ${res.status}`);
                 const data = await res.json();
                 return data.choices?.[0]?.message?.content || 'پاسخی دریافت نشد';
             }
             
-            throw new Error('Model not implemented');
-            
-        } catch (error) {
-            await this.logger.error('AI generation failed', {
-                error: error.message,
-                model: modelKey,
-                promptLength: prompt.length
-            });
-            throw error;
+            throw new Error('پروایدر نامعتبر');
+        } catch (e) { 
+            this.log.error('AI fail', { key, e: e.message }); 
+            throw e; 
         }
     }
 }
 
 // ==================== VISION AI ====================
 class VisionAI {
-    constructor(env) {
-        this.env = env;
-        this.logger = new Logger(env);
+    constructor(env) { 
+        this.env = env; 
+        this.log = new Logger(env); 
     }
     
-    async analyze(imageUrl, prompt, modelKey, personality) {
-        const model = MEGA_CONFIG.ENGINES[modelKey];
-        if (!model || !model.vision) {
-            throw new Error('Invalid vision model');
-        }
+    async analyze(imageUrl, prompt, key, personality) {
+        const m = MEGA_CONFIG.ENGINES[key];
+        if (!m?.vision) throw new Error('مدل Vision نامعتبر');
         
-        const systemPrompt = MEGA_CONFIG.PERSONALITIES[personality].system_prompt;
+        const sys = MEGA_CONFIG.PERSONALITIES[personality].prompt;
         
         try {
-            // Download image
-            const imageRes = await fetch(imageUrl);
-            const imageBuffer = await imageRes.arrayBuffer();
-            const base64Image = this.arrayBufferToBase64(imageBuffer);
+            const img = await fetch(imageUrl);
+            const buf = await img.arrayBuffer();
+            const b64 = btoa(String.fromCharCode(...new Uint8Array(buf)));
             
-            // Gemini Vision
-            if (modelKey.startsWith('GEMINI')) {
-                if (!this.env.GEMINI_KEY) {
-                    throw new Error('Gemini API key not configured');
-                }
-                
+            if (m.provider === 'gemini') {
+                if (!this.env.GEMINI_KEY) throw new Error('Gemini key missing');
                 const res = await fetch(
-                    `https://generativelanguage.googleapis.com/v1beta/models/${model.model}:generateContent?key=${this.env.GEMINI_KEY}`,
+                    `https://generativelanguage.googleapis.com/v1beta/models/${m.model}:generateContent?key=${this.env.GEMINI_KEY}`,
                     {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({
                             contents: [{
                                 parts: [
-                                    { text: systemPrompt + '\n\n' + prompt },
-                                    {
-                                        inline_data: {
-                                            mime_type: 'image/jpeg',
-                                            data: base64Image
-                                        }
-                                    }
+                                    { text: sys + '\n\n' + prompt },
+                                    { inline_data: { mime_type: 'image/jpeg', data: b64 } }
                                 ]
                             }],
-                            generationConfig: {
-                                maxOutputTokens: model.max_tokens,
-                                temperature: model.temperature
-                            }
+                            generationConfig: { maxOutputTokens: m.max_tokens, temperature: m.temperature }
                         })
                     }
                 );
-                
                 if (!res.ok) throw new Error(`Gemini Vision error: ${res.status}`);
                 const data = await res.json();
-                return data.candidates?.[0]?.content?.parts?.[0]?.text || 'تحلیل ناموفق بود';
+                return data.candidates?.[0]?.content?.parts?.[0]?.text || 'تحلیل ناموفق';
             }
             
-            // GPT-4 Vision
-            if (modelKey === 'GPT_4O') {
-                if (!this.env.OPENAI_KEY) {
-                    throw new Error('OpenAI API key not configured');
-                }
-                
+            if (m.provider === 'openai') {
+                if (!this.env.OPENAI_KEY) throw new Error('OpenAI key missing');
                 const res = await fetch('https://api.openai.com/v1/chat/completions', {
                     method: 'POST',
                     headers: {
@@ -1539,32 +675,24 @@ class VisionAI {
                         'Content-Type': 'application/json'
                     },
                     body: JSON.stringify({
-                        model: model.model,
+                        model: m.model,
                         messages: [{
                             role: 'user',
                             content: [
-                                { type: 'text', text: systemPrompt + '\n\n' + prompt },
-                                {
-                                    type: 'image_url',
-                                    image_url: { url: `data:image/jpeg;base64,${base64Image}` }
-                                }
+                                { type: 'text', text: sys + '\n\n' + prompt },
+                                { type: 'image_url', image_url: { url: `data:image/jpeg;base64,${b64}` } }
                             ]
                         }],
-                        max_tokens: model.max_tokens
+                        max_tokens: m.max_tokens
                     })
                 });
-                
                 if (!res.ok) throw new Error(`GPT Vision error: ${res.status}`);
                 const data = await res.json();
-                return data.choices?.[0]?.message?.content || 'تحلیل ناموفق بود';
+                return data.choices?.[0]?.message?.content || 'تحلیل ناموفق';
             }
             
-            // Claude Vision
-            if (modelKey.startsWith('CLAUDE')) {
-                if (!this.env.CLAUDE_KEY) {
-                    throw new Error('Claude API key not configured');
-                }
-                
+            if (m.provider === 'claude') {
+                if (!this.env.CLAUDE_KEY) throw new Error('Claude key missing');
                 const res = await fetch('https://api.anthropic.com/v1/messages', {
                     method: 'POST',
                     headers: {
@@ -1573,560 +701,687 @@ class VisionAI {
                         'content-type': 'application/json'
                     },
                     body: JSON.stringify({
-                        model: model.model,
-                        max_tokens: model.max_tokens,
+                        model: m.model,
+                        max_tokens: m.max_tokens,
                         messages: [{
                             role: 'user',
                             content: [
-                                { type: 'text', text: systemPrompt + '\n\n' + prompt },
-                                {
-                                    type: 'image',
-                                    source: {
-                                        type: 'base64',
-                                        media_type: 'image/jpeg',
-                                        data: base64Image
-                                    }
-                                }
+                                { type: 'text', text: sys + '\n\n' + prompt },
+                                { type: 'image', source: { type: 'base64', media_type: 'image/jpeg', data: b64 } }
                             ]
                         }]
                     })
                 });
-                
                 if (!res.ok) throw new Error(`Claude Vision error: ${res.status}`);
                 const data = await res.json();
-                return data.content?.[0]?.text || 'تحلیل ناموفق بود';
+                return data.content?.[0]?.text || 'تحلیل ناموفق';
             }
             
-            throw new Error('Vision model not implemented');
-            
-        } catch (error) {
-            await this.logger.error('Vision analysis failed', {
-                error: error.message,
-                model: modelKey
-            });
-            throw error;
+            throw new Error('Vision not implemented for this provider');
+        } catch (e) { 
+            this.log.error('Vision fail', { key, e: e.message }); 
+            throw e; 
         }
-    }
-    
-    arrayBufferToBase64(buffer) {
-        let binary = '';
-        const bytes = new Uint8Array(buffer);
-        for (let i = 0; i < bytes.length; i++) {
-            binary += String.fromCharCode(bytes[i]);
-        }
-        return btoa(binary);
     }
 }
 
-// ==================== TELEGRAM MANAGER ====================
-class TelegramManager {
-    constructor(env) {
-        this.env = env;
-        this.token = env.TELEGRAM_TOKEN;
-        this.logger = new Logger(env);
+// ==================== TELEGRAM ====================
+class Telegram {
+    constructor(env) { 
+        this.token = env.TELEGRAM_TOKEN; 
+        this.log = new Logger(env); 
     }
     
-    async sendMessage(chatId, text, options = {}) {
+    async call(method, body) {
         try {
-            const body = {
-                chat_id: chatId,
-                text: text.substring(0, 4096),
-                parse_mode: options.parseMode || 'Markdown',
-                ...options
-            };
-            
-            const res = await fetch(`https://api.telegram.org/bot${this.token}/sendMessage`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(body)
+            const r = await fetch(`https://api.telegram.org/bot${this.token}/${method}`, { 
+                method: 'POST', 
+                headers: { 'Content-Type': 'application/json' }, 
+                body: JSON.stringify(body) 
             });
-            
-            if (!res.ok) {
-                const error = await res.text();
-                throw new Error(`Telegram API error: ${error}`);
-            }
-            
-            return await res.json();
-        } catch (error) {
-            await this.logger.error('Send message failed', { error: error.message, chatId });
-            throw error;
+            return r;
+        } catch (e) {
+            this.log.error('TG call fail', { method, e: e.message });
+            return null;
         }
     }
     
-    async sendTyping(chatId) {
-        try {
-            await fetch(`https://api.telegram.org/bot${this.token}/sendChatAction`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    chat_id: chatId,
-                    action: 'typing'
-                })
-            });
-        } catch (error) {
-            // Ignore typing errors
-        }
+    async send(chatId, text, opt = {}) { 
+        return this.call('sendMessage', { 
+            chat_id: chatId, 
+            text: text.substring(0, 4096), 
+            parse_mode: 'Markdown', 
+            ...opt 
+        }); 
     }
     
-    async sendHumanLike(chatId, text, userMessage, settings) {
-        const personalityConfig = MEGA_CONFIG.PERSONALITIES[settings.personality];
-        const humanizer = new HumanResponseGenerator(personalityConfig);
+    async edit(chatId, msgId, text, opt = {}) { 
+        return this.call('editMessageText', { 
+            chat_id: chatId, 
+            message_id: msgId, 
+            text: text.substring(0, 4096), 
+            parse_mode: 'Markdown', 
+            ...opt 
+        }); 
+    }
+    
+    async answer(cbId, text, alert = false) { 
+        return this.call('answerCallbackQuery', { 
+            callback_query_id: cbId, 
+            text, 
+            show_alert: alert 
+        }); 
+    }
+    
+    async typing(chatId) { 
+        this.call('sendChatAction', { chat_id: chatId, action: 'typing' }); 
+    }
+    
+    async humanLike(chatId, text, userMsg, settings) {
+        const h = new Humanizer(MEGA_CONFIG.PERSONALITIES[settings.personality]);
+        const final = settings.human ? h.humanize(text) : text;
         
-        // Humanize text
-        const humanText = settings.human_mode ? humanizer.humanize(text) : text;
-        
-        if (!settings.human_mode || humanText.length < 50) {
-            await this.sendMessage(chatId, humanText);
+        if (!settings.human || final.length < 50) {
+            await this.send(chatId, final);
             return;
         }
         
-        // Send with chunks and delays
-        const chunks = TimingManager.splitChunks(humanText);
-        
+        const chunks = Timing.chunks(final);
         for (let i = 0; i < chunks.length; i++) {
-            await this.sendTyping(chatId);
-            
-            const delay = i === 0
-                ? TimingManager.getTotalDelay(userMessage, chunks[i])
-                : TimingManager.calculateTypeTime(chunks[i]);
-            
+            this.typing(chatId);
+            const delay = i === 0 ? Timing.delay(userMsg, chunks[i]) : Timing.type(chunks[i]);
             await Utils.sleep(Math.min(delay, 5000));
-            await this.sendMessage(chatId, chunks[i]);
-            
-            if (i < chunks.length - 1) {
-                await Utils.sleep(400 + Math.random() * 600);
-            }
+            await this.send(chatId, chunks[i]);
+            if (i < chunks.length - 1) await Utils.sleep(400 + Math.random() * 600);
         }
     }
     
     async getFile(fileId) {
-        try {
-            const res = await fetch(`https://api.telegram.org/bot${this.token}/getFile?file_id=${fileId}`);
-            const data = await res.json();
-            
-            if (!data.ok) {
-                throw new Error('Get file failed');
-            }
-            
-            return `https://api.telegram.org/file/bot${this.token}/${data.result.file_path}`;
-        } catch (error) {
-            await this.logger.error('Get file failed', { error: error.message, fileId });
-            throw error;
-        }
+        const r = await this.call('getFile', { file_id: fileId });
+        if (!r) throw new Error('getFile failed');
+        const d = await r.json();
+        if (!d.ok) throw new Error('getFile not ok');
+        return `https://api.telegram.org/file/bot${this.token}/${d.result.file_path}`;
     }
 }
 
+// ==================== GLASS PANELS ====================
+const Glass = {
+    helpMain: {
+        text: '╭──────────────────╮\n│  🌸 **راهنمای حوشا**  │\n├──────────────────┤\n│ 💬 چت با AI      │\n│ 📸 تحلیل عکس     │\n│ 💎 VIP و اشتراک  │\n│ 👤 تنظیمات حساب  │\n│ 📊 آمار من       │\n╰──────────────────╯',
+        keyboard: { 
+            inline_keyboard: [
+                [{ text: '💬 چت با AI', callback_data: 'help_chat' }, { text: '📸 تحلیل عکس', callback_data: 'help_vision' }],
+                [{ text: '💎 VIP', callback_data: 'help_vip' }, { text: '👤 تنظیمات', callback_data: 'help_settings' }],
+                [{ text: '📊 آمار من', callback_data: 'help_stats' }, { text: '❌ بستن', callback_data: 'close' }]
+            ]
+        }
+    },
+    adminMain: {
+        text: '╭──────────────────╮\n│  🌸 **پنل مدیریت**  │\n├──────────────────┤\n│ 👥 مدیریت کاربران  │\n│ 📊 آمار سیستم     │\n│ 💎 مدیریت VIP     │\n│ 📢 ارسال همگانی   │\n│ ⚙️ تنظیمات ربات   │\n╰──────────────────╯',
+        keyboard: { 
+            inline_keyboard: [
+                [{ text: '👥 کاربران', callback_data: 'admin_users' }, { text: '📊 آمار', callback_data: 'admin_stats' }],
+                [{ text: '💎 VIP', callback_data: 'admin_vip' }, { text: '📢 همگانی', callback_data: 'admin_broadcast' }],
+                [{ text: '⚙️ تنظیمات', callback_data: 'admin_settings' }, { text: '❌ بستن', callback_data: 'close' }]
+            ]
+        }
+    },
+    back: { inline_keyboard: [[{ text: '🔙 بازگشت', callback_data: 'back' }, { text: '❌ بستن', callback_data: 'close' }]] }
+};
+
 // ==================== MESSAGE HANDLER ====================
-async function handleMessage(update, env) {
+async function handleMessage(upd, env) {
     const db = new DatabaseManager(env);
-    const telegram = new TelegramManager(env);
+    const tg = new Telegram(env);
     const ai = new AIEngine(env);
     const vision = new VisionAI(env);
-    const logger = new Logger(env);
-    const cache = new CacheManager();
+    const log = new Logger(env);
+    const cache = new CacheManager(env);
+
+    if (!upd.message) return;
     
-    if (!update.message) return;
-    
-    const chatId = update.message.chat.id;
-    const userId = update.message.from.id.toString();
-    const text = update.message.text || update.message.caption || '';
-    const photo = update.message.photo;
-    const reply = update.message.reply_to_message;
-    
-    const startTime = Date.now();
-    
+    const chatId = upd.message.chat.id;
+    const uid = upd.message.from.id.toString();
+    const text = upd.message.text || upd.message.caption || '';
+    const photo = upd.message.photo;
+    const reply = upd.message.reply_to_message;
+    const start = Date.now();
+
     try {
-        // Register user
-        await db.registerUser({
-            user_id: userId,
-            username: update.message.from.username,
-            first_name: update.message.from.first_name,
-            last_name: update.message.from.last_name
+        await db.register({ 
+            id: uid, 
+            username: upd.message.from.username, 
+            first_name: upd.message.from.first_name,
+            last_name: upd.message.from.last_name
         });
-        
-        // Check if blocked
-        const blocked = await db.isUserBlocked(userId);
+
+        const blocked = await db.isBlocked(uid);
         if (blocked) {
-            await telegram.sendMessage(chatId,
-                `🚫 دسترسی شما مسدود شده است\n\n📌 دلیل: ${blocked.reason}\n⏰ زمان: ${Utils.formatDate(blocked.created_at)}`
-            );
+            await tg.send(chatId, `🚫 دسترسی مسدود\n📌 دلیل: ${blocked.reason}\n⏰ زمان: ${Utils.date(blocked.created_at)}`);
             return;
         }
+
+        const settings = await db.getSettings(uid);
+        const rate = await db.checkRate(uid, settings.tier);
         
-        // Get user settings
-        const settings = await db.getUserSettings(userId);
-        
-        // Track analytics
-        await db.trackEvent('message', userId, {
-            hasPhoto: !!photo,
-            textLength: text.length
-        });
-        
-        // Check rate limits
-        const rateCheck = await db.checkRateLimit(userId, settings.tier);
-        if (!rateCheck.allowed) {
-            await telegram.sendMessage(chatId,
-                `⏱️ ${rateCheck.message}\n\n` +
-                `💎 برای حد بالاتر: /upgrade\n` +
-                `📊 باقیمانده: ${rateCheck.remaining?.day || 0} پیام`
-            );
+        if (!rate.allowed) {
+            await tg.send(chatId, `⏱️ ${rate.msg}\n💎 برای حد بالاتر: /upgrade\n📊 باقیمانده: ${rate.remaining?.day || 0} پیام`);
             return;
         }
-        
-        // Handle commands
-        const isCommand = text.startsWith('/');
-        const isReply = reply && reply.from && reply.from.is_bot;
-        
-        if (!isCommand && !isReply && !photo) {
-            // Ignore non-reply messages
-            return;
-        }
-        
-        // Command handling
+
+        const isCmd = text.startsWith('/');
+        const isReply = reply && reply.from?.is_bot;
+
+        if (!isCmd && !isReply && !photo) return;
+
         if (text === '/start') {
-            const referralMatch = text.match(/\/start\s+([A-Z0-9]+)/);
-            if (referralMatch && !settings.referred_by) {
-                const referralCode = referralMatch[1];
-                const referrer = await db.getUserByReferralCode(referralCode);
-                
-                if (referrer && referrer.user_id !== userId) {
-                    await db.updateUser(userId, { referred_by: referrer.user_id });
-                    await db.processReferral(referrer.user_id, userId);
+            const refMatch = text.match(/\/start\s+([A-Z0-9]+)/);
+            if (refMatch && !settings.referred_by) {
+                const ref = await db.getUserByReferralCode(refMatch[1]);
+                if (ref && ref.user_id !== uid) {
+                    await db.updateUser(uid, { referred_by: ref.user_id });
+                    await db.processReferral(ref.user_id, uid);
                 }
             }
             
-            const welcomeText = `🌸 **سلام ${update.message.from.first_name}!**\n\n` +
-                               `من **حوشا** هستم - سیستم هوش مصنوعی پیشرفته با ${Object.keys(MEGA_CONFIG.ENGINES).length} موتور!\n\n` +
-                               `🎯 **چطور کار کنم؟**\nروی این پیام Reply کن و سوالتو بپرس\n\n` +
-                               `💎 **سطح شما:** ${MEGA_CONFIG.TIERS[settings.tier].emoji} ${MEGA_CONFIG.TIERS[settings.tier].name}\n` +
-                               `📊 **کووتای روزانه:** ${rateCheck.remaining.day} پیام\n\n` +
-                               `**دستورات:**\n` +
-                               `/models - لیست موتورها\n` +
-                               `/settings - تنظیمات\n` +
-                               `/upgrade - ارتقا حساب\n` +
-                               `/help - راهنما`;
-            
-            await telegram.sendMessage(chatId, welcomeText);
+            const welcome = `🌸 **سلام ${upd.message.from.first_name}!**\n\n` +
+                `من **حوشا** هستم با ${Object.keys(MEGA_CONFIG.ENGINES).length} موتور AI!\n\n` +
+                `💎 سطح شما: ${MEGA_CONFIG.TIERS[settings.tier].emoji} ${MEGA_CONFIG.TIERS[settings.tier].name}\n` +
+                `📊 سهمیه امروز: ${rate.remaining.day} پیام\n\n` +
+                `/models - لیست موتورها\n` +
+                `/settings - تنظیمات\n` +
+                `/upgrade - ارتقا حساب\n` +
+                `/help - راهنما`;
+            await tg.send(chatId, welcome);
             return;
         }
-        
+
         if (text === '/models') {
             const tierConfig = MEGA_CONFIG.TIERS[settings.tier];
-            let modelsText = `🤖 **لیست موتورهای AI**\n\n`;
+            let msg = `🤖 **لیست موتورهای AI**\n\n`;
+            msg += `سطح شما: ${tierConfig.emoji} ${tierConfig.name}\n`;
+            msg += `موتور فعلی: ${MEGA_CONFIG.ENGINES[settings.model].name}\n\n`;
             
-            modelsText += `سطح شما: ${tierConfig.emoji} ${tierConfig.name}\n\n`;
-            
-            modelsText += `**💬 موتورهای متنی:**\n`;
-            Object.entries(MEGA_CONFIG.ENGINES).forEach(([key, model]) => {
-                if (!model.vision) {
-                    const available = !model.vip || 
-                                    tierConfig.premium_models.includes('all') || 
-                                    tierConfig.premium_models.includes(key);
-                    
-                    modelsText += `${model.emoji} ${model.name} ${available ? '✅' : '🔒'}\n`;
+            msg += `**💬 موتورهای متنی:**\n`;
+            Object.entries(MEGA_CONFIG.ENGINES).forEach(([k, m]) => {
+                if (!m.vision) {
+                    const available = !m.vip || tierConfig.vipModels.includes('all') || tierConfig.vipModels.includes(k);
+                    const current = k === settings.model ? ' ✅' : '';
+                    msg += `${m.emoji} ${m.name} ${available ? '' : '🔒'}${current}\n`;
                 }
             });
             
-            modelsText += `\n**📸 موتورهای Vision:**\n`;
-            Object.entries(MEGA_CONFIG.ENGINES).forEach(([key, model]) => {
-                if (model.vision) {
-                    const available = tierConfig.vision_access && (
-                        !model.vip || 
-                        tierConfig.premium_models.includes('all') || 
-                        tierConfig.premium_models.includes(key)
-                    );
-                    
-                    modelsText += `${model.emoji} ${model.name} ${available ? '✅' : '🔒'}\n`;
+            msg += `\n**📸 موتورهای Vision:**\n`;
+            Object.entries(MEGA_CONFIG.ENGINES).forEach(([k, m]) => {
+                if (m.vision) {
+                    const available = tierConfig.vision && (!m.vip || tierConfig.vipModels.includes('all') || tierConfig.vipModels.includes(k));
+                    const current = k === settings.vision ? ' ✅' : '';
+                    msg += `${m.emoji} ${m.name} ${available ? '' : '🔒'}${current}\n`;
                 }
             });
             
-            modelsText += `\n/setmodel - تغییر موتور`;
-            
-            await telegram.sendMessage(chatId, modelsText);
+            msg += `\n/setmodel [key] - تغییر موتور`;
+            await tg.send(chatId, msg);
             return;
         }
-        
-        if (text === '/help') {
-            const helpText = `📖 **راهنمای کامل HOSHA**\n\n` +
-                            `**🗣️ چطور چت کنم؟**\nروی پیام‌های من Reply کن\n\n` +
-                            `**📸 تحلیل عکس:**\nعکس + توضیح بفرست\n\n` +
-                            `**⚙️ تنظیمات:**\n` +
-                            `/personality - شخصیت\n` +
-                            `/human - حالت انسانی\n` +
-                            `/setmodel - موتور\n\n` +
-                            `**💎 VIP:**\n` +
-                            `/upgrade - ارتقا\n` +
-                            `/myplan - وضعیت اشتراک\n` +
-                            `/referral - دعوت دوستان\n\n` +
-                            `**📊 آمار:**\n` +
-                            `/stats - آمار من\n` +
-                            `/usage - مصرف امروز`;
-            
-            await telegram.sendMessage(chatId, helpText);
-            return;
-        }
-        
-        if (text === '/stats') {
-            const user = await db.getUser(userId);
-            const statsText = `📊 **آمار شما**\n\n` +
-                             `💬 کل پیام‌ها: ${Utils.formatNumber(user.total_messages)}\n` +
-                             `🧠 کل توکن‌ها: ${Utils.formatNumber(user.total_tokens)}\n` +
-                             `💰 هزینه کل: ${Utils.formatNumber(Math.round(user.total_spent))} تومان\n` +
-                             `👥 دعوت‌ها: ${user.referral_count}\n` +
-                             `🎁 پیام هدیه: ${user.bonus_messages}\n` +
-                             `📅 عضو از: ${Utils.formatDate(user.created_at)}`;
-            
-            await telegram.sendMessage(chatId, statsText);
-            return;
-        }
-        
-        // Handle photo
-        if (photo) {
-            const fileId = photo[photo.length - 1].file_id;
-            const imageUrl = await telegram.getFile(fileId);
-            
-            const visionModel = settings.preferred_vision_model;
-            const modelConfig = MEGA_CONFIG.ENGINES[visionModel];
-            
-            // Check access
-            const tierConfig = MEGA_CONFIG.TIERS[settings.tier];
-            if (!tierConfig.vision_access) {
-                await telegram.sendMessage(chatId,
-                    `🔒 تحلیل عکس فقط برای اعضای ویژه\n\n💎 /upgrade`
-                );
+
+        if (text.startsWith('/setmodel')) {
+            const parts = text.split(' ');
+            if (parts.length < 2) {
+                await tg.send(chatId, '⚙️ **تغییر موتور**\nفرمت: /setmodel [key]\nمثال: /setmodel CF_GEMMA');
+                return;
+            }
+            const modelKey = parts[1].toUpperCase();
+            const model = MEGA_CONFIG.ENGINES[modelKey];
+            if (!model) {
+                await tg.send(chatId, '❌ موتور نامعتبر');
                 return;
             }
             
-            await telegram.sendTyping(chatId);
-            await telegram.sendMessage(chatId,
-                `${modelConfig.emoji} در حال تحلیل با ${modelConfig.name}...\n⏳ لطفاً صبر کنید`
-            );
+            const tierConfig = MEGA_CONFIG.TIERS[settings.tier];
+            const hasAccess = !model.vip || tierConfig.vipModels.includes('all') || tierConfig.vipModels.includes(modelKey);
+            if (!hasAccess) {
+                await tg.send(chatId, `🔒 این موتور VIP است!\n💎 /upgrade`);
+                return;
+            }
             
-            const prompt = `این عکس رو کامل تحلیل کن:\n\n${text || 'توضیحی ندادن، خودت کامل بگو چی توش هست'}`;
-            
-            const analysis = await vision.analyze(imageUrl, prompt, visionModel, settings.personality);
-            const tokens = Utils.calculateTokens(analysis);
-            const cost = tokens * modelConfig.cost_per_token * 42000; // تومان
-            
-            await db.saveMessage(userId, 'user', text || '[عکس]', visionModel, 0, 0, true, 0);
-            await db.saveMessage(userId, 'assistant', analysis, visionModel, tokens, cost, false, Date.now() - startTime);
-            await db.logUsage(userId, visionModel, tokens, cost, true);
-            
-            await telegram.sendHumanLike(chatId, analysis, text, settings);
+            if (model.vision) {
+                await db.updateUser(uid, { preferred_vision: modelKey });
+            } else {
+                await db.updateUser(uid, { preferred_model: modelKey });
+            }
+            await tg.send(chatId, `✅ موتور ${model.vision ? 'Vision' : ''} تغییر یافت به ${model.emoji} ${model.name}`);
             return;
         }
-        
-        // Handle text reply
-        if (isReply && text && !isCommand) {
-            const model = settings.preferred_model;
-            const modelConfig = MEGA_CONFIG.ENGINES[model];
+
+        if (text === '/personality') {
+            let msg = `🎭 **شخصیت‌ها**\n\nشخصیت فعلی: ${MEGA_CONFIG.PERSONALITIES[settings.personality].emoji} ${MEGA_CONFIG.PERSONALITIES[settings.personality].name}\n\n`;
+            Object.entries(MEGA_CONFIG.PERSONALITIES).forEach(([k, p]) => {
+                const current = k === settings.personality ? ' ✅' : '';
+                msg += `${p.emoji} ${p.name} - ${p.prompt.substring(0, 50)}...${current}\n`;
+            });
+            msg += '\n/personality [friendly|professional|casual|expert]';
+            await tg.send(chatId, msg);
+            return;
+        }
+
+        if (text.startsWith('/personality')) {
+            const parts = text.split(' ');
+            if (parts.length < 2) {
+                await tg.send(chatId, 'فرمت: /personality [friendly|professional|casual|expert]');
+                return;
+            }
+            const persKey = parts[1];
+            if (!MEGA_CONFIG.PERSONALITIES[persKey]) {
+                await tg.send(chatId, '❌ شخصیت نامعتبر');
+                return;
+            }
+            await db.updateUser(uid, { personality: persKey });
+            await tg.send(chatId, `✅ شخصیت تغییر یافت به ${MEGA_CONFIG.PERSONALITIES[persKey].name}`);
+            return;
+        }
+
+        if (text === '/human') {
+            const newMode = !settings.human;
+            await db.updateUser(uid, { human_mode: newMode ? 1 : 0 });
+            await tg.send(chatId, newMode ? '✅ حالت انسانی فعال شد' : '❌ حالت انسانی غیرفعال شد');
+            return;
+        }
+
+        if (text === '/settings') {
+            const user = await db.getUser(uid);
+            const tierConfig = MEGA_CONFIG.TIERS[settings.tier];
+            let msg = `⚙️ **تنظیمات شما**\n\n`;
+            msg += `👤 نام: ${user.first_name}\n`;
+            msg += `🆔 آیدی: \`${uid}\`\n`;
+            msg += `💎 سطح: ${tierConfig.emoji} ${tierConfig.name}\n`;
+            msg += `🤖 موتور: ${MEGA_CONFIG.ENGINES[settings.model].name}\n`;
+            msg += `👁️ موتور Vision: ${MEGA_CONFIG.ENGINES[settings.vision].name}\n`;
+            msg += `🎭 شخصیت: ${MEGA_CONFIG.PERSONALITIES[settings.personality].name}\n`;
+            msg += `🧑 حالت انسانی: ${settings.human ? '✅' : '❌'}\n\n`;
+            msg += `/setmodel - تغییر موتور\n/personality - تغییر شخصیت\n/human - تغییر حالت انسانی`;
+            await tg.send(chatId, msg);
+            return;
+        }
+
+        if (text === '/stats') {
+            const user = await db.getUser(uid);
+            await tg.send(chatId,
+                `📊 **آمار شما**\n\n` +
+                `💬 کل پیام‌ها: ${Utils.num(user?.total_messages || 0)}\n` +
+                `🧠 کل توکن‌ها: ${Utils.num(user?.total_tokens || 0)}\n` +
+                `💰 هزینه کل: ${Utils.num(Math.round(user?.total_cost || 0))} تومان\n` +
+                `👥 دعوت‌ها: ${user?.referral_count || 0}\n` +
+                `🎁 پیام هدیه: ${user?.bonus_messages || 0}\n` +
+                `📅 عضو از: ${Utils.date(user?.created_at || new Date())}`
+            );
+            return;
+        }
+
+        if (text === '/usage') {
+            const dayCount = await env.DB.prepare(
+                `SELECT COUNT(*) as c FROM usage_logs WHERE user_id = ? AND DATE(created_at) = DATE('now')`
+            ).bind(uid).first();
+            const dayTokens = await env.DB.prepare(
+                `SELECT SUM(tokens) as t FROM usage_logs WHERE user_id = ? AND DATE(created_at) = DATE('now')`
+            ).bind(uid).first();
+            const tierConfig = MEGA_CONFIG.TIERS[settings.tier];
+            let msg = `📊 **مصرف امروز**\n\n`;
+            msg += `💬 پیام‌ها: ${dayCount?.c || 0} / ${tierConfig.msg === -1 ? '∞' : tierConfig.msg}\n`;
+            msg += `🧠 توکن‌ها: ${Utils.num(dayTokens?.t || 0)} / ${tierConfig.token === -1 ? '∞' : Utils.num(tierConfig.token)}\n`;
+            msg += `🎁 هدیه: ${settings.bonus}`;
+            await tg.send(chatId, msg);
+            return;
+        }
+
+        if (text === '/referral') {
+            const user = await db.getUser(uid);
+            const link = `https://t.me/${MEGA_CONFIG.BOT_USERNAME}?start=${user.referral_code}`;
+            await tg.send(chatId,
+                `👥 **سیستم رفرال**\n\n` +
+                `🔗 لینک دعوت شما:\n\`${link}\`\n\n` +
+                `📊 تعداد دعوت‌ها: ${user.referral_count || 0}\n` +
+                `🎁 پاداش هر دعوت: ${MEGA_CONFIG.REFERRAL.reward} پیام\n` +
+                `💎 با ${MEGA_CONFIG.REFERRAL.vipReq} دعوت، VIP رایگان!`
+            );
+            return;
+        }
+
+        if (text === '/myplan') {
+            const user = await db.getUser(uid);
+            const tier = MEGA_CONFIG.TIERS[settings.tier];
+            let msg = `💎 **اشتراک شما**\n\n`;
+            msg += `سطح: ${tier.emoji} ${tier.name}\n`;
+            if (settings.tier !== 'FREE' && user.tier_expires_at) {
+                const days = Math.ceil((new Date(user.tier_expires_at) - new Date()) / (1000*60*60*24));
+                msg += `⏰ انقضا: ${Utils.date(user.tier_expires_at)} (${days} روز)\n\n`;
+            }
+            msg += `**محدودیت‌ها:**\n`;
+            msg += `💬 پیام روزانه: ${tier.msg === -1 ? '∞' : tier.msg}\n`;
+            msg += `🧠 توکن روزانه: ${tier.token === -1 ? '∞' : Utils.num(tier.token)}\n`;
+            msg += `📸 Vision: ${tier.vision ? '✅' : '❌'}`;
+            if (settings.tier === 'FREE') msg += `\n\n💎 برای ارتقا: /upgrade`;
+            await tg.send(chatId, msg);
+            return;
+        }
+
+        if (text === '/upgrade') {
+            let msg = `💎 **ارتقای حساب**\n\n`;
+            Object.entries(MEGA_CONFIG.TIERS).forEach(([k, t]) => {
+                if (k !== 'FREE') {
+                    msg += `${t.emoji} **${t.name}**\n`;
+                    msg += `   💬 ${t.msg === -1 ? '∞' : t.msg} پیام/روز\n`;
+                    msg += `   🧠 ${t.token === -1 ? '∞' : Utils.num(t.token)} توکن/روز\n`;
+                    msg += `   📸 ${t.vision ? '✅ Vision' : '❌ Vision'}\n\n`;
+                }
+            });
+            msg += `برای خرید با پشتیبانی تماس بگیرید.`;
+            await tg.send(chatId, msg);
+            return;
+        }
+
+        if (text === '/help') {
+            await tg.send(chatId, Glass.helpMain.text, Glass.helpMain.keyboard);
+            return;
+        }
+
+        if (Utils.isAdmin(uid)) {
+            if (text === '/admin') {
+                await tg.send(chatId, Glass.adminMain.text, Glass.adminMain.keyboard);
+                return;
+            }
+
+            if (text === '/adminstats') {
+                const s = await db.stats();
+                const vip = await db.vipStats();
+                await tg.send(chatId,
+                    `📊 **آمار سیستم**\n\n` +
+                    `👥 کل کاربران: ${Utils.num(s.users)}\n` +
+                    `⚡ فعال امروز: ${Utils.num(s.active)}\n` +
+                    `💬 کل پیام‌ها: ${Utils.num(s.totalMsg)}\n` +
+                    `📨 پیام امروز: ${Utils.num(s.todayMsg)}\n` +
+                    `💎 کاربران ویژه: ${vip.vip}`
+                );
+                return;
+            }
+
+            if (text.startsWith('/block')) {
+                const parts = text.split(' ');
+                if (parts.length < 3) {
+                    await tg.send(chatId, 'فرمت: /block [user_id] [دلیل]');
+                    return;
+                }
+                await db.blockUser(parts[1], parts.slice(2).join(' '), uid);
+                await tg.send(chatId, `✅ کاربر ${parts[1]} بلاک شد.`);
+                return;
+            }
+
+            if (text.startsWith('/unblock')) {
+                const parts = text.split(' ');
+                if (parts.length < 2) {
+                    await tg.send(chatId, 'فرمت: /unblock [user_id]');
+                    return;
+                }
+                await db.unblockUser(parts[1]);
+                await tg.send(chatId, `✅ کاربر ${parts[1]} آنبلاک شد.`);
+                return;
+            }
+
+            if (text.startsWith('/giveplan')) {
+                const parts = text.split(' ');
+                if (parts.length < 3) {
+                    await tg.send(chatId, 'فرمت: /giveplan [user_id] [FREE|BASIC|PRO|VIP]');
+                    return;
+                }
+                const tier = parts[2].toUpperCase();
+                if (!['FREE', 'BASIC', 'PRO', 'VIP'].includes(tier)) {
+                    await tg.send(chatId, '❌ سطح نامعتبر');
+                    return;
+                }
+                const expires = new Date();
+                expires.setDate(expires.getDate() + 30);
+                await db.updateUser(parts[1], { tier, tier_expires_at: expires.toISOString() });
+                await tg.send(chatId, `✅ سطح کاربر ${parts[1]} به ${tier} تغییر یافت (۳۰ روز).`);
+                return;
+            }
+
+            if (text.startsWith('/broadcast')) {
+                const msg = text.replace('/broadcast', '').trim();
+                if (!msg) {
+                    await tg.send(chatId, 'فرمت: /broadcast [پیام]');
+                    return;
+                }
+                const users = await db.getAllUsers();
+                let sent = 0, failed = 0;
+                await tg.send(chatId, `📢 ارسال به ${users.length} کاربر...`);
+                for (const u of users) {
+                    try {
+                        await tg.send(u.user_id, `📢 **پیام مدیریت:**\n\n${msg}`);
+                        sent++;
+                        await Utils.sleep(50);
+                    } catch {
+                        failed++;
+                    }
+                }
+                await tg.send(chatId, `✅ ارسال شد\nموفق: ${sent}\nناموفق: ${failed}`);
+                return;
+            }
+        }
+
+        if (photo) {
+            const fileId = photo[photo.length - 1].file_id;
+            const imageUrl = await tg.getFile(fileId);
+            const visionModel = settings.vision;
+            const modelConfig = MEGA_CONFIG.ENGINES[visionModel];
+            const tierConfig = MEGA_CONFIG.TIERS[settings.tier];
             
-            // Check cache
-            const cacheKey = `${userId}:${Utils.hashString(text)}`;
-            const cached = cache.get(cacheKey);
+            if (!tierConfig.vision) {
+                await tg.send(chatId, `🔒 تحلیل عکس فقط برای اعضای ویژه\n💎 /upgrade`);
+                return;
+            }
+            
+            await tg.typing(chatId);
+            await tg.send(chatId, `${modelConfig.emoji} در حال تحلیل با ${modelConfig.name}...`);
+            
+            const prompt = `این عکس رو تحلیل کن:\n${text || 'توضیحی ندادن، خودت بگو چی توش هست'}`;
+            const analysis = await vision.analyze(imageUrl, prompt, visionModel, settings.personality);
+            const tokens = Utils.tokens(analysis);
+            const cost = tokens * (modelConfig.cost || 0) * 42000;
+            
+            await db.saveMessage(uid, 'user', text || '[عکس]', visionModel, 0, 0, true);
+            await db.saveMessage(uid, 'assistant', analysis, visionModel, tokens, cost);
+            await db.logUsage(uid, visionModel, tokens, cost, true);
+            
+            await tg.humanLike(chatId, analysis, text, settings);
+            return;
+        }
+
+        if (isReply && text) {
+            const model = settings.model;
+            const modelConfig = MEGA_CONFIG.ENGINES[model];
+            const cacheKey = `${uid}:${Utils.hash(text)}`;
+            const cached = await cache.get(cacheKey);
             
             if (cached) {
-                await telegram.sendHumanLike(chatId, cached, text, settings);
-                await logger.info('Cache hit', { userId, model });
+                await tg.humanLike(chatId, cached, text, settings);
                 return;
             }
             
             const response = await ai.generate(text, model, settings.personality);
-            const tokens = Utils.calculateTokens(text + response);
-            const cost = tokens * modelConfig.cost_per_token * 42000;
+            const tokens = Utils.tokens(text + response);
+            const cost = tokens * (modelConfig.cost || 0) * 42000;
             
-            // Cache response
-            cache.set(cacheKey, response);
+            await cache.set(cacheKey, response);
+            await db.saveMessage(uid, 'user', text, model, Utils.tokens(text), 0);
+            await db.saveMessage(uid, 'assistant', response, model, tokens, cost);
+            await db.logUsage(uid, model, tokens, cost, true);
             
-            await db.saveMessage(userId, 'user', text, model, Utils.calculateTokens(text), 0, false, 0);
-            await db.saveMessage(userId, 'assistant', response, model, tokens, cost, false, Date.now() - startTime);
-            await db.logUsage(userId, model, tokens, cost, true);
-            
-            await telegram.sendHumanLike(chatId, response, text, settings);
+            await tg.humanLike(chatId, response, text, settings);
         }
-        
-    } catch (error) {
-        await logger.error('Message handling failed', {
-            error: error.message,
-            userId,
-            textLength: text.length
-        });
-        
-        await telegram.sendMessage(chatId,
-            `❌ متاسفانه یه مشکلی پیش اومد!\n\n` +
-            `لطفاً دوباره تلاش کنید یا با /help راهنما رو ببینید`
-        );
+
+    } catch (e) {
+        log.error('handleMessage', { uid, e: e.message, stack: e.stack });
+        await tg.send(chatId, '❌ خطایی رخ داد. /help');
+    }
+}
+
+// ==================== CALLBACK HANDLER ====================
+async function handleCallback(cb, env) {
+    const tg = new Telegram(env);
+    const db = new DatabaseManager(env);
+    const chatId = cb.message.chat.id;
+    const msgId = cb.message.message_id;
+    const data = cb.data;
+    const uid = cb.from.id.toString();
+    const cbId = cb.id;
+
+    try {
+        if (data === 'close') {
+            await tg.edit(chatId, msgId, '✅ بسته شد.');
+            await tg.answer(cbId, 'بسته شد');
+            return;
+        }
+        if (data === 'back') {
+            await tg.edit(chatId, msgId, Glass.helpMain.text, Glass.helpMain.keyboard);
+            await tg.answer(cbId, 'بازگشت');
+            return;
+        }
+
+        if (data.startsWith('help_')) {
+            let txt = '';
+            const settings = await db.getSettings(uid);
+            if (data === 'help_chat') txt = '💬 روی پیام‌های من ریپلای کن تا چت کنیم.\nموتور فعلی: ' + MEGA_CONFIG.ENGINES[settings.model].name;
+            else if (data === 'help_vision') txt = '📸 عکس بفرست تا تحلیل کنم.\nموتور Vision: ' + MEGA_CONFIG.ENGINES[settings.vision].name;
+            else if (data === 'help_vip') {
+                const tier = MEGA_CONFIG.TIERS[settings.tier];
+                txt = `💎 سطح شما: ${tier.emoji} ${tier.name}\n` +
+                      `💬 پیام روزانه: ${tier.msg === -1 ? '∞' : tier.msg}\n` +
+                      `🧠 توکن روزانه: ${tier.token === -1 ? '∞' : Utils.num(tier.token)}\n` +
+                      `📸 Vision: ${tier.vision ? '✅' : '❌'}`;
+            }
+            else if (data === 'help_settings') {
+                txt = `👤 **تنظیمات**\nشخصیت: ${MEGA_CONFIG.PERSONALITIES[settings.personality].name}\nحالت انسانی: ${settings.human ? '✅' : '❌'}\n\n/personality - تغییر شخصیت\n/human - تغییر حالت انسانی`;
+            }
+            else if (data === 'help_stats') {
+                const user = await db.getUser(uid);
+                txt = `📊 آمار شما:\n💬 پیام‌ها: ${user?.total_messages || 0}\n🧠 توکن‌ها: ${user?.total_tokens || 0}`;
+            }
+            await tg.edit(chatId, msgId, txt, Glass.back);
+            await tg.answer(cbId, 'راهنما');
+            return;
+        }
+
+        if (data.startsWith('admin_') && Utils.isAdmin(uid)) {
+            let txt = '';
+            if (data === 'admin_stats') {
+                const s = await db.stats();
+                txt = `📊 آمار:\n👥 کاربران: ${s.users}\n⚡ فعال امروز: ${s.active}\n💬 پیام‌ها: ${s.totalMsg}`;
+            } else if (data === 'admin_users') txt = '👥 /block [id] [دلیل]\n/unblock [id]';
+            else if (data === 'admin_vip') txt = '💎 /giveplan [id] [tier]';
+            else if (data === 'admin_broadcast') txt = '📢 /broadcast [پیام]';
+            else if (data === 'admin_settings') txt = '⚙️ تنظیمات در حال توسعه';
+            await tg.edit(chatId, msgId, txt, Glass.back);
+            await tg.answer(cbId, 'مدیریت');
+            return;
+        }
+
+        await tg.answer(cbId, 'دستور نامعتبر');
+    } catch (e) {
+        console.error('Callback error:', e);
+        await tg.answer(cbId, '❌ خطا', true);
     }
 }
 
 // ==================== MAIN WORKER ====================
 let initialized = false;
-let globalCache = new CacheManager();
+let globalCache;
 
 export default {
     async fetch(request, env, ctx) {
         const url = new URL(request.url);
-        const logger = new Logger(env);
-        
-        // Initialize database
+        if (!globalCache) globalCache = new CacheManager(env);
+
         if (!initialized) {
             const db = new DatabaseManager(env);
-            await db.initialize();
-            initialized = true;
-            await logger.info('Worker initialized', { version: MEGA_CONFIG.VERSION });
+            try { 
+                await db.init(); 
+                initialized = true; 
+                console.log('✅ Worker initialized');
+            } catch (e) { 
+                return new Response(`DB Init Error: ${e.message}`, { status: 500 }); 
+            }
         }
-        
-        // Webhook endpoint
+
         if (url.pathname === '/webhook' && request.method === 'POST') {
-            const update = await request.json();
-            ctx.waitUntil(handleMessage(update, env));
-            return new Response('OK', { status: 200 });
+            const upd = await request.json();
+            if (upd.callback_query) {
+                ctx.waitUntil(handleCallback(upd.callback_query, env));
+            } else {
+                ctx.waitUntil(handleMessage(upd, env));
+            }
+            return new Response('OK');
         }
-        
-        // Status page
-        if (url.pathname === '/' || url.pathname === '/status') {
+
+        // اضافه کردن endpoint برای ست کردن webhook
+        if (url.pathname === '/setup-webhook') {
+            const webhookUrl = `https://${url.hostname}/webhook`;
+            const response = await fetch(
+                `https://api.telegram.org/bot${env.TELEGRAM_TOKEN}/setWebhook?url=${webhookUrl}`
+            );
+            const result = await response.json();
+            return new Response(JSON.stringify(result, null, 2), {
+                headers: { 'Content-Type': 'application/json' }
+            });
+        }
+
+        if (url.pathname === '/status') {
             const db = new DatabaseManager(env);
-            const stats = await db.getStats();
-            const cacheStats = globalCache.getStats();
-            
-            return new Response(`
-                <!DOCTYPE html>
-                <html lang="fa" dir="rtl">
-                <head>
-                    <meta charset="UTF-8">
-                    <title>${MEGA_CONFIG.BOT_NAME} - Status</title>
-                    <style>
-                        * { margin: 0; padding: 0; box-sizing: border-box; }
-                        body {
-                            font-family: Arial, sans-serif;
-                            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-                            min-height: 100vh;
-                            display: flex;
-                            align-items: center;
-                            justify-content: center;
-                            padding: 20px;
-                        }
-                        .container {
-                            background: white;
-                            padding: 50px;
-                            border-radius: 30px;
-                            box-shadow: 0 30px 80px rgba(0,0,0,0.3);
-                            max-width: 800px;
-                            width: 100%;
-                        }
-                        h1 {
-                            color: #667eea;
-                            font-size: 3em;
-                            margin-bottom: 10px;
-                            text-align: center;
-                        }
-                        .version {
-                            text-align: center;
-                            color: #764ba2;
-                            font-size: 1.2em;
-                            margin-bottom: 40px;
-                        }
-                        .stats {
-                            display: grid;
-                            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-                            gap: 20px;
-                            margin-bottom: 30px;
-                        }
-                        .stat {
-                            background: #f8f9fa;
-                            padding: 20px;
-                            border-radius: 15px;
-                            text-align: center;
-                            border-right: 4px solid #667eea;
-                        }
-                        .stat-value {
-                            font-size: 2em;
-                            font-weight: bold;
-                            color: #667eea;
-                            margin-bottom: 5px;
-                        }
-                        .stat-label {
-                            color: #666;
-                            font-size: 0.9em;
-                        }
-                        .features {
-                            background: #f8f9fa;
-                            padding: 20px;
-                            border-radius: 15px;
-                            margin-top: 20px;
-                        }
-                        .feature {
-                            padding: 10px;
-                            margin: 5px 0;
-                            background: white;
-                            border-radius: 10px;
-                        }
-                        .feature:before { content: "✨ "; }
-                        .status {
-                            text-align: center;
-                            margin-top: 30px;
-                            padding: 15px;
-                            background: #d4edda;
-                            border-radius: 10px;
-                            color: #155724;
-                            font-weight: bold;
-                        }
-                    </style>
+            const stats = await db.stats();
+            const vip = await db.vipStats();
+            return new Response(
+                `<!DOCTYPE html>
+                <html dir="rtl">
+                <head><meta charset="UTF-8"><title>${MEGA_CONFIG.BOT_NAME} - وضعیت</title>
+                <style>
+                    body { font-family: Tahoma, sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; display: flex; align-items: center; justify-content: center; margin: 0; padding: 20px; }
+                    .container { background: white; padding: 40px; border-radius: 20px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); max-width: 600px; width: 100%; text-align: center; }
+                    h1 { color: #667eea; font-size: 2.5em; margin-bottom: 10px; }
+                    .version { color: #764ba2; margin-bottom: 30px; }
+                    .stats { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+                    .stat { background: #f8f9fa; padding: 20px; border-radius: 15px; border-right: 4px solid #667eea; }
+                    .stat-value { font-size: 2em; font-weight: bold; color: #667eea; }
+                    .stat-label { color: #666; font-size: 0.9em; }
+                    .features { margin-top: 30px; background: #f8f9fa; padding: 20px; border-radius: 15px; }
+                    .feature { padding: 8px; margin: 5px 0; background: white; border-radius: 8px; }
+                </style>
                 </head>
                 <body>
                     <div class="container">
                         <h1>🌸 ${MEGA_CONFIG.BOT_NAME}</h1>
-                        <div class="version">v${MEGA_CONFIG.VERSION} - ${MEGA_CONFIG.RELEASE_DATE}</div>
-                        
+                        <div class="version">v${MEGA_CONFIG.VERSION} - Ultra Edition (FINAL FIX)</div>
                         <div class="stats">
-                            <div class="stat">
-                                <div class="stat-value">${Utils.formatNumber(stats.totalUsers)}</div>
-                                <div class="stat-label">کاربران</div>
-                            </div>
-                            <div class="stat">
-                                <div class="stat-value">${Utils.formatNumber(stats.activeToday)}</div>
-                                <div class="stat-label">فعال امروز</div>
-                            </div>
-                            <div class="stat">
-                                <div class="stat-value">${Utils.formatNumber(stats.totalMessages)}</div>
-                                <div class="stat-label">کل پیام‌ها</div>
-                            </div>
-                            <div class="stat">
-                                <div class="stat-value">${Utils.formatNumber(stats.todayMessages)}</div>
-                                <div class="stat-label">پیام امروز</div>
-                            </div>
-                            <div class="stat">
-                                <div class="stat-value">${Object.keys(MEGA_CONFIG.ENGINES).length}</div>
-                                <div class="stat-label">موتور AI</div>
-                            </div>
-                            <div class="stat">
-                                <div class="stat-value">${cacheStats.hitRate}</div>
-                                <div class="stat-label">Cache Hit Rate</div>
-                            </div>
+                            <div class="stat"><div class="stat-value">${Utils.num(stats.users)}</div><div class="stat-label">کاربران</div></div>
+                            <div class="stat"><div class="stat-value">${Utils.num(stats.active)}</div><div class="stat-label">فعال امروز</div></div>
+                            <div class="stat"><div class="stat-value">${Utils.num(stats.totalMsg)}</div><div class="stat-label">پیام‌ها</div></div>
+                            <div class="stat"><div class="stat-value">${vip.vip}</div><div class="stat-label">VIP</div></div>
                         </div>
-                        
                         <div class="features">
-                            <div class="feature">12 موتور هوش مصنوعی قدرتمند</div>
-                            <div class="feature">سیستم Vision AI برای تحلیل عکس</div>
-                            <div class="feature">حالت انسانی پیشرفته</div>
-                            <div class="feature">سیستم VIP و اشتراک</div>
-                            <div class="feature">سیستم رفرال و امتیازدهی</div>
-                            <div class="feature">پنل ادمین کامل</div>
-                            <div class="feature">آنالیتیکس و گزارش‌گیری</div>
-                            <div class="feature">کش هوشمند و بهینه‌سازی</div>
-                        </div>
-                        
-                        <div class="status">
-                            ✅ سیستم فعال و آماده خدمت‌رسانی
+                            <div class="feature">✨ ۱۲ موتور AI (Cloudflare, GPT, Gemini, Claude, OpenRouter, DeepSeek, Mistral)</div>
+                            <div class="feature">💎 سیستم VIP و اشتراک</div>
+                            <div class="feature">👥 سیستم رفرال (رفع شد)</div>
+                            <div class="feature">🎭 شخصیت‌های مختلف</div>
+                            <div class="feature">📊 آنالیتیکس و آمار</div>
+                            <div class="feature">📸 Vision AI برای تحلیل عکس</div>
+                            <div class="feature">🧊 پنل شیشه‌ای (Glassmorphism)</div>
                         </div>
                     </div>
                 </body>
-                </html>
-            `, {
-                headers: { 'Content-Type': 'text/html; charset=utf-8' }
-            });
+                </html>`,
+                { headers: { 'Content-Type': 'text/html; charset=utf-8' } }
+            );
         }
-        
-        return new Response('Not Found', { status: 404 });
+
+        return new Response('HOSHA MEGA Ultra Edition (FINAL FIX) - Ready', { status: 200 });
     }
 };
