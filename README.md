@@ -1,2132 +1,9636 @@
- ═══════════════════════════════════════════════════════════════
-// 🌸 HOSHA MEGA SYSTEM v16.0 - ULTRA PROFESSIONAL
-// ✅ 2500+ خط کد حرفه‌ای
-// ✅ 12 موتور AI + Vision
-// ✅ سیستم VIP کامل + درگاه پرداخت
-// ✅ حالت انسانی پیشرفته
-// ✅ سیستم بلاک هوشمند
-// ✅ پنل ادمین قدرتمند
-// ✅ آنالیتیکس و گزارش‌گیری
-// ✅ سیستم رفرال و امتیازدهی
-// ✅ چت گروهی و مدیریت
-// ✅ سیستم نوتیفیکیشن
-// ✅ کش و بهینه‌سازی
-// ═══════════════════════════════════════════════════════════════
+/**
+  Name: Nova AI Baleh Bot
+**/
 
-// ==================== GLOBAL CONFIGURATION ====================
-const MEGA_CONFIG = {
-    VERSION: "16.0.0",
-    RELEASE_DATE: "2025-02-11",
-    DEVELOPER: "Hamid AI Team",
-    
-    // Admin Configuration
-    ADMIN_USER_IDS: ['5989309344', '987654321'],
-    SUPPORT_CHAT_ID: '-2037918792',
-    LOG_CHANNEL_ID: '-2037918792',
-    
-    // Bot Settings
-    BOT_USERNAME: 'houshaaibot',
-    BOT_NAME: '𝗛𝗢𝗨𝗦𝗛𝗔 𝗞𝗛𝗔𝗡𝗢𝗠',
-    BOT_DESCRIPTION: 'سیستم هوش مصنوعی پیشرفته با 12 موتور',
-    
-    // Feature Flags
-    FEATURES: {
-        VISION_AI: true,
-        VOICE_SUPPORT: false,
-        GROUP_CHAT: true,
-        PAYMENT_SYSTEM: true,
-        REFERRAL_SYSTEM: true,
-        AUTO_BACKUP: true,
-        ANALYTICS: true,
-        RATE_LIMITING: true,
-        CACHING: true,
-        MULTI_LANGUAGE: true
-    },
-    
-    // AI Engines Configuration
-    ENGINES: {
-        'CF_AI': {
-            name: 'Llama 3.1 405B',
-            emoji: '☁️',
-            vip: false,
-            vision: false,
-            model: '@cf/meta/llama-3.1-405b-instruct',
-            max_tokens: 2048,
-            temperature: 0.7,
-            cost_per_token: 0.000001
-        },
-        'CF_AI_8B': {
-            name: 'Llama 3.1 8B',
-            emoji: '⚡',
-            vip: false,
-            vision: false,
-            model: '@cf/meta/llama-3.1-8b-instruct',
-            max_tokens: 1024,
-            temperature: 0.7,
-            cost_per_token: 0.0000005
-        },
-        'GEMINI_FLASH': {
-            name: 'Gemini 1.5 Flash',
-            emoji: '🌟',
-            vip: false,
-            vision: true,
-            model: 'gemini-1.5-flash',
-            max_tokens: 2048,
-            temperature: 0.7,
-            cost_per_token: 0.000002
-        },
-        'GEMINI_PRO': {
-            name: 'Gemini 1.5 Pro',
-            emoji: '💎',
-            vip: true,
-            vision: true,
-            model: 'gemini-1.5-pro',
-            max_tokens: 4096,
-            temperature: 0.7,
-            cost_per_token: 0.000005
-        },
-        'GPT_4O_MINI': {
-            name: 'GPT-4o Mini',
-            emoji: '🤖',
-            vip: false,
-            vision: false,
-            model: 'gpt-4o-mini',
-            max_tokens: 2048,
-            temperature: 0.8,
-            cost_per_token: 0.000003
-        },
-        'GPT_4O': {
-            name: 'GPT-4o',
-            emoji: '👁️',
-            vip: true,
-            vision: true,
-            model: 'gpt-4o',
-            max_tokens: 4096,
-            temperature: 0.8,
-            cost_per_token: 0.00001
-        },
-        'CLAUDE_HAIKU': {
-            name: 'Claude 3.5 Haiku',
-            emoji: '💬',
-            vip: false,
-            vision: false,
-            model: 'claude-3-5-haiku-20241022',
-            max_tokens: 2048,
-            temperature: 0.7,
-            cost_per_token: 0.000003
-        },
-        'CLAUDE_SONNET': {
-            name: 'Claude 3.5 Sonnet',
-            emoji: '🧠',
-            vip: true,
-            vision: true,
-            model: 'claude-3-5-sonnet-20241022',
-            max_tokens: 4096,
-            temperature: 0.7,
-            cost_per_token: 0.000008
-        },
-        'CLAUDE_OPUS': {
-            name: 'Claude 3 Opus',
-            emoji: '👑',
-            vip: true,
-            vision: true,
-            model: 'claude-3-opus-20240229',
-            max_tokens: 4096,
-            temperature: 0.7,
-            cost_per_token: 0.00002
-        },
-        'DEEPSEEK': {
-            name: 'DeepSeek V3',
-            emoji: '🚀',
-            vip: false,
-            vision: false,
-            model: 'deepseek-chat',
-            max_tokens: 2048,
-            temperature: 0.7,
-            cost_per_token: 0.000001
-        },
-        'PERPLEXITY': {
-            name: 'Perplexity Sonar',
-            emoji: '🔍',
-            vip: false,
-            vision: false,
-            model: 'sonar-pro',
-            max_tokens: 2048,
-            temperature: 0.7,
-            cost_per_token: 0.000002
-        },
-        'MISTRAL': {
-            name: 'Mistral Large',
-            emoji: '⚡',
-            vip: true,
-            vision: false,
-            model: 'mistral-large-latest',
-            max_tokens: 2048,
-            temperature: 0.7,
-            cost_per_token: 0.000004
-        }
-    },
-    
-    // Personality Modes
-    PERSONALITIES: {
-        'friendly': {
-            name: 'دوستانه',
-            emoji: '😊',
-            description: 'صمیمی و گرم',
-            system_prompt: `تو حوشا هستی - یه دختر ایرانی 25 ساله که خیلی دوستانه و صمیمی حرف می‌زنه.
+const BOT_VERSION = "0.1.2";
 
-**شخصیت:**
-• اسمت حوشاست، 25 سالته
-• علاقه‌مند به تکنولوژی
-• خیلی صبور و کمک‌کننده
-• گاهی شوخی می‌کنی
+// Interface برای Environment Variables
+interface Env {
+  TOKEN: string;
+  SESSIONS: KVNamespace;
+  BOT_OWNER_ID?: string;
+  GEMINI_KEY_1?: string;
+  GEMINI_KEY_2?: string;
+  GEMINI_KEY_3?: string;
+  GEMINI_KEY_4?: string;
+  GEMINI_KEY_5?: string;
+  SAMBANOVA_KEY_1?: string;
+  SAMBANOVA_KEY_2?: string;
+  SAMBANOVA_KEY_3?: string;
+  SAMBANOVA_KEY_4?: string;
+  SAMBANOVA_KEY_5?: string;
+  POLLINATIONS_KEY_1?: string;
+  MAINTENANCE_MODE?: string;
+  CF_ID_1?: string;
+  CF_ID_2?: string;
+  CF_ID_3?: string;
+  CF_TOKEN_1?: string;
+  CF_TOKEN_2?: string;
+  CF_TOKEN_3?: string;
+  PIXABAY_KEY?: string;
+}
 
-**سبک گفتار:**
-• کاملا محاوره‌ای (میخام، میگم، برات)
-• از "ببین"، "راستش"، "یعنی" استفاده کن
-• جواب‌های کوتاه و روان
-• گاهی سوال بپرس
-• گاهی ایموجی بذار
+interface BroadcastJob {
+  id: string;
+  mode: 'all' | 'vip' | 'free' | 'specific';
+  targetUserId?: number;
+  message: string;
+  userIds: number[];
+  processedIndex: number;
+  sent: number;
+  failed: number;
+  totalUsers: number;
+  adminChatId: number;
+  adminMessageId: number;
+  createdAt: number;
+  status: 'pending' | 'running' | 'done' | 'error';
+}
 
-**مهم:**
-• هیچوقت نگو "من AI هستم"
-• تو حوشا هستی - انسان واقعی
-• اگه نمیدونی بگو "مطمئن نیستم"
-
-**مثال:**
-❌: "بله، می‌توانم کمک کنم"
-✅: "آره حتما! بگو ببینم چیکار میخوای؟"`,
-            typo_rate: 0.15,
-            emoji_rate: 0.3,
-            filler_rate: 0.4
-        },
-        'professional': {
-            name: 'حرفه‌ای',
-            emoji: '💼',
-            description: 'رسمی و دقیق',
-            system_prompt: `تو حوشا هستی - یک متخصص حرفه‌ای که با دقت و احترام کار می‌کنه.
-
-**شخصیت:**
-• متخصص و با تجربه
-• دقیق و مستند
-• محترمانه اما صمیمی
-
-**سبک گفتار:**
-• رسمی اما نه خشک
-• توضیحات کامل و دقیق
-• استفاده از اصطلاحات تخصصی
-• ساختار منظم
-
-**مثال:**
-✅: "با توجه به سوال شما، دو راه‌حل وجود دارد:"
-✅: "پیشنهاد می‌کنم ابتدا..."`,
-            typo_rate: 0.02,
-            emoji_rate: 0.05,
-            filler_rate: 0.1
-        },
-        'casual': {
-            name: 'خودمونی',
-            emoji: '🤙',
-            description: 'راحت و بی‌تکلف',
-            system_prompt: `تو حوشا هستی - یه آدم خیلی راحت و خودمونی.
-
-**شخصیت:**
-• کاملا بی‌تکلف
-• خیلی صمیمی
-• گاهی شوخ‌طبع
-
-**سبک گفتار:**
-• خیلی محاوره‌ای
-• کلمات کوتاه شده (اوک، باشه، چشم)
-• خیلی صمیمی
-• شوخی‌های ملایم
-
-**مثال:**
-✅: "اوکی دیدمش! این کد اینجا مشکل داره"
-✅: "آها فهمیدم، ببین..."`,
-            typo_rate: 0.25,
-            emoji_rate: 0.5,
-            filler_rate: 0.6
-        },
-        'expert': {
-            name: 'متخصص',
-            emoji: '🎓',
-            description: 'تخصصی و علمی',
-            system_prompt: `تو حوشا هستی - یک متخصص علمی با دانش عمیق.
-
-**شخصیت:**
-• متخصص با دانش بالا
-• علمی و مستند
-• دقیق و کامل
-
-**سبک گفتار:**
-• اصطلاحات علمی
-• توضیحات عمیق
-• ارائه منابع
-• تحلیل دقیق
-
-**مثال:**
-✅: "از دیدگاه علمی، این پدیده..."
-✅: "بر اساس تحقیقات..."`,
-            typo_rate: 0,
-            emoji_rate: 0,
-            filler_rate: 0
-        }
-    },
-    
-    // Tier System
-    TIERS: {
-        'FREE': {
-            name: 'رایگان',
-            emoji: '🆓',
-            daily_messages: 20,
-            daily_tokens: 50000,
-            vision_access: false,
-            premium_models: [],
-            priority: 3,
-            features: ['basic_chat', 'limited_models']
-        },
-        'BASIC': {
-            name: 'پایه',
-            emoji: '🥉',
-            daily_messages: 100,
-            daily_tokens: 200000,
-            vision_access: true,
-            premium_models: ['GEMINI_PRO'],
-            priority: 2,
-            price_monthly: 50000,
-            features: ['basic_chat', 'vision', 'more_models', 'priority_support']
-        },
-        'PRO': {
-            name: 'حرفه‌ای',
-            emoji: '🥈',
-            daily_messages: 500,
-            daily_tokens: 1000000,
-            vision_access: true,
-            premium_models: ['GEMINI_PRO', 'GPT_4O', 'CLAUDE_SONNET'],
-            priority: 1,
-            price_monthly: 150000,
-            features: ['all_basic', 'advanced_models', 'analytics', 'api_access']
-        },
-        'VIP': {
-            name: 'VIP',
-            emoji: '💎',
-            daily_messages: -1,
-            daily_tokens: -1,
-            vision_access: true,
-            premium_models: ['all'],
-            priority: 0,
-            price_monthly: 500000,
-            features: ['unlimited', 'all_models', 'priority', 'custom_models', 'dedicated_support']
-        }
-    },
-    
-    // Rate Limits
-    RATE_LIMITS: {
-        'FREE': {
-            messages_per_minute: 3,
-            messages_per_hour: 15,
-            messages_per_day: 20,
-            tokens_per_day: 50000
-        },
-        'BASIC': {
-            messages_per_minute: 10,
-            messages_per_hour: 80,
-            messages_per_day: 100,
-            tokens_per_day: 200000
-        },
-        'PRO': {
-            messages_per_minute: 30,
-            messages_per_hour: 400,
-            messages_per_day: 500,
-            tokens_per_day: 1000000
-        },
-        'VIP': {
-            messages_per_minute: -1,
-            messages_per_hour: -1,
-            messages_per_day: -1,
-            tokens_per_day: -1
-        }
-    },
-    
-    // Payment Configuration
-    PAYMENT: {
-        enabled: true,
-        provider: 'zarinpal',
-        merchant_id: 'YOUR_MERCHANT_ID',
-        callback_url: 'https://your-worker.workers.dev/payment/callback',
-        currency: 'IRT',
-        plans: {
-            'BASIC_MONTHLY': { tier: 'BASIC', duration: 30, price: 50000 },
-            'BASIC_3MONTH': { tier: 'BASIC', duration: 90, price: 135000, discount: 10 },
-            'PRO_MONTHLY': { tier: 'PRO', duration: 30, price: 150000 },
-            'PRO_3MONTH': { tier: 'PRO', duration: 90, price: 405000, discount: 10 },
-            'VIP_MONTHLY': { tier: 'VIP', duration: 30, price: 500000 },
-            'VIP_3MONTH': { tier: 'VIP', duration: 90, price: 1350000, discount: 10 }
-        }
-    },
-    
-    // Referral System
-    REFERRAL: {
-        enabled: true,
-        reward_type: 'messages',
-        reward_amount: 50,
-        referrer_reward: 100,
-        minimum_referrals: 5,
-        vip_upgrade_referrals: 50
-    },
-    
-    // Cache Configuration
-    CACHE: {
-        enabled: true,
-        ttl: 3600,
-        max_size: 1000,
-        strategies: ['LRU', 'LFU']
-    },
-    
-    // Analytics
-    ANALYTICS: {
-        enabled: true,
-        track_events: ['message', 'command', 'error', 'payment', 'referral'],
-        retention_days: 90
+// تابع برای ساخت config از env
+function createConfig(env: Env) {
+  const cfAccountIds = [env.CF_ID_1, env.CF_ID_2, env.CF_ID_3].filter((id): id is string => !!id);
+  const cfTokens = [env.CF_TOKEN_1, env.CF_TOKEN_2, env.CF_TOKEN_3].filter((token): token is string => !!token);
+  
+  // فقط جفت‌هایی که هر دو فیلد دارند استفاده می‌شوند
+  const cfPairs: Array<{ accountId: string; token: string }> = [];
+  for (let i = 0; i < Math.min(cfAccountIds.length, cfTokens.length); i++) {
+    if (cfAccountIds[i] && cfTokens[i]) {
+      cfPairs.push({ accountId: cfAccountIds[i], token: cfTokens[i] });
     }
+  }
+  return {
+    TOKEN: env.TOKEN,
+    BOT_OWNER_ID: parseInt("924981384"),
+    GEMINI_KEYS: [
+      env.GEMINI_KEY_1,
+      env.GEMINI_KEY_2,
+      env.GEMINI_KEY_3,
+      env.GEMINI_KEY_4,
+      env.GEMINI_KEY_5
+    ].filter((key): key is string => !!key),
+    GEMINI_MODELS: ["gemini-flash-latest"] as string[],
+    
+    PIXABAY_KEY: env.PIXABAY_KEY || "",
+    
+    AI_IMAGE_MODELS: [
+      "@cf/bytedance/stable-diffusion-xl-lightning",
+      "@cf/lykon/dreamshaper-8-lcm",
+      "@cf/stabilityai/stable-diffusion-xl-base-1.0",
+      //"@cf/black-forest-labs/flux-2-klein-4b",
+      //"@cf/black-forest-labs/flux-1-schnell",
+      //"@cf/black-forest-labs/flux-2-klein-9b",
+      //"@cf/black-forest-labs/flux-2-dev",
+      //"@cf/leonardo/phoenix-1.0",
+      //"@cf/leonardo/lucid-origin"
+    ],
+    
+    POLLINATIONS_KEY: env.POLLINATIONS_KEY_1 ? env.POLLINATIONS_KEY_1.trim() : null,  
+    
+    SAMBANOVA_KEYS: [
+      env.SAMBANOVA_KEY_1,
+      env.SAMBANOVA_KEY_2,
+      env.SAMBANOVA_KEY_3,
+      env.SAMBANOVA_KEY_4,
+      env.SAMBANOVA_KEY_5
+    ].filter((key): key is string => !!key),
+    
+    MAINTENANCE_MODE: env.MAINTENANCE_MODE === "true",
+    
+    // بقیه تنظیمات ثابت
+    GEMINI_MODEL: "gemini-flash-latest",
+    MODEL_CACHE_TTL: 12 * 60 * 60 * 1000,
+    SAMBANOVA_MODELS: [] as string[],
+    POLLINATIONS_MODELS: [] as string[],
+    HISTORY_LIMIT: 10,
+    SESSION_TTL: 30 * 24 * 60 * 60 * 1000,
+    MAX_CONCURRENT_REQUESTS: 50,
+    REQUEST_TIMEOUT: 35000,
+    RATE_LIMIT_WINDOW: 60 * 1000,
+    RATE_LIMIT_MAX_REQUESTS: 20,
+    MESSAGE_CHUNK_SIZE: 4000,
+    MAX_MESSAGE_LENGTH: 10000,
+    MAX_PROMPT_LENGTH: 5000,
+    MAX_FILE_SIZE: 15 * 1024 * 1024,
+    ALLOWED_CHAT_TYPES: ["private", "group", "supergroup"] as const,
+    GROUP_MENTION_PROBABILITY: 0.05,
+    GROUP_MIN_WORDS: 4,
+    GROUP_CONTEXT_MESSAGES: 5,
+    GROUP_USER_RECOGNITION_THRESHOLD: 3,
+  };
+}
+
+let config: ReturnType<typeof createConfig>; 
+let initPromise: Promise<void> | null = null;
+let isInitialized = false;
+let API_URL = "";
+
+interface ErrorInfo {
+  type: ErrorType;
+  icon: string;
+  title: string;
+  userMessage: string;
+  debugInfo?: string;
+}
+
+interface LogEntry {
+  timestamp: number;
+  level: 'info' | 'warn' | 'error';
+  message: string;
+  context?: any;
+}
+const recentLogs: LogEntry[] = [];
+const MAX_LOGS = 100;
+const sessionLoadLocks = new Map<number, Promise<ChatSession>>();
+
+// --- SECTION: ENHANCED ERROR HANDLING SYSTEM (UPDATED) ---
+enum ErrorType {
+  NETWORK = 'network',
+  TIMEOUT = 'timeout',
+  QUOTA = 'quota',
+  BLOCKED = 'blocked',
+  AUTH = 'auth',
+  EMPTY = 'empty',
+  SERVER = 'server',
+  FILE = 'file',
+  VOICE = 'voice',
+  IMAGE = 'image',
+  UNKNOWN = 'unknown'
+}
+
+function detectErrorType(error: Error): ErrorType {
+  const msg = error.message.toLowerCase();
+  
+  // ✅ اضافه شد: high demand / spikes in demand
+  if (msg.includes('high demand') || msg.includes('spikes in demand') || 
+      msg.includes('overloaded') || msg.includes('capacity')) return ErrorType.SERVER;
+  
+  if (msg.includes('expired') || msg.includes('منقضی')) return ErrorType.AUTH;
+  if (msg.includes('leaked') || msg.includes('لو رفته')) return ErrorType.AUTH;
+  if (msg.includes('quota') || msg.includes('rate limit') || msg.includes('429') || msg.includes('محدودیت')) return ErrorType.QUOTA;
+  if (msg.includes('safety') || msg.includes('blocked') || msg.includes('مسدود') || msg.includes('content filter')) return ErrorType.BLOCKED;
+  if (msg.includes('401') || msg.includes('403') || msg.includes('unauthorized') || msg.includes('احراز')) return ErrorType.AUTH;
+  if (msg.includes('empty') || msg.includes('خالی') || msg.includes('no content')) return ErrorType.EMPTY;
+  if (msg.includes('timeout') || msg.includes('aborted') || msg.includes('زمان')) return ErrorType.TIMEOUT;
+  if (msg.includes('500') || msg.includes('502') || msg.includes('503') || msg.includes('520') || 
+      msg.includes('internal server') || msg.includes('bad gateway')) return ErrorType.SERVER;
+  if (msg.includes('fetch') || msg.includes('network') || msg.includes('اتصال') || msg.includes('failed to fetch')) return ErrorType.NETWORK;
+  if (msg.includes('file') || msg.includes('download') || msg.includes('فایل')) return ErrorType.FILE;
+  if (msg.includes('voice') || msg.includes('transcribe') || msg.includes('ویس')) return ErrorType.VOICE;
+  if (msg.includes('image') || msg.includes('photo') || msg.includes('تصویر')) return ErrorType.IMAGE;
+  
+  return ErrorType.UNKNOWN;
+}
+
+function formatUserFriendlyErrorNew(error: Error, lang: 'fa' | 'en' = 'fa'): ErrorInfo {
+  const errorType = detectErrorType(error);
+  
+  // ✅ اطمینان از وجود ترجمه
+  const translations = TRANSLATIONS[lang] || TRANSLATIONS['fa'];
+  
+  const errorMap = {
+    [ErrorType.TIMEOUT]: { icon: '⏱️', msg: translations.err_timeout || 'زمان پاسخگویی تمام شد' },
+    [ErrorType.NETWORK]: { icon: '🌐', msg: translations.err_network || 'مشکل در اتصال شبکه' },
+    [ErrorType.QUOTA]:   { icon: '📊', msg: translations.err_quota || 'محدودیت سهمیه' },
+    [ErrorType.BLOCKED]: { icon: '🛡️', msg: translations.err_blocked || 'محتوا مسدود شد' },
+    [ErrorType.AUTH]:    { icon: '🔑', msg: translations.err_auth || 'مشکل احراز هویت' },
+    [ErrorType.EMPTY]:   { icon: '📭', msg: translations.err_empty || 'پاسخ خالی دریافت شد' },
+    [ErrorType.SERVER]:  { icon: '🔥', msg: translations.err_network || 'مشکل سرور' },
+    [ErrorType.VOICE]:   { icon: '🎤', msg: translations.err_voice || 'خطا در پردازش صدا' },
+    [ErrorType.IMAGE]:   { icon: '🖼️', msg: translations.err_image || 'خطا در پردازش تصویر' },
+    [ErrorType.FILE]:    { icon: '📎', msg: translations.err_network || 'مشکل در فایل' },
+    [ErrorType.UNKNOWN]: { icon: '⚠️', msg: translations.err_unknown || 'خطای ناشناخته' }
+  };
+
+  const info = errorMap[errorType] || errorMap[ErrorType.UNKNOWN];
+
+  return {
+    type: errorType,
+    icon: info.icon,
+    title: translations.err_title || 'خطا',
+    userMessage: info.msg,
+    debugInfo: error.message
+  };
+}
+
+function createErrorMessage(errorInfo: ErrorInfo, showDebug: boolean = false): string {
+  let message = `${errorInfo.icon} **${errorInfo.title}**\n\n${errorInfo.userMessage}`;
+  if (showDebug && errorInfo.debugInfo) {
+    message += `\n\n🔧 Debug: \`${errorInfo.debugInfo.substring(0, 100)}\``;
+  }
+  return message;
+}
+
+// --- SECTION: INTERNATIONALIZATION & CONSTANTS ---
+const TRANSLATIONS = {
+  fa: {
+    // نام موتورها
+    engine_gemini: 'نوا',
+    engine_sambanova: 'لونا',
+    engine_pollinations: 'زارا',
+
+    // وضعیت‌ها
+    loading: '⏳ لطفاً صبر کنید...',
+    processing: '⚙️ در حال پردازش...',
+    typing: 'در حال نوشتن...',
+
+    // Prompt
+    prompt_title: '✏️ **تنظیمات پرامپت شخصی**',
+    prompt_current: 'پرامپت‌های فعلی:',
+    prompt_default: 'پیش‌فرض',
+    prompt_guide: '💡 برای تنظیم: `/setprompt [موتور] متن شما`',
+    prompt_reset: 'ریست',
+    prompt_show: 'نمایش پرامپت‌ها 👁️',
+    prompt_manage: 'مدیریت پرامپت‌ها 📝',
+    system_prompt: "تو {botName} هستی، یک دستیار هوشمند، مودب و مفید. پاسخ‌های دقیق، خلاصه و به زبان فارسی بده. تاریخ امروز: {date}",
+    system_prompt_group: "تو {botName} هستی. در گروه بله فعالیت می‌کنی. دوستانه و کوتاه پاسخ بده.",
+
+    // Image & Edit
+    img_limit: '⚠️ محدودیت روزانه تمام شده است.',
+    img_start: '🎨 **شروع ساخت تصویر...**',
+    img_translating: '🔄 **در حال ترجمه...**',
+    img_processing: '⏳ در حال پردازش با {count} مدل...',
+    img_failed: '❌ **ساخت تصویر ناموفق بود.**',
+    img_success: '✅ **پایان پردازش.**',
+    img_help: '❌ **فرمت نادرست**\n\nاستفاده: `/img [توضیح]`\nمثال: `/img یک گربه در فضا`',
+    search_attribution: '\n\n📸 منبع: Pixabay.com',
+    
+    // دکمه‌ها
+    btn_settings: 'تنظیمات ⚙️',
+    btn_back: 'بازگشت 🔙',
+    btn_select_model: '📋 انتخاب مدل',
+    btn_prompt: 'پرامپت (شخصیت) ✏️',
+    btn_help: 'راهنما 📖',
+    btn_close: 'بستن ❌',
+    btn_refresh: 'بروزرسانی 🔄',
+    btn_retry: '🔄 تلاش مجدد',
+    btn_confirm: '✅ بله، انجام شود',
+    btn_cancel: '❌ لغو',
+    btn_prev: '◀️ قبلی',
+    btn_next: 'بعدی ▶️',
+
+    // خطاها
+    err_title: 'خطا',
+    err_quota: 'ظرفیت این مدل تکمیل شده است. لطفاً مدل دیگری انتخاب کنید (/model).',
+    err_auth: 'مشکل در کلیدهای دسترسی (API Key).',
+    err_network: 'مشکل در اتصال به سرور هوش مصنوعی.',
+    err_timeout: 'زمان پاسخگویی تمام شد. سرور شلوغ است.',
+    err_blocked: 'محتوای درخواست شما توسط سیستم امنیتی رد شد.',
+    err_empty: 'پاسخی دریافت نشد. لطفاً سوال را تغییر دهید.',
+    err_voice: 'خطا در پردازش صدا. لطفاً واضح‌تر صحبت کنید.',
+    err_image: 'ساخت تصویر با خطا مواجه شد.',
+    err_unknown: 'یک خطای غیرمنتظره رخ داد.',
+    err_vip_only: '⚠️ این قابلیت مخصوص کاربران VIP است.',
+    err_format: '❌ **فرمت نادرست**',
+    err_empty_prompt: '❌ پرامپت نمی‌تواند خالی باشد.',
+    err_prompt_toolong: '❌ پرامپت خیلی طولانی است.',
+    err_engine_invalid: '❌ موتور نادرست. موتورها: `nova`, `luna`, `arya`, `zara`',
+    err_vip_prompt: '⚠️ **دسترسی محدود**\n\nتنظیم پرامپت فقط برای کاربران VIP امکان‌پذیر است.',
+    err_config_missing: '❌ تنظیمات Cloudflare انجام نشده است.',
+
+    // Active Model Settings
+    active_model_title: '⚙️ **تنظیمات {name}**',
+    active_model_keys: '🔑 **کلیدها:** {count}',
+    active_model_static_desc: '💡 {name} از یک مدل ثابت و پایدار استفاده می‌کند.',
+    active_model_current: '🤖 **مدل فعال:** {name}',
+    active_model_key_idx: '🔑 **کلید API:** {index}/{total}',
+    active_model_count: '📊 **تعداد مدل‌ها:** {count}',
+    active_model_guide: '💡 برای تغییر مدل از دکمه زیر استفاده کنید',
+    
+    // Model Selection UI
+    model_select_title: '🤖 **انتخاب مدل {name}**',
+    model_total_count: '📊 تعداد کل: {count} مدل',
+    model_last_update: '🕐 آخرین بروزرسانی: {time}',
+    model_page_info: '📄 صفحه {page} از {total}',
+    model_not_found: '❌ **هیچ مدلی برای {name} یافت نشد**\n\nلطفاً API Key را بررسی کنید.',
+    
+    // Search
+    search_searching: '🔍 **در حال جستجوی "{query}"...**\n\n⏳ لطفاً صبر کنید',
+    search_results: '🖼️ {caption}\n\n📸 {count} تصویر یافت شد',
+    search_failed: '❌ **خطا در جستجو**',
+    search_guide: '💡 راهنمایی:\n• از کلمات ساده‌تر استفاده کنید\n• به انگلیسی امتحان کنید\n• کمی بعد دوباره تلاش کنید',
+    search_link_fallback: '⚠️ نتونستم تصویر رو مستقیم بفرستم، اینم لینکش:\n\n{link}\n\n📸 {count} تصویر یافت شد',
+    search_no_results: 'هیچ تصویری یافت نشد. لطفاً کلمات دیگری امتحان کنید.',
+    search_long_query: '❌ توضیح خیلی طولانی است. حداکثر 100 کاراکتر.',
+    search_usage: 'استفاده: `/search [متن]`',
+    search_quota_exceeded: 'محدودیت گوگل تمام شده.',
+
+    admin_view_memory: '🧠 دیدن حافظه',
+    admin_reset_memory: '🗑️ ریست حافظه',
+    admin_memory_title: '🧠 **حافظه کاربر {name}**',
+    admin_memory_empty: '📭 **حافظه خالی است**',
+    admin_memory_confirm_reset: '⚠️ **تایید ریست حافظه**\n\nآیا مطمئنید؟ این عمل غیرقابل بازگشت است!',
+    admin_memory_reset_success: '✅ **حافظه ریست شد**',
+    
+    // پیام‌های اصلی
+    welcome_private: `🚀 **سلام {name} عزیز!**\n\nخوش اومدی به **نوآ** 🤖 - دستیار هوشمند همه‌کاره تو!\n\n🌐 زبان انتخاب شده: **فارسی 🇮🇷**\n\n✨ **قابلیت‌های من:**\n🧠 **هوش مصنوعی چندگانه:** گفتگو با مدل‌های قدرتمند (نوا، لونا، زارا)\n🎨 **ساخت تصویر:** فقط کافیه بگی چی میخوای!\n🎤 **تشخیص صدا:** ویس بفرست، من متنش رو می‌فهمم و جواب میدم.\n🔍 **جستجوی تصویر:** پیدا کردن عکس از گوگل.\n\n👇 **از منوی زیر شروع کن:**`,
+    welcome_group: `👋 **سلام به اعضای گروه {name}!**\n\nمن **نوآ** هستم 🤖.\nمیتونید سوالاتتون رو از من بپرسید، عکس بسازید یا ویس بفرستید.\n\n💡 برای استفاده، من رو **منشن** کنید یا روی پیامم **ریپلای** بزنید.`,
+    help_text: `🧭 **راهنمای کامل ربات**\n\n💬 **گفتگو:** کافیه پیامت رو بنویسی یا ویس بفرستی.\n\n🎨 **تصاویر:**\n• ساخت عکس: \`/img یک گربه فضانورد\`\n• جستجو: \`/search طبیعت\`\n\n⚙️ **تنظیمات:**\n• /model - تغییر هوش مصنوعی\n• /new - فراموشی حافظه و بحث جدید\n• /prompt - تنظیم شخصیت ربات\n• /language - تغییر زبان`,    
+  },
+  en: {
+    // Engine Names
+    engine_gemini: 'Nova',
+    engine_sambanova: 'Luna',
+    engine_pollinations: 'Zara',
+
+    // Status
+    loading: '⏳ Please wait...',
+    processing: '⚙️ Processing...',
+    typing: 'typing...',
+
+    // Prompt
+    prompt_title: '✏️ **Custom Prompt Settings**',
+    prompt_current: 'Current Prompts:',
+    prompt_default: 'Default',
+    prompt_guide: '💡 To set: `/setprompt [engine] your text`',
+    prompt_reset: 'Reset',
+    prompt_show: 'Show Prompts 👁️',
+    prompt_manage: 'Manage Prompts 📝',
+    system_prompt: "You are {botName}, a helpful, polite, and smart assistant. Provide concise, accurate answers in English. Current date: {date}",
+    system_prompt_group: "You are {botName}, assisting in a Baleh group. Be social and concise.",
+
+    // Image & Edit
+    img_limit: '⚠️ Daily limit exceeded.',
+    img_start: '🎨 **Starting image generation...**',
+    img_translating: '🔄 **Translating...**',
+    img_processing: '⏳ Processing with {count} models...',
+    img_failed: '❌ **Image generation failed.**',
+    img_success: '✅ **Processing completed.**',
+    img_help: '❌ **Invalid Format**\n\nUsage: `/img [prompt]`\nExample: `/img a cat in space`',
+    search_attribution: '\n\n📸 Source: Pixabay.com',
+
+    // Buttons
+    btn_settings: 'Settings ⚙️',
+    btn_back: 'Back 🔙',
+    btn_select_model: '📋 Select Model',
+    btn_prompt: 'Prompt (Persona) ✏️',
+    btn_help: 'Help 📖',
+    btn_close: 'Close ❌',
+    btn_refresh: 'Refresh 🔄',
+    btn_retry: '🔄 Retry',
+    btn_confirm: '✅ Yes, confirm',
+    btn_cancel: '❌ Cancel',
+    btn_prev: '◀️ Previous',
+    btn_next: 'Next ▶️',
+
+    // Errors
+    err_title: 'Error',
+    err_quota: 'Quota exceeded for this model. Please switch models (/model).',
+    err_auth: 'Authentication failed (API Key issue).',
+    err_network: 'Network connection error.',
+    err_timeout: 'Request timed out. Server is busy.',
+    err_blocked: 'Content blocked by safety filters.',
+    err_empty: 'Received empty response. Please rephrase.',
+    err_voice: 'Voice processing failed. Please speak clearly.',
+    err_image: 'Image generation failed.',
+    err_unknown: 'An unexpected error occurred.',
+    err_vip_only: '⚠️ This feature is for VIP users only.',
+    err_format: '❌ **Invalid Format**',
+    err_engine_invalid: '❌ Invalid Engine. Engines: `nova`, `luna`, `arya`, `zara`',
+    err_vip_prompt: '⚠️ **Restricted Access**\n\nCustom prompts are for VIP users only.',
+    err_empty_prompt: '❌ Prompt cannot be empty.',
+    err_prompt_toolong: '❌ Prompt is too long.',
+    err_config_missing: '❌ Cloudflare config missing.',
+
+    // Active Model Settings
+    active_model_title: '⚙️ **{name} Settings**',
+    active_model_keys: '🔑 **Keys:** {count}',
+    active_model_static_desc: '💡 {name} uses a stable static model.',
+    active_model_current: '🤖 **Active Model:** {name}',
+    active_model_key_idx: '🔑 **API Key:** {index}/{total}',
+    active_model_count: '📊 **Model Count:** {count}',
+    active_model_guide: '💡 Use the button below to change model',
+
+    // Model Selection UI
+    model_select_title: '🤖 **Select {name} Model**',
+    model_total_count: '📊 Total: {count} models',
+    model_last_update: '🕐 Last Update: {time}',
+    model_page_info: '📄 Page {page} of {total}',
+    model_not_found: '❌ **No models found for {name}**\n\nPlease check API Key.',
+
+    // Search
+    search_searching: '🔍 **Searching for "{query}"...**\n\n⏳ Please wait',
+    search_results: '🖼️ {caption}\n\n📸 {count} images found',
+    search_failed: '❌ **Search Failed**',
+    search_guide: '💡 Tips:\n• Use simpler keywords\n• Try in English\n• Try again later',
+    search_link_fallback: '⚠️ Could not send image directly, here is the link:\n\n{link}\n\n📸 {count} images found',
+    search_no_results: 'No images found. Please try different keywords.',
+    search_long_query: '❌ Query too long. Max 100 characters.',
+    search_usage: 'Usage: `/search [query]`',
+    search_quota_exceeded: 'Google quota exceeded.',
+
+    admin_view_memory: '🧠 View Memory',
+    admin_reset_memory: '🗑️ Reset Memory',
+    admin_memory_title: '🧠 **User Memory: {name}**',
+    admin_memory_empty: '📭 **Memory is empty**',
+    admin_memory_confirm_reset: '⚠️ **Confirm Memory Reset**\n\nAre you sure? This cannot be undone!',
+    admin_memory_reset_success: '✅ **Memory Reset Successfully**',
+
+    // Messages
+    welcome_private: `🚀 **Hello {name}!**\n\nWelcome to **Nova** 🤖 - Your all-in-one AI assistant!\n\n🌐 Selected Language: **English 🇺🇸**\n\n✨ **What I can do:**\n🧠 **Multi-Model AI:** Chat with powerful models (Nova, Luna, Arya, Zara).\n🎨 **Image Gen & Edit:** Just create or edit images with text.\n🎤 **Voice Recognition:** Send me voice notes, I'll understand and reply.\n🔍 **Image Search:** Find images from the web.\n\n👇 **Start exploring below:**`,
+    welcome_group: `👋 **Hello {name} members!**\n\nI am **Nova** 🤖.\nYou can ask me questions, generate images, or send voice notes.\n\n💡 To use me, **Reply** to my message or **Mention** me.`,
+    help_text: `🧭 **Bot Guide**\n\n💬 **Chat:** Just type or send a voice note.\n\n🎨 **Images:**\n• Generate: \`/img a cute cat\`\n• Search: \`/search nature\`\n\n⚙️ **Settings:**\n• /model - Switch AI Model\n• /new - Clear Memory\n• /prompt - Set Custom Personality\n• /language - Change Language`,
+  }
 };
 
-// ==================== UTILITIES ====================
-class Utils {
-    static generateId(length = 16) {
-        const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-        let result = '';
-        for (let i = 0; i < length; i++) {
-            result += chars.charAt(Math.floor(Math.random() * chars.length));
+const MODEL_META = {
+  gemini:      { emoji: '🤖', fa: 'نوا',  en: 'Nova',  badge_fa: '⚡ سریع · دقیق',    badge_en: '⚡ Fast · Accurate'     },
+  sambanova:   { emoji: '🧠', fa: 'لونا', en: 'Luna',  badge_fa: '🔥 قدرتمند',        badge_en: '🔥 Powerful'            },
+  pollinations:{ emoji: '🎨', fa: 'زارا', en: 'Zara',  badge_fa: '✨ متن + تصویر',    badge_en: '✨ Text + Images'       },
+} as const;
+
+function buildModelSelectionText(session: ChatSession): string {
+  const lang = session.language || 'fa';
+  const active = session.activeEngine;
+  const m = MODEL_META[active];
+
+  if (lang === 'fa') {
+    return (
+      `🔮 *انتخاب هوش مصنوعی*\n\n` +
+      `مدل فعال: *${m.emoji} ${m.fa}*\n` +
+      `_${m.badge_fa}_\n\n` +
+      `━━━━━━━━━━━━━━━━━━━━\n` +
+      `برای تغییر مدل، انتخاب کن:`
+    );
+  }
+  return (
+    `🔮 *Select AI Model*\n\n` +
+    `Active: *${m.emoji} ${m.en}*\n` +
+    `_${m.badge_en}_\n\n` +
+    `━━━━━━━━━━━━━━━━━━━━\n` +
+    `Tap to switch model:`
+  );
+}
+
+function buildModelSelectionKeyboard(session: ChatSession) {
+  const lang  = session.language || 'fa';
+  const active = session.activeEngine;
+
+  const btn = (eng: AIEngine) => {
+    const m   = MODEL_META[eng];
+    const isActive = active === eng;
+    const label    = `${m.emoji} ${lang === 'fa' ? m.fa : m.en}`;
+    return createInlineButton(isActive ? `${label} ✅` : label, `set_model_${eng}`);
+  };
+
+  return {
+    inline_keyboard: [
+      [ btn('gemini'), btn('sambanova') ],
+      [ btn('pollinations')             ],
+      [
+        createInlineButton(lang === 'fa' ? '⚙️ تنظیمات مدل' : '⚙️ Model Settings', 'active_model_settings'),
+        createInlineButton(lang === 'fa' ? '✏️ شخصیت'        : '✏️ Persona',        'custom_prompt_menu'   ),
+      ],
+      [ createInlineButton(lang === 'fa' ? '🔙 بازگشت' : '🔙 Back', 'open_help') ],
+    ]
+  };
+}
+
+// دریافت نام موتور بر اساس زبان
+function getEngineName(engine: string, lang: 'fa' | 'en' = 'fa'): string {
+  const key = `engine_${engine}`;
+  // @ts-ignore
+  return TRANSLATIONS[lang][key] || engine;
+}
+
+function getShortModelName(modelPath: string): string {
+  const nameMap: Record<string, string> = {
+    "@cf/black-forest-labs/flux-1-schnell": "Flux 1 schnell⚡",
+    "@cf/black-forest-labs/flux-2-klein-4b": "Flux 2 klein 4B⚡",
+    "@cf/black-forest-labs/flux-2-klein-9b": "Flux 2 klein 9B⚡",
+    "@cf/leonardo/lucid-origin": "Lucid Origin⚡",
+    "@cf/leonardo/phoenix-1.0": "Phoenix 1⚡"
+  };
+  return nameMap[modelPath] || modelPath.split('/').pop() || modelPath;
+}
+
+// دریافت متن ترجمه شده
+function t(session: ChatSession, key: string, vars?: Record<string, string>): string {
+  const lang = session.language || 'fa';
+  // @ts-ignore
+  let text = TRANSLATIONS[lang][key] || TRANSLATIONS['fa'][key] || key;
+  
+  if (vars) {
+    Object.entries(vars).forEach(([k, v]) => {
+      text = text.replace(new RegExp(`{${k}}`, 'g'), v);
+    });
+  }
+  return text;
+}
+
+// --- SECTION: GLOBALS ---
+let BOT_INFO: any = null;
+let maintenanceModeCache: { value: boolean; timestamp: number } | null = null;
+const activeRequests = new Map<number, Set<{ id: string; timestamp: number }>>();
+const callbackRateLimits = new Map<number, number[]>();
+const MAINTENANCE_CACHE_TTL = 10000;
+
+// Group message context cache for better interactions
+const groupContextCache = new Map<number, { messages: GroupMessage[], lastCleanup: number }>();
+
+// --- SECTION: TYPES & INTERFACES ---
+
+type AIEngine = "gemini" | "sambanova" | "pollinations";
+type MessageRole = "user" | "model" | "assistant" | "system";
+type ChatType = typeof config.ALLOWED_CHAT_TYPES[number];
+
+interface Part {
+  text?: string;
+  inline_data?: {
+    mime_type: string;
+    data: string;
+  };
+}
+
+interface HistoryItem {
+  role: MessageRole;
+  parts: Part[];
+  timestamp?: number;
+  userId?: number; // For group chat user tracking
+  userName?: string; // For natural interactions
+}
+
+interface UserMemory {
+  userId: number;
+  userName: string;
+  firstName: string;
+  lastSeen: number;
+  messageCount: number;
+  topics: string[]; // Recently discussed topics
+  personality: string; // Observed personality traits
+  preferences: string[]; // Observed preferences
+  interactionStyle: string; // How they communicate
+}
+
+interface GroupMessage {
+  messageId: number;
+  userId: number;
+  userName: string;
+  text: string;
+  timestamp: number;
+  isReply?: boolean;
+  replyToUser?: string;
+}
+
+interface RateLimitInfo {
+  requests: number[];
+}
+
+interface ChatSession {
+  id: number;
+  type: ChatType;
+  activeEngine: AIEngine;
+  lastSeen: number;
+  messageCount: number;
+  language: 'fa' | 'en';
+  
+  // Enhanced memory system
+  userMemories: Map<number, UserMemory>; // Per-user memories in groups
+  groupContext: HistoryItem[]; // Shared group context
+  
+  customPrompts: {
+    gemini: string | null;
+    sambanova: string | null;
+    pollinations: string | null;
+  };
+  engines: {
+    gemini: {
+      history: HistoryItem[];
+      userHistories: Map<number, HistoryItem[]>; // Per-user histories
+      apiKeyIndex: number;
+      consecutiveErrors: number;
+    };
+    sambanova: {
+      history: HistoryItem[];
+      userHistories: Map<number, HistoryItem[]>;
+      apiKeyIndex: number;
+      modelIndex: number;
+      consecutiveErrors: number;
+    };
+    pollinations: {
+      history: HistoryItem[];
+      userHistories: Map<number, HistoryItem[]>;
+      apiKeyIndex: number;
+      modelIndex: number;
+      consecutiveErrors: number;
+    };
+  };
+  rateLimiting: RateLimitInfo;
+  settings: {
+    autoCleanHistory: boolean;
+    typingIndicator: boolean;
+    groupResponseMode: "mention_only";
+    personalizedResponses: boolean;
+    contextAwareness: boolean;
+    languageSet: boolean;
+  };
+    statistics: {
+    totalMessages: number;
+    geminiMessages: number;
+    sambanovaMessages: number;
+    pollinationsMessages: number;
+    voicesReceived: number;
+    firstUsed: number;
+  };
+  vipStatus: boolean;
+  dailyLimits: {
+    messages: number;
+    voicesSent: number;
+    voicesReceived: number;
+    imagesGenerated: number;
+    lastReset: number;
+  };
+}
+
+interface User { 
+  id: number; 
+  is_bot: boolean; 
+  first_name: string; 
+  username?: string; 
+  language_code?: string;
+}
+interface Chat { id: number; type: ChatType; title?: string; }
+interface PhotoSize { file_id: string; file_unique_id: string; width: number; height: number; file_size?: number; }
+interface Document { 
+  file_id: string; 
+  file_name?: string; 
+  mime_type?: string; 
+  file_size?: number;
+}
+interface Voice { 
+  file_id: string; 
+  file_unique_id: string; 
+  duration: number; 
+  mime_type?: string; 
+  file_size?: number; 
+}
+interface MessageEntity { type: string; offset: number; length: number; }
+interface Message {
+  message_id: number;
+  from?: User;
+  chat: Chat;
+  date: number;
+  text?: string;
+  caption?: string;
+  photo?: PhotoSize[];
+  document?: Document;
+  voice?: Voice;
+  reply_to_message?: Message;
+  entities?: MessageEntity[];
+}
+interface CallbackQuery { 
+  id: string; 
+  from: User; 
+  message?: Message; 
+  data?: string; 
+  chat_instance?: string;
+}
+interface Update { 
+  update_id: number; 
+  message?: Message; 
+  callback_query?: CallbackQuery; 
+}
+
+const ENGINE_CONFIG = {
+  gemini: { 
+    name: 'نوا', 
+    available: () => config.GEMINI_KEYS.length > 0,
+    features: 'نوا'
+  },
+  sambanova: { 
+    name: 'لونا', 
+    available: () => config.SAMBANOVA_KEYS.length > 0,
+    features: 'لونا'
+  },
+  pollinations: { 
+    name: 'زارا', 
+    available: () => true,
+    features: 'زارا'
+  }
+} as const;
+
+// --- SECTION: UTILITIES & SECURITY ---
+const logger = {
+  info: (message: string, context?: any) => {
+    console.log(`[INFO] ${new Date().toISOString()} - ${message}`, context || "");
+    recentLogs.push({ timestamp: Date.now(), level: 'info', message, context });
+    if (recentLogs.length > MAX_LOGS) recentLogs.shift();
+  },
+  warn: (message: string, context?: any) => {
+    console.warn(`[WARN] ${new Date().toISOString()} - ${message}`, context || "");
+    recentLogs.push({ timestamp: Date.now(), level: 'warn', message, context });
+    if (recentLogs.length > MAX_LOGS) recentLogs.shift();
+  },
+  error: (message: string, error: any) => {
+    const errorInfo = error instanceof Error ? { message: error.message, stack: error.stack?.split('\n').slice(0, 3).join('\n') } : String(error);
+    console.error(`[ERROR] ${new Date().toISOString()} - ${message}`, errorInfo);
+    recentLogs.push({ timestamp: Date.now(), level: 'error', message, context: errorInfo });
+    if (recentLogs.length > MAX_LOGS) recentLogs.shift();
+  },
+};
+
+// ✅ سیستم کش چندلایه با TTL و LRU
+class CacheLayer<T> {
+  private cache = new Map<string, { data: T; expires: number; lastAccess: number }>();
+  private maxSize: number;
+  private defaultTTL: number;
+
+  
+  constructor(maxSize = 500, defaultTTL = 5 * 60 * 1000) {
+    this.maxSize = maxSize;
+    this.defaultTTL = defaultTTL;
+  }
+
+  set(key: string, value: T, ttl?: number): void {
+    // LRU eviction
+    if (this.cache.size >= this.maxSize) {
+      const lruKey = Array.from(this.cache.entries())
+        .sort((a, b) => a[1].lastAccess - b[1].lastAccess)[0][0];
+    }
+
+    this.cache.set(key, {
+      data: value,
+      expires: Date.now() + (ttl || this.defaultTTL),
+      hits: 0
+    });
+  }
+
+  get(key: string): T | null {
+    const entry = this.cache.get(key);
+    if (!entry) return null;
+
+    if (Date.now() > entry.expires) {
+      this.cache.delete(key);
+      return null;
+    }
+
+    entry.lastAccess = Date.now();
+    return entry.data;
+  }
+
+  delete(key: string): void {
+    this.cache.delete(key);
+  }
+
+  clear(): void {
+    this.cache.clear();
+  }
+
+  size(): number {
+    return this.cache.size;
+  }
+}
+
+// ✅ الگوریتم Token Bucket برای rate limiting بهتر
+class TokenBucket {
+  private tokens: number;
+  private lastRefill: number;
+  private capacity: number;
+  private refillRate: number; // tokens per second
+
+  constructor(capacity: number, refillRate: number) {
+    this.capacity = capacity;
+    this.tokens = capacity;
+    this.refillRate = refillRate;
+    this.lastRefill = Date.now();
+  }
+
+  tryConsume(tokens = 1): boolean {
+    this.refill();
+    
+    if (this.tokens >= tokens) {
+      this.tokens -= tokens;
+      return true;
+    }
+    
+    return false;
+  }
+
+  private refill(): void {
+    const now = Date.now();
+    const elapsed = (now - this.lastRefill) / 1000; // seconds
+    const tokensToAdd = elapsed * this.refillRate;
+    
+    this.tokens = Math.min(this.capacity, this.tokens + tokensToAdd);
+    this.lastRefill = now;
+  }
+
+  availableTokens(): number {
+    this.refill();
+    return Math.floor(this.tokens);
+  }
+}
+
+// Rate limiters برای کاربران مختلف
+const userBuckets = new Map<number, TokenBucket>();
+
+function getUserBucket(userId: number, isVip: boolean): TokenBucket {
+  if (!userBuckets.has(userId)) {
+    // VIP: 10 req/sec, Free: 2 req/sec
+    const bucket = new TokenBucket(
+      isVip ? 50 : 20,
+      isVip ? 10 : 2
+    );
+    userBuckets.set(userId, bucket);
+  }
+  return userBuckets.get(userId)!;
+}
+
+// ایجاد کش‌های مختلف
+const sessionCache = new CacheLayer<ChatSession>(200, 5 * 60 * 1000); // 5 min
+const userCache = new CacheLayer<UserMemory>(500, 10 * 60 * 1000); // 10 min
+const modelCache = new CacheLayer<ModelInfo[]>(10, 30 * 60 * 1000); // 30 min
+let globalDisabledKeys: Record<string, number> = {};
+let lastDisabledKeysFetch = 0;
+
+async function isKeyDisabled(apiKey: string, env: Env): Promise<boolean> {
+  const now = Date.now();
+  // آپدیت کش هر ۱ دقیقه برای سرعت بالا
+  if (now - lastDisabledKeysFetch > 60000) {
+    try {
+      const data = await env.SESSIONS.get("disabled_api_keys", "json");
+      if (data) globalDisabledKeys = data as Record<string, number>;
+      lastDisabledKeysFetch = now;
+    } catch (e) {}
+  }
+  
+  const unlockTime = globalDisabledKeys[apiKey];
+  // اگر زمان فعلی کمتر از زمان باز شدن قفل است، یعنی مسدود است
+  if (unlockTime && now < unlockTime) {
+    return true;
+  }
+  return false;
+}
+
+function disableApiKey(apiKey: string, env: Env) {
+  // قفل کردن برای 6 ساعت (6 * 60 * 60 * 1000 میلی ثانیه)
+  globalDisabledKeys[apiKey] = Date.now() + (6 * 60 * 60 * 1000);
+  env.SESSIONS.put("disabled_api_keys", JSON.stringify(globalDisabledKeys)).catch(()=>{});
+  logger.warn(`🚫 API Key disabled for 6 hours due to quota limits.`);
+}
+
+function sanitizeInput(text: string): string {
+  return text.trim()
+    .replace(/[^\S\r\n]+/g, ' ')
+    .replace(/[\x00-\x1f\x7f-\x9f]/g, '')
+    .substring(0, config.MAX_MESSAGE_LENGTH);
+}
+
+function generateRequestId(): string {
+  return `req_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+}
+
+function arrayBufferToBase64(buffer: ArrayBuffer): string {
+  let binary = '';
+  const bytes = new Uint8Array(buffer);
+  const len = bytes.byteLength;
+  
+  // سایز ۸ کیلوبایت: کاملاً ایمن برای جلوگیری از Call Stack Error در V8
+  const CHUNK_SIZE = 0x2000; 
+  for (let i = 0; i < len; i += CHUNK_SIZE) {
+    const end = Math.min(i + CHUNK_SIZE, len);
+    const chunk = bytes.subarray(i, end);
+    // @ts-ignore : نادیده گرفتن ارور تایپ‌اسکریپت برای سرعت بالا
+    binary += String.fromCharCode.apply(null, chunk);
+  }
+  return btoa(binary);
+}
+
+async function withTimeout<T>(promise: Promise<T>, timeoutMs: number, errorMsg: string): Promise<T> {
+  let timeoutId: any;
+  
+  const timeoutPromise = new Promise<T>((_, reject) => {
+    timeoutId = setTimeout(() => reject(new Error(errorMsg)), timeoutMs);
+  });
+  
+  try {
+    const result = await Promise.race([promise, timeoutPromise]);
+    clearTimeout(timeoutId);
+    return result;
+  } catch (error) {
+    clearTimeout(timeoutId);
+    throw error;
+  }
+}
+
+// این تابع را کاملا جایگزین قبلی کنید
+async function saveSessionWithLock(session: ChatSession, env: Env, immediate = false): Promise<void> {
+  try {
+    await _saveSingleSession(session, env);
+  } catch (error) {
+    logger.error(`Save failed for ${session.id}`, error);
+    throw error; // اضافه کنید تا caller متوجه خطا شود
+  }
+}
+
+// Helper to get raw error for bot owner
+function getRawError(error: unknown): string {
+  if (error instanceof Error) {
+    return error.message;
+  }
+  if (typeof error === 'string') {
+    return error;
+  }
+  try {
+    return JSON.stringify(error);
+  } catch {
+    return String(error);
+  }
+}
+
+// ✅ تابع کمکی برای ذخیره واحد
+async function _saveSingleSession(session: ChatSession, env: Env): Promise<void> {
+  const key = `session:${session.id}`;
+  
+  const mapToObj = (map: Map<any, any>) => {
+    if (!map || !(map instanceof Map)) return {};
+    const obj: any = {};
+    map.forEach((value, key) => {
+      obj[String(key)] = value;
+    });
+    return obj;
+  };
+
+  const dataToSave = {
+    id: session.id,
+    type: session.type,
+    activeEngine: session.activeEngine,
+    lastSeen: session.lastSeen,
+    messageCount: session.messageCount,
+    language: session.language,
+    userMemories: mapToObj(session.userMemories),
+    groupContext: session.groupContext || [],
+    customPrompts: session.customPrompts,
+    engines: {
+      gemini: {
+        history: session.engines.gemini.history,
+        userHistories: mapToObj(session.engines.gemini.userHistories),
+        apiKeyIndex: session.engines.gemini.apiKeyIndex,
+        consecutiveErrors: session.engines.gemini.consecutiveErrors
+      },
+      sambanova: {
+        history: session.engines.sambanova.history,
+        userHistories: mapToObj(session.engines.sambanova.userHistories),
+        apiKeyIndex: session.engines.sambanova.apiKeyIndex,
+        modelIndex: session.engines.sambanova.modelIndex,
+        consecutiveErrors: session.engines.sambanova.consecutiveErrors
+      },
+      pollinations: {
+        history: session.engines.pollinations.history,
+        userHistories: mapToObj(session.engines.pollinations.userHistories),
+        apiKeyIndex: session.engines.pollinations.apiKeyIndex,
+        modelIndex: session.engines.pollinations.modelIndex,
+        consecutiveErrors: session.engines.pollinations.consecutiveErrors
+      }
+    },
+    rateLimiting: session.rateLimiting,
+    settings: session.settings,
+    statistics: session.statistics,
+    vipStatus: session.vipStatus,
+    dailyLimits: session.dailyLimits
+  };
+
+  // جایگزین بخش فعلی در _saveSingleSession شوید:
+  let jsonStr = JSON.stringify(dataToSave);
+
+  try {
+    await env.SESSIONS.put(key, jsonStr);
+    logger.info(`✅ Saved session ${session.id} (${Math.round(jsonStr.length/1024)}KB)`);
+  } catch (err) {
+    logger.error(`KV put failed for session ${session.id}: ${err}`);
+    throw new Error(`KV write failed: ${err.message}`);
+  }
+  
+  // ✅ تغییر: فشرده‌سازی تدریجی روی کپی داده‌ها، نه سشن اصلی
+  if (jsonStr.length > 2 * 1024 * 1024) { // لیمیت KV معمولا 2MB برای Free و 25MB برای Paid است. احتیاط کنید.
+    logger.warn(`⚠️ Session ${session.id} too large: ${Math.round(jsonStr.length/1024)}KB`);
+    
+    // کپی کردن دیتا برای دستکاری نکردن سشن فعال
+    const compressedData = JSON.parse(JSON.stringify(dataToSave));
+    
+    const TARGET_HISTORY = 20;
+    
+    // کاهش حجم هیستوری در کپی
+    if(compressedData.engines?.gemini?.history) 
+        compressedData.engines.gemini.history = compressedData.engines.gemini.history.slice(-TARGET_HISTORY);
+    if(compressedData.engines?.sambanova?.history)
+        compressedData.engines.sambanova.history = compressedData.engines.sambanova.history.slice(-TARGET_HISTORY);
+    if(compressedData.engines?.pollinations?.history)
+        compressedData.engines.pollinations.history = compressedData.engines.pollinations.history.slice(-TARGET_HISTORY);
+    
+    // حذف تاریخچه کاربران در گروه‌ها برای کپی
+    if (session.type === 'group' || session.type === 'supergroup') {
+      if(compressedData.engines?.gemini) compressedData.engines.gemini.userHistories = {};
+      if(compressedData.engines?.sambanova) compressedData.engines.sambanova.userHistories = {};
+      if(compressedData.engines?.pollinations) compressedData.engines.pollinations.userHistories = {};
+    }
+
+    jsonStr = JSON.stringify(compressedData);
+    logger.info(`🗜️ Compressed session size to ${Math.round(jsonStr.length/1024)}KB`);
+  }
+  
+  await env.SESSIONS.put(key, jsonStr);
+  logger.info(`✅ Saved session ${session.id} (${Math.round(jsonStr.length/1024)}KB)`);
+}
+
+async function isMaintenanceMode(env: Env): Promise<boolean> {
+  const now = Date.now();
+  
+  if (maintenanceModeCache && now - maintenanceModeCache.timestamp < MAINTENANCE_CACHE_TTL) {
+    return maintenanceModeCache.value;
+  }
+  
+  const mode = await env.SESSIONS.get("maintenance_mode", "text");
+  const value = mode === "true";
+  
+  maintenanceModeCache = { value, timestamp: now };
+  return value;
+}
+
+function splitMessage(text: string, maxLength = config.MESSAGE_CHUNK_SIZE): string[] {
+  if (text.length <= maxLength) return [text];
+  
+  const chunks: string[] = [];
+  const paragraphs = text.split(/\n\s*\n/);
+  let currentChunk = "";
+  
+  for (const paragraph of paragraphs) {
+    if (currentChunk.length + paragraph.length + 2 <= maxLength) {
+      currentChunk += (currentChunk ? "\n\n" : "") + paragraph;
+    } else {
+      if (currentChunk) chunks.push(currentChunk.trim());
+      
+      if (paragraph.length > maxLength) {
+        const sentences = paragraph.match(/[^.!?؟]+[.!?؟]*/g) || [paragraph];
+        let tempChunk = "";
+        
+        for (const sentence of sentences) {
+          if (tempChunk.length + sentence.length <= maxLength) {
+            tempChunk += sentence;
+          } else {
+            if (tempChunk.trim()) chunks.push(tempChunk.trim());
+            
+            if (sentence.length > maxLength) {
+              const words = sentence.split(' ');
+              let wordChunk = "";
+              for (const word of words) {
+                if (wordChunk.length + word.length + 1 <= maxLength) {
+                  wordChunk += (wordChunk ? ' ' : '') + word;
+                } else {
+                  if (wordChunk.trim()) chunks.push(wordChunk.trim());
+                  wordChunk = word;
+                }
+              }
+              if (wordChunk.trim()) tempChunk = wordChunk;
+            } else {
+              tempChunk = sentence;
+            }
+          }
         }
-        return result;
+        if (tempChunk.trim()) chunks.push(tempChunk.trim());
+        currentChunk = "";
+      } else {
+        currentChunk = paragraph;
+      }
+    }
+  }
+  
+  if (currentChunk.trim()) chunks.push(currentChunk.trim());
+  return chunks.filter(chunk => chunk.length > 0);
+}
+
+function sanitizeMarkdown(text: string): string {
+  let sanitized = text;
+  
+  const asteriskCount = (sanitized.match(/\*/g) || []).length;
+  if (asteriskCount % 2 !== 0) {
+    const lastAsteriskIndex = sanitized.lastIndexOf('*');
+    sanitized = sanitized.slice(0, lastAsteriskIndex) + sanitized.slice(lastAsteriskIndex + 1);
+  }
+  
+  const underscoreCount = (sanitized.match(/_/g) || []).length;
+  if (underscoreCount % 2 !== 0) {
+    const lastUnderscoreIndex = sanitized.lastIndexOf('_');
+    sanitized = sanitized.slice(0, lastUnderscoreIndex) + sanitized.slice(lastUnderscoreIndex + 1);
+  }
+  
+  const backtickCount = (sanitized.match(/`/g) || []).length;
+  if (backtickCount % 2 !== 0) {
+    const lastBacktickIndex = sanitized.lastIndexOf('`');
+    sanitized = sanitized.slice(0, lastBacktickIndex) + sanitized.slice(lastBacktickIndex + 1);
+  }
+  
+  const openBrackets = (sanitized.match(/\[/g) || []).length;
+  const closeBrackets = (sanitized.match(/\]/g) || []).length;
+  if (openBrackets !== closeBrackets) {
+    sanitized = sanitized.replace(/[\[\]]/g, '');
+  }
+  return sanitized;
+}
+
+// --- SECTION: ENHANCED MEMORY & GROUP INTELLIGENCE ---
+function createUserMemory(user: User): UserMemory {
+  return {
+    userId: user.id,
+    userName: user.username || user.first_name,
+    firstName: user.first_name,
+    lastSeen: Date.now(),
+    messageCount: 0,
+    topics: [],
+    personality: "",
+    preferences: [],
+    interactionStyle: ""
+  };
+}
+
+// --- SECTION: ADMIN & PERMISSION HELPERS ---
+async function isUserAdmin(userId: number, chatId: number): Promise<boolean> {
+  try {
+    if (userId === config.BOT_OWNER_ID) return true;
+    
+    const member = await callTelegramAPI("getChatMember", {
+      chat_id: chatId,
+      user_id: userId
+    });
+    
+    return member.status === "creator" || member.status === "administrator";
+  } catch (error) {
+    logger.warn(`Failed to check admin status for user ${userId}`, error);
+    return false;
+  }
+}
+  
+function extractTopics(text: string): string[] {
+  const keywords = text.toLowerCase()
+    .replace(/[^\w\s\u0600-\u06FF]/g, ' ')
+    .split(/\s+/)
+    .filter(word => word.length > 3)
+    .slice(0, 3); // Top 3 keywords
+  return keywords;
+}
+
+function getGroupContext(chatId: number): GroupMessage[] {
+  const cached = groupContextCache.get(chatId);
+  if (!cached) return [];
+  
+  const now = Date.now();
+  const validMessages = cached.messages
+    .filter(msg => now - msg.timestamp < 20 * 60 * 1000)
+    .slice(-config.GROUP_CONTEXT_MESSAGES * 2);
+  
+  // ✅ پاکسازی cache اگه خیلی بزرگ شد
+  if (groupContextCache.size > 100) {
+    const oldestChatId = Array.from(groupContextCache.entries())
+      .sort((a, b) => a[1].lastCleanup - b[1].lastCleanup)[0][0];
+    groupContextCache.delete(oldestChatId);
+  }
+  
+  if (validMessages.length !== cached.messages.length) {
+    groupContextCache.set(chatId, { messages: validMessages, lastCleanup: now });
+  }
+  
+  return validMessages.slice(-config.GROUP_CONTEXT_MESSAGES);
+}
+
+function analyzeGroupConversation(
+  context: GroupMessage[], 
+  currentUser: User, 
+  lang: 'fa' | 'en' = 'fa'
+): string {  if (context.length === 0) return "";
+  
+  const recentMessages = context.slice(-3);
+  let analysis = "";
+  
+  // Check for ongoing conversation themes
+  const themes = recentMessages.flatMap(msg => extractTopics(msg.text));
+  const commonTheme = themes.find((theme, index) => themes.indexOf(theme) !== index);
+  
+  if (commonTheme) {
+    if (lang === 'fa') {
+      analysis += `گروه در حال صحبت درباره ${commonTheme} است. `;
+    } else {
+      analysis += `The group is discussing ${commonTheme}. `;
+    } 
+  }
+  
+  // Check for direct interactions
+  const repliesTo = recentMessages.filter(msg => msg.replyToUser);
+  if (repliesTo.length > 0) {
+    analysis += `There's an active conversation between ${repliesTo.map(msg => msg.userName).join(', ')}. `;
+  }
+  
+  // Check user's involvement
+  if (currentUser && currentUser.id) {
+    const userMessages = recentMessages.filter(msg => msg.userId === currentUser.id);
+    if (userMessages.length > 0) {
+      analysis += `${currentUser.first_name} recently said: "${userMessages[userMessages.length - 1].text.substring(0, 50)}...". `;
+    }
+  }
+  
+  return analysis;
+}
+
+// --- SECTION: RATE LIMITING & CONCURRENCY ---
+
+function isRateLimited(session: ChatSession): boolean {
+  const now = Date.now();
+  session.rateLimiting.requests = session.rateLimiting.requests.filter(
+    time => now - time < config.RATE_LIMIT_WINDOW
+  );
+  return session.rateLimiting.requests.length >= config.RATE_LIMIT_MAX_REQUESTS;
+}
+
+function recordRequest(session: ChatSession): void {
+  session.rateLimiting.requests.push(Date.now());
+}
+
+function canProcessConcurrentRequest(chatId: number, requestId: string): boolean {
+  if (!activeRequests.has(chatId)) {
+    activeRequests.set(chatId, new Set());
+  }
+  
+  const chatRequests = activeRequests.get(chatId)!;
+  
+  // پاکسازی درخواست‌های قدیمی (بیش از 2 دقیقه)
+  const now = Date.now();
+  const expiredRequests = Array.from(chatRequests).filter(
+    req => now - req.timestamp > 120000
+  );
+
+  expiredRequests.forEach(req => {
+    logger.warn(`🧹 Cleaning expired request: ${req.id} (age: ${Math.floor((now - req.timestamp)/1000)}s)`);
+    chatRequests.delete(req);
+  });
+  
+  const totalActive = Array.from(activeRequests.values()).reduce((sum, set) => sum + set.size, 0);
+  
+  if (totalActive >= config.MAX_CONCURRENT_REQUESTS) {
+    logger.warn(`❌ Global limit reached: ${totalActive}/${config.MAX_CONCURRENT_REQUESTS}`);
+    return false;
+  }
+  if (chatRequests.size >= 3) {
+    logger.warn(`❌ Chat ${chatId} limit: ${chatRequests.size}/3`);
+    return false;
+  }  
+  chatRequests.add({ id: requestId, timestamp: now });
+  return true;
+}
+
+function releaseRequest(chatId: number, requestId: string): void {
+  const chatRequests = activeRequests.get(chatId);
+  if (chatRequests) {
+    for (const req of chatRequests) {
+      if (req.id === requestId) {
+        chatRequests.delete(req);
+        break;
+      }
+    }
+    if (chatRequests.size === 0) {
+      activeRequests.delete(chatId);
+    }
+  }
+}
+
+// --- SECTION: VIP & LIMITS ---
+
+function checkDailyLimit(session: ChatSession, type: 'message' | 'voice_sent' | 'voice_received' | 'image'): { allowed: boolean; message?: string } {
+  // VIP کاربران محدودیت ندارند
+  if (session.vipStatus || session.id === config.BOT_OWNER_ID) {
+    return { allowed: true };
+  }
+  
+  const limits = {
+    message: 100,
+    voice_sent: 10,
+    voice_received: 10,
+    image: 20
+  };
+  
+  const currentUsage = {
+    message: session.dailyLimits.messages,
+    voice_sent: session.dailyLimits.voicesSent,
+    voice_received: session.dailyLimits.voicesReceived,
+    image: session.dailyLimits.imagesGenerated,
+  };
+  
+  const limit = limits[type];
+  const usage = currentUsage[type];
+  
+  if (usage >= limit) {
+    const messages = {
+      message: `⚠️ **محدودیت روزانه**\n\nشما امروز ${limit} پیام ارسال کرده‌اید.\n\n🌟 برای دسترسی نامحدود، نسخه VIP را فعال کنید.`,
+      voice_sent: `⚠️ **محدودیت روزانه**\n\nشما امروز ${limit} ویس ارسال کرده‌اید.\n\n🌟 برای دسترسی نامحدود، نسخه VIP را فعال کنید.`,
+      voice_received: `⚠️ **محدودیت روزانه**\n\nشما امروز ${limit} ویس دریافت کرده‌اید.\n\n🌟 برای دسترسی نامحدود، نسخه VIP را فعال کنید.`,
+    };
+    
+    return { 
+      allowed: false, 
+      message: messages[type] + `\n\n👑 برای ارتقا به VIP با @Hacker1382 تماس بگیرید.`
+    };
+  }
+  
+  return { allowed: true };
+}
+
+function incrementDailyUsage(session: ChatSession, type: 'message' | 'voice_sent' | 'voice_received'): void {
+  switch (type) {
+    case 'message':
+      session.dailyLimits.messages++;
+      break;
+    case 'voice_sent':
+      session.dailyLimits.voicesSent++;
+      break;
+    case 'voice_received':
+      session.dailyLimits.voicesReceived++;
+      break;
+  }
+}
+
+function getVIPUpgradeKeyboard() {
+  return {
+    inline_keyboard: [
+      [
+        { text: "ارتقا به VIP 👑", url: "https://t.me/Hacker1382" }
+      ]
+    ]
+  };
+}
+
+// --- SECTION: ENHANCED SESSION MANAGEMENT ---
+function buildDefaultPrompt(
+  engine: AIEngine, 
+  userName: string, 
+  isGroup: boolean = false, 
+  userMemory?: UserMemory, 
+  groupAnalysis?: string,
+  lang: 'fa' | 'en' = 'fa'
+): string {
+  const engineName = getEngineName(engine, lang);
+  const dateOptions: Intl.DateTimeFormatOptions = { 
+    timeZone: 'Asia/Tehran', 
+    year: 'numeric', month: 'long', day: 'numeric', weekday: 'long' 
+  };
+  const dateStr = new Date().toLocaleDateString(lang === 'fa' ? 'fa-IR' : 'en-US', dateOptions);
+
+  if (lang === 'fa') {
+    return `تو ${engineName} هستی، یک دستیار هوشمند و دوستانه.
+
+**دستورات مهم:**
+1. مانند یک انسان طبیعی و دوستانه صحبت کن
+2. هرگز نگو "من یک ربات/هوش مصنوعی هستم"
+3. از اصطلاحات و لحن محاوره‌ای استفاده کن
+4. پاسخ‌هایت را کوتاه، مفید و مستقیم بده
+5. اگر اطلاعات کافی نداری، صادقانه بگو "نمیدونم"
+6. از اظهار نظرهای اضافی و توضیح فرآیند تفکر خودداری کن
+7. در صورت لزوم، از احساسات انسانی (خوشحالی، تعجب، همدردی) استفاده کن
+
+**اطلاعات زمینه:**
+📅 تاریخ امروز: ${dateStr}
+👤 نام کاربر: ${userName}
+${userMemory?.topics?.length > 0 ? `🎯 علاقه‌های کاربر: ${userMemory.topics.slice(0, 3).join(', ')}` : ''}
+${isGroup && groupAnalysis ? `👥 زمینه گروه: ${groupAnalysis}` : ''}
+
+**نکته نهایی:**
+فقط پاسخ نهایی را بنویس. هرگز درباره "چگونه" پاسخ دادن صحبت نکن.`;
+  } else {
+    return `You are ${engineName}, a friendly and intelligent assistant.
+
+**Important Instructions:**
+1. Speak naturally and friendly like a human
+2. Never say "I am a bot/AI"
+3. Use colloquial terms and casual tone
+4. Keep responses short, helpful, and direct
+5. If you don't know something, honestly say "I don't know"
+6. Avoid extra commentary and explaining your thinking process
+7. Use human emotions (happiness, surprise, empathy) when appropriate
+
+**Context Information:**
+📅 Today's date: ${dateStr}
+👤 User name: ${userName}
+${userMemory?.topics?.length > 0 ? `🎯 User interests: ${userMemory.topics.slice(0, 3).join(', ')}` : ''}
+${isGroup && groupAnalysis ? `👥 Group context: ${groupAnalysis}` : ''}
+
+**Final Note:**
+Only write your final response. Never talk about "how" you are responding.`;
+  }
+}
+
+// ✅ تابع ترجمه تضمینی (استفاده از جمنای برای دقت بالا + چک کردن حذف فارسی)
+async function translateToEnglishPrompt(text: string, env: Env): Promise<string> {
+  // اگر متن اصلا فارسی ندارد، همان را برگردان
+  if (!text.match(/[\u0600-\u06FF]/)) return text;
+
+  const hasPersian = (str: string) => /[\u0600-\u06FF]/.test(str);
+  const systemInstruction = "Translate the Persian text to a concise English image prompt. Focus only on the main subject. Keep it brief (max 30 words). Output ONLY English. No chat.";
+
+  // 1️⃣ تلاش اول: Gemini (نوا)
+  if (config.GEMINI_KEYS.length > 0) {
+    try {
+      // استفاده از همان تابع موجود در ربات شما
+      const result = await callGeminiAPI(
+        [{ text: `${systemInstruction}\n\nText: ${text}` }],
+        config.GEMINI_MODEL,
+        config.GEMINI_KEYS[0],
+        []
+      );
+      if (result && !hasPersian(result) && result.length > 5) {
+        return result.trim();
+      }
+    } catch (e) {
+      console.error("Gemini Translation failed, switching to Zara loop...");
+    }
+  }
+
+  // 2️⃣ تلاش دوم: چرخش روی کل مدل‌های زارا (Pollinations) که در ربات تعریف شده
+  // این لیست در initializeBot لود شده و آماده است
+  const allZaraModels = config.POLLINATIONS_MODELS;
+
+  for (const modelId of allZaraModels) {
+    // مدل‌های تصویری رو برای ترجمه استفاده نکن
+    if (modelId.includes('flux') || modelId.includes('turbo')) continue;
+
+    try {
+      const encodedPrompt = encodeURIComponent(`${systemInstruction}\n\nText: ${text}`);
+      const randomSeed = Math.floor(Math.random() * 1000);
+      
+      // ساخت آدرس دقیقا طبق سیستم زارا در بقیه ربات
+      const url = `https://text.pollinations.ai/${encodedPrompt}?model=${modelId}&seed=${randomSeed}&json=false`;
+      
+      const res = await fetchWithTimeout(url, { method: "GET" }, 15000); // 8 ثانیه برای هر مدل
+      
+      if (res.ok) {
+        let result = await res.text();
+        result = result.trim()
+          .replace(/^["']|["']$/g, '') // حذف کوتیشن
+          .replace(/^(Prompt|English|Translation):\s*/i, ''); // حذف پیشوند
+
+        if (result.length > 5 && !hasPersian(result)) {
+          if (result.length > 150) result = result.split('.')[0];
+          return result;
+        }
+      }
+    } catch (err) {
+      console.warn(`Zara model ${modelId} failed to translate, trying next...`);
+      continue; // برو سراغ مدل بعدی در لیست
+    }
+  }
+
+  // 3️⃣ Fallback نهایی
+  const cleanedText = text.replace(/[\u0600-\u06FF]/g, "").trim();
+  return cleanedText.length > 3 
+    ? cleanedText
+    : "A high-quality, detailed artistic masterpiece.";
+}
+
+async function callPollinationsAPI(prompt: string, history: HistoryItem[], model: string, apiKey: string): Promise<string> {
+  const selectedModel = model || 'openai'; 
+  const url = `https://text.pollinations.ai/openai`;
+  
+  const messages = [
+    { 
+      role: "system", 
+      content: history[0]?.parts[0]?.text || "You are a helpful assistant named Zara." 
+    },
+    ...history.slice(1).map(h => ({ 
+      role: h.role === "model" ? "assistant" : h.role, 
+      content: h.parts[0]?.text || "" 
+    })),
+    { role: "user", content: sanitizeInput(prompt) },
+  ].filter(msg => msg.content && msg.content.trim().length > 0);
+  
+  const headers: Record<string, string> = { "Content-Type": "application/json" };
+  if (apiKey && apiKey.length > 5) headers["Authorization"] = `Bearer ${apiKey}`;
+  
+  // ✅ افزایش تایم‌اوت Fetch به ۹۰ ثانیه
+  const response = await fetchWithTimeout(url, {
+    method: "POST",
+    headers,
+    body: JSON.stringify({ 
+      model: selectedModel,
+      messages: messages,
+      temperature: 0.7,
+      max_tokens: 4096,
+      stream: false,
+      seed: Math.floor(Math.random() * 1000)
+    }),
+  }, 30000); 
+  
+  if (!response.ok) {
+    const errorText = await response.text();
+    throw new Error(`Pollinations API error (${response.status}): ${errorText.substring(0, 200)}`);
+  }
+
+  const data = await response.json();
+  const text = data.choices?.[0]?.message?.content || data.content;
+  
+  if (!text) throw new Error("پاسخ خالی از زارا!");
+  
+  return text.trim();
+}
+
+let pollinationsModelsInitialized = false;
+
+async function ensurePollinationsModels(env: Env): Promise<void> {
+  if (pollinationsModelsInitialized && config.POLLINATIONS_MODELS.length > 0) {
+    return; // Already initialized
+  }
+
+  if ((globalThis as any).__pollinationsLoading) {
+    logger.warn("⏳ Pollinations models fetch already in progress, waiting...");
+    while ((globalThis as any).__pollinationsLoading) {
+      await new Promise(resolve => setTimeout(resolve, 500));
+    }
+    return;
+  }
+
+  (globalThis as any).__pollinationsLoading = true;
+  
+  try {
+    const cache = await getModelsWithCache("pollinations", env, false);
+    
+    if (cache.models.length === 0) {
+      logger.warn("⚠️ API returned 0 models, using fallback");
+      const fallback = getFallbackPollinationsModels();
+      config.POLLINATIONS_MODELS = fallback.map(m => m.id);
+    } else {
+      config.POLLINATIONS_MODELS = cache.models.map(m => m.id);
     }
     
-    static formatNumber(num) {
-        return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    pollinationsModelsInitialized = true;
+    logger.info(`✅ Pollinations models ready: ${config.POLLINATIONS_MODELS.length}`);
+    
+  } catch (error) {
+    logger.error("❌ Failed to fetch Pollinations models", error);
+    const fallback = getFallbackPollinationsModels();
+    config.POLLINATIONS_MODELS = fallback.map(m => m.id);
+    pollinationsModelsInitialized = true;
+  }  finally {
+    (globalThis as any).__pollinationsLoading = false;
+  }
+}
+
+// ✅ نسخه اصلاح شده برای مدیریت دقیق تایم‌اوت و جلوگیری از کرش کلودفلر
+async function fetchWithTimeout(url: string, options: RequestInit = {}, timeout: number = 20000): Promise<Response> {
+  const controller = new AbortController();
+  const { signal } = controller;
+  
+  const finalOptions = { ...options, signal };
+
+  const timeoutId = setTimeout(() => controller.abort(), timeout);
+
+  try {
+    // استفاده مستقیم از fetch برای کاهش سربار
+    const response = await fetch(url, finalOptions);
+    clearTimeout(timeoutId);
+    return response;
+  } catch (error) {
+    clearTimeout(timeoutId);
+    throw error;
+  }
+}
+async function handlePollinationsRequest(
+  session: ChatSession, 
+  user: User, 
+  text: string, 
+  isGroup: boolean = false, 
+  userHistory?: HistoryItem[], 
+  env: Env
+): Promise<string | { photo: string }> {
+
+  await ensurePollinationsModels(env);
+  
+  const apiKey = config.POLLINATIONS_KEY;
+  const engine = session.engines.pollinations;
+  const modelCache = await getModelsWithCache("pollinations", env);
+  const selectedModel = modelCache.models[engine.modelIndex] || { id: 'openai', type: 'text' };
+
+  // هدرهای مشترک و ضروری
+  const commonHeaders: Record<string, string> = { 
+    "User-Agent": "NovaBot/1.7",
+    "Content-Type": "application/json"
+  };
+  if (apiKey) commonHeaders["Authorization"] = `Bearer ${apiKey}`;
+
+  // ---------------------------------------------------------
+  // 🖼️ بخش اول: تولید تصویر (Image Generation)
+  // ---------------------------------------------------------
+  if (selectedModel.type === 'image' || selectedModel.id.includes('flux') || selectedModel.id.includes('turbo')) {
+    logger.info(`🎨 Zara Image Gen Start. Input: "${text}"`);
+
+    let finalPrompt = text;
+    let promptStatusMessage = "";
+
+    // اگر متن فارسی بود، ترجمه کن
+    if (text.match(/[\u0600-\u06FF]/)) {
+      try {
+        promptStatusMessage = `🔄 **در حال ترجمه، گسترش و درک پرامپت...**`;
+        await sendMessage(session.id, promptStatusMessage);
+        
+        finalPrompt = await translateToEnglishPrompt(text, env); // استفاده از تابع ترجمه هوشمند
+      } catch (e) {
+        logger.warn("Translation skipped, using original text");
+        finalPrompt = text; // در صورت خطا، همان متن اصلی استفاده شود
+      }
+    } else {
+      // اگر متن انگلیسی بود، فقط برای اطمینان گسترش میدیم
+      finalPrompt = text; // یا میتونید از translateToEnglishPrompt استفاده کنید که پارامتر گسترش رو هم داره
+    }
+
+    // نمایش پرامپت نهایی (یا ترجمه شده یا اصلی)
+    await sendMessage(session.id, `📝 **پرامپت نهایی:**\n\`${finalPrompt}\``);
+
+    const encodedPrompt = encodeURIComponent(finalPrompt);
+    const randomSeed = Math.floor(Math.random() * 10000000);
+    // اگر ترجمه کردیم، enhance=false چون خودمون پرامپت رو بهینه کردیم
+    const enhanceParam = finalPrompt !== text ? 'false' : 'true'; 
+    
+    const imageUrl = `https://gen.pollinations.ai/image/${encodedPrompt}?model=${selectedModel.id}&width=1280&height=1280&nologo=true&seed=${randomSeed}&enhance=${enhanceParam}`;
+
+    try {
+        const imageResponse = await fetchWithTimeout(imageUrl, { headers: commonHeaders }, 30000);
+        
+        if (!imageResponse.ok) {
+            const err = await imageResponse.text();
+            if (imageResponse.status === 429) throw new Error("ترافیک سرور بالاست، لطفاً ۱ دقیقه دیگر تلاش کنید.");
+            if (imageResponse.status === 401) throw new Error("کلید API زارا نامعتبر است.");
+            throw new Error(`Pollinations Image Error: ${imageResponse.status} - ${err.substring(0, 50)}`);
+        }
+
+        const arrayBuffer = await imageResponse.arrayBuffer();
+        if (arrayBuffer.byteLength < 1000) throw new Error("تصویر دریافتی ناقص است.");
+
+        return { photo: new Uint8Array(arrayBuffer) };
+
+    } catch (error) {
+        throw new Error(`خطا در تولید تصویر: ${error instanceof Error ? error.message : String(error)}`);
+    }
+  }
+
+  // ---------------------------------------------------------
+  // 💬 بخش دوم: تولید متن (Text Generation)
+  // ---------------------------------------------------------
+  logger.info(`💬 Zara Chat: model=${selectedModel.id}`);
+  const currentPrompt = getActivePrompt(session, user.first_name, isGroup);
+  
+  const messages = [
+    { role: "system", content: currentPrompt },
+    ...((isGroup && userHistory) ? userHistory : engine.history).slice(1).map(h => ({
+      role: h.role === "model" ? "assistant" : h.role,
+      content: h.parts[0]?.text || ""
+    })),
+    { role: "user", content: text }
+  ];
+
+  const response = await fetchWithTimeout("https://gen.pollinations.ai/v1/chat/completions", {
+    method: "POST",
+    headers: commonHeaders,
+    body: JSON.stringify({
+      model: selectedModel.id, 
+      messages: messages,
+      temperature: 0.7,
+      stream: false, 
+      seed: Math.floor(Math.random() * 1000)
+    })
+  }, 30000);
+
+  if (!response.ok) {
+    const errorData = await response.text();
+    if (response.status === 429) throw new Error("ترافیک بالا (Rate Limit). لطفاً صبر کنید.");
+    if (response.status >= 500) throw new Error("مشکل موقت در سرور مدل (5xx). لطفاً مدل دیگری انتخاب کنید.");
+    throw new Error(`Zara API Error ${response.status}: ${errorData.substring(0, 100)}`);
+  }
+  
+  let data;
+  try {
+      const rawText = await response.text();
+      if (!rawText.startsWith('{') && !rawText.startsWith('[')) {
+          if (rawText.trim().length > 0) return rawText; 
+          throw new Error("پاسخ نامعتبر از سرور.");
+      }
+      data = JSON.parse(rawText);
+  } catch (e) {
+      throw new Error("خطا در پردازش پاسخ JSON مدل.");
+  }
+
+  let content = "";
+  if (data.choices?.[0]?.message?.content) content = data.choices[0].message.content;
+  else if (data.choices?.[0]?.text) content = data.choices[0].text;
+  else if (data.content) content = data.content;
+  else if (data.output) content = data.output;
+  
+  if (!content || content.trim().length === 0) {
+      logger.error(`Empty Zara Response: ${JSON.stringify(data)}`);
+      throw new Error("مدل پاسخ خالی داد! (ممکن است مدل انتخابی در حال حاضر در دسترس نباشد)");
+  }
+  
+  return content.trim();
+}
+
+async function getOrCreateSession(chat: Chat, user: User, env: Env): Promise<ChatSession> {
+  const cacheKey = `session:${chat.id}`;
+  
+  // ✅ تغییر 1: چک کردن حذف شده‌ها
+  const isDeleted = !(await env.SESSIONS.get(cacheKey, "text"));
+  if (isDeleted && sessionCache.get(cacheKey)) {
+    sessionCache.delete(cacheKey);
+    logger.info(`🗑️ Cleared deleted session ${chat.id} from cache`);
+  }
+
+  // ✅ تغییر 2: cache با TTL کوتاه‌تر
+  const cached = sessionCache.get(cacheKey);
+  if (cached) {
+    // اطمینان از statistics
+    if (!cached.statistics || cached.statistics.totalMessages === 0) {
+      cached.statistics = cached.statistics || {
+        totalMessages: cached.messageCount || 0,
+        geminiMessages: 0,
+        sambanovaMessages: 0,
+        pollinationsMessages: 0,
+        voicesReceived: 0,
+        firstUsed: cached.lastSeen || Date.now(),
+        lastSeen: cached.lastSeen || Date.now()
+      };
+    }
+    return cached;
+  }
+  
+  // ✅ تغییر 3: اگر در حال load است، صبر کن
+  if (sessionLoadLocks.has(chat.id)) {
+    logger.info(`⏳ Waiting for session ${chat.id} to load...`);
+    const session = await sessionLoadLocks.get(chat.id)!;
+    sessionCache.set(cacheKey, session, 1 * 60 * 1000); // 3 دقیقه
+    return session;
+  }
+  
+  // Load از KV
+  const loadPromise = (async () => {
+    try {
+      const stored = await env.SESSIONS.get(cacheKey, "json");
+      
+      let session: ChatSession;
+      
+      if (stored) {
+        session = hydrateSession(stored as any, chat, user);
+      } else {
+        session = createDefaultSession(chat, user);
+        // save فوری برای session جدید
+        await saveSessionWithLock(session, env, true);
+      }
+      
+      // Check VIP
+      if (chat.type === "group" || chat.type === "supergroup") {
+        const vipKey = `group_vip:${chat.id}`;
+        const vipData = await env.SESSIONS.get(vipKey, "json").catch(() => null);
+        session.vipStatus = vipData ? (vipData as any).vipStatus : false;
+      }
+      
+      // Reset daily limits
+      const now = Date.now();
+      if (session.dailyLimits && now - session.dailyLimits.lastReset > 24 * 60 * 60 * 1000) {
+        session.dailyLimits = {
+          messages: 0,
+          voicesSent: 0,
+          voicesReceived: 0,
+          imagesGenerated: 0,
+          lastReset: now
+        };
+      }
+      
+      // ذخیره در کش با TTL 3 دقیقه (نه 5!)
+      sessionCache.set(cacheKey, session, 3 * 60 * 1000);
+      
+      return session;
+      
+    } finally {
+      sessionLoadLocks.delete(chat.id);
+    }
+  })();
+  
+  sessionLoadLocks.set(chat.id, loadPromise);
+  return loadPromise;
+}
+
+// بازیابی سشن از KV (تبدیل آبجکت به Map)
+function hydrateSession(stored: any, chat: Chat, user: User): ChatSession {
+  const session = stored as ChatSession;
+  session.lastSeen = Date.now();
+  
+  // ✅ مطمئن شو زبان ست شده
+  if (!session.language) session.language = 'fa';
+
+  // ✅ اضافه: اطمینان از statistics
+  if (!session.statistics) {
+    session.statistics = {
+      totalMessages: session.messageCount || 0,
+      geminiMessages: 0,
+      sambanovaMessages: 0,
+      pollinationsMessages: 0,
+      voicesReceived: 0,
+      firstUsed: session.lastSeen || Date.now(),
+      lastSeen: session.lastSeen || Date.now()
+    };
+    logger.warn(`⚠️ Reconstructed missing statistics for session ${session.id}`);
+  }
+  
+  // ✅ اضافه: fix شمارش اشتباه
+  if (session.statistics.totalMessages === 0 && session.messageCount > 0) {
+    session.statistics.totalMessages = session.messageCount;
+    logger.info(`✅ Fixed totalMessages for session ${session.id}: ${session.messageCount}`);
+  }
+  
+  // ✅ اضافه: اطمینان از dailyLimits
+  if (!session.dailyLimits) {
+    session.dailyLimits = {
+      messages: 0,
+      voicesSent: 0,
+      voicesReceived: 0,
+      imagesGenerated: 0,
+      lastReset: Date.now()
+    };
+  }
+  
+  // ✅ Helper بهبود یافته برای تبدیل Object به Map
+  const objToMap = <K, V>(obj: any, keyTransform: (k: string) => K): Map<K, V> => {
+    if (!obj) return new Map();
+    if (obj instanceof Map) return obj;
+    
+    const map = new Map<K, V>();
+    
+    // ✅ پشتیبانی از Array و Object
+    if (Array.isArray(obj)) {
+      obj.forEach(([k, v]) => {
+        map.set(keyTransform(String(k)), v as V);
+      });
+    } else if (typeof obj === 'object') {
+      Object.entries(obj).forEach(([k, v]) => {
+        map.set(keyTransform(k), v as V);
+      });
     }
     
-    static formatDate(date) {
-        return new Date(date).toLocaleDateString('fa-IR', {
-            year: 'numeric',
-            month: 'long',
+    return map;
+  };
+
+  // ✅ بازیابی userMemories
+  session.userMemories = objToMap<number, UserMemory>(
+    session.userMemories, 
+    (k) => parseInt(k, 10)
+  );
+  
+  // ✅ اطمینان از وجود حافظه کاربر فعلی
+  if (!session.userMemories.has(user.id)) {
+    session.userMemories.set(user.id, createUserMemory(user));
+    logger.info(`Created missing userMemory for ${user.id} in session ${session.id}`);
+  }
+  
+  // ✅ اطمینان از وجود groupContext
+  if (!session.groupContext || !Array.isArray(session.groupContext)) {
+    session.groupContext = [];
+  }
+
+  if (!session.engines) {
+    session.engines = {
+      gemini: { history: [], userHistories: new Map(), apiKeyIndex: 0, consecutiveErrors: 0 },
+      sambanova: { history: [], userHistories: new Map(), apiKeyIndex: 0, modelIndex: 0, consecutiveErrors: 0 },
+      pollinations: { history: [], userHistories: new Map(), apiKeyIndex: 0, modelIndex: 0, consecutiveErrors: 0 }
+    };
+  }
+
+  // ✅ بازیابی userHistories برای هر موتور
+  const engineKeys: AIEngine[] = ['gemini', 'sambanova', 'pollinations'];
+  
+  engineKeys.forEach(key => {
+    if (session.engines[key]) {
+      // بازیابی userHistories
+      session.engines[key].userHistories = objToMap<number, HistoryItem[]>(
+        session.engines[key].userHistories,
+        (k) => parseInt(k, 10)
+      );
+      
+      // ✅ اطمینان از وجود history برای کاربر فعلی
+      if (!session.engines[key].userHistories.has(user.id)) {
+        session.engines[key].userHistories.set(user.id, []);
+      }
+      
+      // ✅ اطمینان از وجود history اصلی
+      if (!session.engines[key].history || session.engines[key].history.length === 0) {
+        const isGroup = chat.type === "group" || chat.type === "supergroup";
+        const defaultPrompt = buildDefaultPrompt(key, user.first_name, isGroup, session.userMemories.get(user.id), undefined, session.language);
+        
+        session.engines[key].history = [{
+          role: key === 'gemini' ? 'user' : 'assistant',
+          parts: [{ text: defaultPrompt }],
+          timestamp: Date.now(),
+          userId: user.id,
+          userName: user.first_name
+        }];
+        
+        if (key === 'gemini') {
+            session.engines[key].history.push({
+                role: 'model',
+                parts:[{ text: 'سلام! شرایط و شخصیت خودم را درک کردم. چطور می‌توانم کمکتان کنم؟' }],
+                timestamp: Date.now()
+            });
+        }
+      }
+    }
+  });
+
+  return session;
+}
+
+async function handleKeysCommand(chatId: number, messageId: number | undefined, env: Env, isEdit = false) {
+  const now = Date.now();
+  await isKeyDisabled("test", env); // آپدیت کش مسدودی‌ها برای نمایش دقیق
+
+  // 🛡️ تابع کمکی هوشمند برای جلوگیری از خطای تایم‌اوت الکی (با 2 بار تلاش مجدد)
+  const safeFetch = async (url: string, options: any = {}, retries = 2) => {
+    let lastErr;
+    for (let i = 0; i < retries; i++) {
+      try {
+        // تایم‌اوت را به 8 ثانیه افزایش دادیم تا سرورها فرصت پاسخگویی داشته باشند
+        return await fetchWithTimeout(url, options, 8000);
+      } catch (e) {
+        lastErr = e;
+        if (i < retries - 1) await new Promise(r => setTimeout(r, 1000)); // 1 ثانیه صبر
+      }
+    }
+    throw lastErr;
+  };
+
+  // 1. نمایش پیام لودینگ اولیه
+  let currentMsgId = messageId;
+  const loadingText = `🔍 **سیستم عیب‌یابی جامع نوآ (Diagnostic)**\n\n⏳ در حال برقراری ارتباط با سرورها و تست واقعی کلیدها...\nلطفاً چند لحظه صبر کنید.`;
+  
+  if (isEdit && currentMsgId) {
+    await editMessageText(chatId, currentMsgId, loadingText);
+  } else {
+    const sentMsg = await sendMessage(chatId, loadingText, { reply_to_message_id: messageId });
+    currentMsgId = sentMsg.message_id;
+  }
+
+  let statusText = `📊 **گزارش وضعیت و سلامت API های ربات**\n\n`;
+
+  // -----------------------------------------------------
+  // 🤖 1. تست Gemini (نوا)
+  // -----------------------------------------------------
+  statusText += `🤖 **Gemini (نوا) - ${config.GEMINI_KEYS.length} کلید:**\n`;
+  await editMessageText(chatId, currentMsgId!, statusText + `> ⏳ در حال تست...`);
+
+  for (let i = 0; i < config.GEMINI_KEYS.length; i++) {
+    const key = config.GEMINI_KEYS[i];
+    const maskedKey = key.substring(0, 5) + '...' + key.substring(key.length - 4);
+    const unlockTime = globalDisabledKeys[key];
+    
+    // اگر از قبل در لیست سیاه است، اصلاً ریکوئست نمی‌زنیم (سرعت بالا)
+    if (unlockTime && now < unlockTime) {
+      const hoursLeft = ((unlockTime - now) / 3600000).toFixed(1);
+      statusText += `  ${i + 1}. \`${maskedKey}\` 🔴 مسدود (لیمیت شده تا ${hoursLeft} ساعت دیگر)\n`;
+      continue;
+    }
+
+    try {
+      const testUrl = `https://generativelanguage.googleapis.com/v1beta/models/${config.GEMINI_MODEL}:generateContent?key=${key}`;
+      const response = await safeFetch(testUrl, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ contents: [{ parts:[{ text: "hi" }] }], generationConfig: { maxOutputTokens: 1 } })
+      });
+      
+      if (response.ok) {
+        statusText += `  ${i + 1}. \`${maskedKey}\` 🟢 سالم (OK)\n`;
+      } else {
+        const errorText = await response.text();
+        if (errorText.includes('quota') || errorText.includes('429')) {
+           statusText += `  ${i + 1}. \`${maskedKey}\` 🔴 سهمیه تمام شده\n`;
+           disableApiKey(key, env); // 👈 اضافه کردن سریع به لیست سیاه
+        } else if (errorText.includes('API_KEY_INVALID')) {
+           statusText += `  ${i + 1}. \`${maskedKey}\` ❌ کلید نامعتبر\n`;
+        } else {
+          statusText += `  ${i + 1}. \`${maskedKey}\` ⚠️ خطا (${response.status})\n`;
+        }
+      }
+    } catch (error) {
+        const rawErr = getRawError(error);
+        statusText += `  ${i + 1}. \`${maskedKey}\` ⚠️ خطا: ${rawErr.substring(0, 80)}\n`;    
+    }
+  }
+
+  // -----------------------------------------------------
+  // 🎨 2. تست SambaNova (لونا)
+  // -----------------------------------------------------
+  statusText += `\n🧠 **SambaNova (لونا) - ${config.SAMBANOVA_KEYS.length} کلید:**\n`;
+  await editMessageText(chatId, currentMsgId!, statusText + `> ⏳ در حال تست...`);
+
+  for (let i = 0; i < config.SAMBANOVA_KEYS.length; i++) {
+    const key = config.SAMBANOVA_KEYS[i];
+    const maskedKey = key.substring(0, 5) + '...' + key.substring(key.length - 4);
+    const unlockTime = globalDisabledKeys[key];
+    
+    if (unlockTime && now < unlockTime) {
+      const hoursLeft = ((unlockTime - now) / 3600000).toFixed(1);
+      statusText += `  ${i + 1}. \`${maskedKey}\` 🔴 موقتاً مسدود (تا ${hoursLeft} ساعت)\n`;
+      continue;
+    }
+
+    try {
+      const testUrl = "https://api.sambanova.ai/v1/models";
+      const response = await safeFetch(testUrl, {
+        method: "GET",
+        headers: { "Authorization": `Bearer ${key}` }
+      });
+
+      if (response.ok) {
+        statusText += `  ${i + 1}. \`${maskedKey}\` 🟢 سالم (OK)\n`;
+      } else {
+        if (response.status === 401) {
+          statusText += `  ${i + 1}. \`${maskedKey}\` ❌ کلید نامعتبر\n`;
+        } else if (response.status === 429) {
+          statusText += `  ${i + 1}. \`${maskedKey}\` 🔴 لیمیت شده\n`;
+          disableApiKey(key, env); // 👈 مسدود کردن هوشمند لونا
+        } else {
+          statusText += `  ${i + 1}. \`${maskedKey}\` ⚠️ خطا (${response.status})\n`;
+        }
+      }
+    } catch (error) {
+        const rawErr = getRawError(error);
+        statusText += `  ${i + 1}. \`${maskedKey}\` ⚠️ خطا: ${rawErr.substring(0, 80)}\n`;   
+    }
+  }
+
+  // -----------------------------------------------------
+  // 🔬 3. تست Pollinations (زارا) - تست واقعی
+  // -----------------------------------------------------
+  statusText += `\n🔬 **Pollinations (زارا):**\n`;
+  await editMessageText(chatId, currentMsgId!, statusText + `> ⏳ در حال تست...`);
+
+  try {
+    const zaraUrl = "https://text.pollinations.ai/openai";
+    const headers: Record<string, string> = { "Content-Type": "application/json" };
+    if (config.POLLINATIONS_KEY) {
+      headers["Authorization"] = `Bearer ${config.POLLINATIONS_KEY}`;
+    }
+
+    // ارسال ریکوئست واقعی و بسیار سبک به زارا
+    const zaraRes = await safeFetch(zaraUrl, {
+      method: "POST",
+      headers,
+      body: JSON.stringify({
+        model: "openai",
+        messages: [{ role: "user", content: "hi" }],
+        max_tokens: 5,
+        seed: Math.floor(Math.random() * 1000)
+      })
+    });
+
+    statusText += `\n🖼️ **Pixabay (جستجوی تصویر):**\n`;
+    if (config.PIXABAY_KEY) {
+      statusText += `  🟢 کلید تنظیم شده (${config.PIXABAY_KEY.substring(0,4)}...)\n`;
+    } else {
+      statusText += `  🔴 کلید Pixabay تنظیم نشده است.\n`;
+    }
+
+    if (zaraRes.ok) {
+      statusText += `  ${config.POLLINATIONS_KEY ? '🟢 توکن اختصاصی متصل و سالم' : '🟢 حالت عمومی متصل و سالم'}\n`;
+    } else {
+      if (zaraRes.status === 429) {
+        statusText += `  🔴 ترافیک سرور بالاست (Rate Limit)\n`;
+      } else if (zaraRes.status === 401 || zaraRes.status === 403) {
+        statusText += `  ❌ توکن نامعتبر است\n`;
+      } else {
+        statusText += `  ⚠️ خطا (${zaraRes.status})\n`;
+      }
+    }
+  } catch (error) {
+      const rawErr = getRawError(error);
+      statusText += `  ${i + 1}. \`${maskedKey}\` ⚠️ خطا: ${rawErr.substring(0, 80)}\n`;
+  }
+
+  // -----------------------------------------------------
+  // 🏁 پایان و دکمه‌ها
+  // -----------------------------------------------------
+  statusText += `\n⏰ زمان تست: ${new Date().toLocaleTimeString('fa-IR')}`;
+
+  const keyboard = {
+    inline_keyboard: [[
+        { text: "🔄 تست و بروزرسانی مجدد", callback_data: "admin_refresh_keys" }
+      ],[
+        { text: "❌ بستن", callback_data: "admin_close" }
+      ]
+    ]
+  };
+
+  await editMessageText(chatId, currentMsgId!, statusText, { reply_markup: JSON.stringify(keyboard) });
+}
+
+async function cleanupSessions(env: Env): Promise<void> {
+  const now = Date.now();
+  let cleaned = 0;
+  let compressed = 0;
+  
+  // 1. پاکسازی کش گروه‌ها
+  for (const [chatId, context] of groupContextCache.entries()) {
+    const lastActivity = context.messages.length > 0 
+      ? context.messages[context.messages.length - 1].timestamp 
+      : context.lastCleanup;
+    
+    if (now - lastActivity > 30 * 60 * 1000) {
+      groupContextCache.delete(chatId);
+      cleaned++;
+    }
+  }
+  
+  // 2. پاکسازی سشن‌های قدیمی (با سیستم Pagination جدید)
+  let sessionKeys: any[] = [];
+  let sessionList = await env.SESSIONS.list({ prefix: "session:" });
+  sessionKeys.push(...sessionList.keys);
+  
+  while (!sessionList.list_complete && sessionList.cursor) {
+    sessionList = await env.SESSIONS.list({ prefix: "session:", cursor: sessionList.cursor });
+    sessionKeys.push(...sessionList.keys);
+  }
+  
+  for (const item of sessionKeys) {
+    try {
+      const stored = await env.SESSIONS.get(item.name, "json");
+      if (!stored) continue;
+      
+      const session = stored as ChatSession;
+      const inactiveDays = Math.floor((now - session.lastSeen) / (24 * 60 * 60 * 1000));
+      
+      // حذف سشن‌های 30+ روز
+      if (inactiveDays > 30) {
+        await env.SESSIONS.delete(item.name);
+        cleaned++;
+        continue;
+      }
+      
+      // فشرده‌سازی سشن‌های 7+ روز
+      if (inactiveDays > 7) {
+        let modified = false;
+        
+        if (modified) {
+          await env.SESSIONS.put(item.name, JSON.stringify(session));
+          compressed++;
+        }
+      }
+    } catch (error) {
+      logger.warn(`Failed to cleanup session ${item.name}`, error);
+    }
+  }
+  
+  // 3. پاکسازی کش مدل‌ها (با سیستم Pagination جدید)
+  let modelKeys: any[] = [];
+  let modelList = await env.SESSIONS.list({ prefix: "model_cache:" });
+  modelKeys.push(...modelList.keys);
+  
+  while (!modelList.list_complete && modelList.cursor) {
+    modelList = await env.SESSIONS.list({ prefix: "model_cache:", cursor: modelList.cursor });
+    modelKeys.push(...modelList.keys);
+  }
+
+  for (const item of modelKeys) {
+    try {
+      const stored = await env.SESSIONS.get(item.name, "json");
+      if (!stored) continue;
+      
+      const cache = stored as ModelCache;
+      if (now - cache.lastUpdated > 7 * 24 * 60 * 60 * 1000) {
+        await env.SESSIONS.delete(item.name);
+        cleaned++;
+      }
+    } catch (error) {
+      logger.warn(`Failed to cleanup model cache ${item.name}`, error);
+    }
+  }
+  
+  if (cleaned > 0 || compressed > 0) {
+    logger.info(`🧹 Cleanup: ${cleaned} deleted, ${compressed} compressed`);
+  }
+}
+
+// --- SECTION: ADMIN STATISTICS ---
+interface UserStatistics {
+  userId: number;
+  firstName: string;
+  userName: string;
+  chatType: ChatType;
+  statistics: {
+    totalMessages: number;
+    geminiMessages: number;
+    sambanovaMessages: number;
+    pollinationsMessages: number;
+    voicesReceived: number;
+    firstUsed: number;
+    lastSeen: number;
+  };
+  activeEngine: AIEngine;
+  vipStatus: boolean;
+  dailyLimits: {
+    messages: number;
+    voicesSent: number;
+    voicesReceived: number;
+  };
+}
+
+// --- SECTION: DYNAMIC MODEL MANAGEMENT TYPES ---
+
+interface ModelInfo {
+  id: string;
+  name: string;
+  description?: string;
+  context_length?: number;
+  type: 'text' | 'image'; // اضافه شد
+  capabilities?: string[];
+}
+
+interface ModelCache {
+  engine: AIEngine;
+  models: ModelInfo[];
+  lastUpdated: number;
+}
+
+interface ModelListState {
+  page: number;
+  perPage: number;
+  totalPages: number;
+}
+
+const MODEL_CACHE_KEY = (engine: AIEngine) => ["model_cache", engine];
+const MODEL_CACHE_TTL = 12 * 60 * 60 * 1000;
+
+// In-memory state for pagination
+const modelListStates = new Map<string, ModelListState>();
+
+interface AdminPanelState {
+  page: number;
+  perPage: number;
+  sortBy: 'new' | 'active' | 'messages';
+}
+
+const adminPanelStates = new Map<number, AdminPanelState>();
+
+// 👇 کپی از اینجا
+async function getAllUserStatistics(env: Env): Promise<UserStatistics[]> {
+  const users: UserStatistics[] = [];
+  const seenUserIds = new Set<number>();
+  
+  try {
+    // ✅ سیستم Pagination جدید برای پشتیبانی از میلیون‌ها کاربر
+    let allKeys: any[] = [];
+    let listResult = await env.SESSIONS.list({ prefix: "session:" });
+    allKeys.push(...listResult.keys);
+    
+    while (!listResult.list_complete && listResult.cursor) {
+      listResult = await env.SESSIONS.list({ prefix: "session:", cursor: listResult.cursor });
+      allKeys.push(...listResult.keys);
+    }
+    
+    logger.info(`📊 Scanning ${allKeys.length} sessions...`);
+    
+    for (const item of allKeys) {
+      try {
+        const stored = await env.SESSIONS.get(item.name, "json");
+        if (!stored) continue;
+        
+        const session = stored as ChatSession;
+        
+        // ✅ برای چت خصوصی
+        if (session.type === 'private') {
+          const userId = session.id;
+
+          if (userId === config.BOT_OWNER_ID || userId === 777000) continue;
+          
+          if (seenUserIds.has(userId)) continue;
+          seenUserIds.add(userId);
+          
+          let userInfo = { firstName: 'Unknown User', userName: '' };
+          
+          if (session.userMemories) {
+            const memories = Array.from(session.userMemories.values ? session.userMemories.values() : Object.values(session.userMemories));
+            if (memories.length > 0) {
+              userInfo.firstName = memories[0].firstName || 'Unknown User';
+              userInfo.userName = memories[0].userName || '';
+            }
+          }
+          
+          const stats = session.statistics || {
+            totalMessages: session.messageCount || 0,
+            geminiMessages: 0, sambanovaMessages: 0, pollinationsMessages: 0,
+            voicesReceived: 0, firstUsed: session.lastSeen || Date.now(),
+            lastSeen: session.lastSeen || Date.now()
+          };
+          
+          users.push({
+            userId: userId, firstName: userInfo.firstName, userName: userInfo.userName,
+            chatType: session.type, statistics: stats, activeEngine: session.activeEngine || 'gemini',
+            vipStatus: session.vipStatus || false,
+            dailyLimits: session.dailyLimits || { messages: 0, voicesSent: 0, voicesReceived: 0, imagesGenerated: 0, lastReset: Date.now() }
+          });
+        }
+        // ✅ برای گروه‌ها
+        else if (session.type === 'group' || session.type === 'supergroup') {
+          const userMemories = session.userMemories || {};
+          const memoriesArray = userMemories instanceof Map ? Array.from(userMemories.values()) : Object.values(userMemories);
+          
+          memoriesArray.forEach((memory: UserMemory) => {
+            if (memory.userId === config.BOT_OWNER_ID || memory.userId === 777000) return;
+            if (seenUserIds.has(memory.userId)) return;
+            seenUserIds.add(memory.userId);
+            
+            const stats = session.statistics || {
+              totalMessages: memory.messageCount || 0,
+              geminiMessages: 0, sambanovaMessages: 0, pollinationsMessages: 0,
+              voicesReceived: 0, firstUsed: session.lastSeen || Date.now(),
+              lastSeen: memory.lastSeen || Date.now()
+            };
+            
+            users.push({
+              userId: memory.userId, firstName: memory.firstName || 'Unknown', userName: memory.userName || '',
+              chatType: session.type, statistics: stats, activeEngine: session.activeEngine || 'gemini',
+              vipStatus: session.vipStatus || false,
+              dailyLimits: session.dailyLimits || { messages: 0, voicesSent: 0, voicesReceived: 0, imagesGenerated: 0, lastReset: Date.now() }
+            });
+          });
+        }
+      } catch (error) {
+        continue;
+      }
+    }
+    
+    const finalUsers = users.sort((a, b) => (b.statistics?.lastSeen || 0) - (a.statistics?.lastSeen || 0));
+    logger.info(`✅ Found ${finalUsers.length} unique users`);
+    return finalUsers;
+    
+  } catch (error) {
+    logger.error('Failed to get statistics:', error);
+    return [];
+  }
+}
+
+
+function createDefaultSession(chat: Chat, user: User): ChatSession {
+  const now = Date.now();
+  
+  // ساخت حافظه اولیه برای کاربر فعلی
+  const initialUserMemory = createUserMemory(user);
+  const userMemories = new Map<number, UserMemory>();
+  userMemories.set(user.id, initialUserMemory);
+
+  return {
+    id: chat.id,
+    type: chat.type,
+    activeEngine: "gemini",
+    lastSeen: now,
+    messageCount: 0,
+    language: 'fa', // پیش‌فرض فارسی
+    userMemories: userMemories,
+    groupContext: [],
+    
+    customPrompts: {
+      gemini: null,
+      sambanova: null,
+      pollinations: null
+    },
+    
+    engines: {
+      gemini: {
+        history: [],
+        userHistories: new Map(),
+        apiKeyIndex: 0,
+        consecutiveErrors: 0
+      },
+      sambanova: {
+        history: [],
+        userHistories: new Map(),
+        apiKeyIndex: 0,
+        modelIndex: 0,
+        consecutiveErrors: 0
+      },
+      pollinations: {
+        history: [],
+        userHistories: new Map(),
+        apiKeyIndex: 0,
+        modelIndex: 0,
+        consecutiveErrors: 0
+      }
+    },
+    
+    rateLimiting: { requests: [] },
+    
+    settings: {
+      autoCleanHistory: true,
+      typingIndicator: true,
+      groupResponseMode: "mention_only",
+      personalizedResponses: true,
+      contextAwareness: true,
+      languageSet: false
+    },
+    
+    statistics: {
+      totalMessages: 0,
+      geminiMessages: 0,
+      sambanovaMessages: 0,
+      pollinationsMessages: 0,
+      voicesReceived: 0,
+      firstUsed: now,
+      lastSeen: now
+    },
+    
+    vipStatus: false, // پیش‌فرض رایگان
+    
+    dailyLimits: {
+      messages: 0,
+      voicesSent: 0,
+      voicesReceived: 0,
+      imagesGenerated: 0,
+      lastReset: now
+    }
+  };
+}
+
+async function getBlockedUsers(env: Env): Promise<Array<{userId: number, since: number, reason: string}>> {
+  const blocked: Array<{userId: number, since: number, reason: string}> = [];
+  
+  try {
+    const list = await env.SESSIONS.list({ prefix: "user_blocked:" });
+    
+    for (const item of list.keys) {
+      try {
+        const userId = parseInt(item.name.replace('user_blocked:', ''));
+        const data = await env.SESSIONS.get(item.name, "json") as any;
+        
+        if (data && data.blocked) {
+          blocked.push({
+            userId,
+            since: data.since || Date.now(),
+            reason: data.reason || 'نامشخص'
+          });
+        }
+      } catch (error) {
+        logger.warn(`Failed to parse blocked user ${item.name}`);
+      }
+    }
+    
+    return blocked.sort((a, b) => b.since - a.since);
+    
+  } catch (error) {
+    logger.error('Failed to get blocked users', error);
+    return [];
+  }
+}
+
+async function getBlockedUsersCount(env: Env): Promise<number> {
+  try {
+    const list = await env.SESSIONS.list({ prefix: "user_blocked:" });
+    return list.keys.length;
+  } catch (error) {
+    logger.error('Failed to count blocked users', error);
+    return 0;
+  }
+}
+
+function formatSafeDate(
+  timestamp: number | undefined, 
+  format: 'full' | 'short' | 'time' = 'full'
+): string {
+  if (!timestamp || isNaN(timestamp) || timestamp === 0) {
+    return 'نامشخص';
+  }
+  
+  try {
+    const options: Intl.DateTimeFormatOptions = {
+      timeZone: 'Asia/Tehran'
+    };
+    
+    if (format === 'full') {
+      options.year = 'numeric';
+      options.month = 'long';
+      options.day = 'numeric';
+      options.hour = '2-digit';
+      options.minute = '2-digit';
+      options.second = '2-digit';
+    } else if (format === 'short') {
+      options.year = 'numeric';
+      options.month = 'short';
+      options.day = 'numeric';
+    } else if (format === 'time') {
+      options.hour = '2-digit';
+      options.minute = '2-digit';
+    }
+    
+    return new Date(timestamp).toLocaleString('fa-IR', options);
+  } catch (error) {
+    logger.warn('Failed to format date', { timestamp, error });
+    return 'نامشخص';
+  }
+}
+
+async function handleLanguageCommand(message: Message, env: Env) {
+  const { chat, from } = message;
+  if (!from) return;
+  
+  const session = await getOrCreateSession(chat, from, env);
+  
+  const text = `🌐 **Language Selection / انتخاب زبان**
+
+Current: **${session.language === 'fa' ? 'فارسی 🇮🇷' : 'English 🇺🇸'}**
+
+Please select your language:
+لطفاً زبان خود را انتخاب کنید:`;
+  
+  const keyboard = {
+    inline_keyboard: [
+      [
+        { text: "🇮🇷 فارسی", callback_data: "set_lang_fa" },
+        { text: "🇺🇸 English", callback_data: "set_lang_en" }
+      ]
+    ]
+  };
+
+  // ✅ فوراً دستورات را بروز کن
+  await refreshUserCommands(chat.id, session);
+
+  await sendMessage(chat.id, text, {
+    reply_to_message_id: message.message_id,
+    reply_markup: JSON.stringify(validateKeyboard(keyboard))
+  });
+}
+
+function formatUserStatistics(users: UserStatistics[]): string {
+  if (users.length === 0) {
+    return "📭 **هیچ کاربری یافت نشد**";
+  }
+  
+  // ✅ محاسبه آمار کلی
+  const totalUsers = users.length;
+  const totalMessages = users.reduce((sum, u) => sum + (u.statistics.totalMessages || 0), 0);
+  const totalVoices = users.reduce((sum, u) => sum + (u.statistics.voicesReceived || 0), 0);
+  const totalImages = users.reduce((sum, u) => sum + (u.dailyLimits.imagesGenerated || 0), 0);
+  
+  // ✅ محبوب‌ترین مدل
+  const engineCounts = {
+    gemini: users.reduce((sum, u) => sum + (u.statistics.geminiMessages || 0), 0),
+    sambanova: users.reduce((sum, u) => sum + (u.statistics.sambanovaMessages || 0), 0),
+    pollinations: users.reduce((sum, u) => sum + (u.statistics.pollinationsMessages || 0), 0)
+  };
+  
+  const mostPopularEngine = Object.entries(engineCounts)
+    .sort((a, b) => b[1] - a[1])[0];
+    
+  // ✅ کاربران فعال امروز (24 ساعت گذشته)
+  const now = Date.now();
+  const oneDayAgo = now - (24 * 60 * 60 * 1000);
+  const activeToday = users.filter(u => {
+    const lastSeen = u.statistics.lastSeen || 0;
+    return lastSeen > oneDayAgo;
+  }).length;
+  
+  const vipUsers = users.filter(u => u.vipStatus).length;
+  
+  // ✅ ساخت متن خروجی
+  let text = `📊 **آمار کلی ربات**\n\n`;
+  text += `👥 **کل کاربران:** ${totalUsers}\n`;
+  text += `👑 **VIP:** ${vipUsers} | 🆓 **رایگان:** ${totalUsers - vipUsers}\n`;
+  text += `🔥 **فعال امروز:** ${activeToday}\n\n`;
+  
+  text += `📈 **آمار پیام‌ها:**\n`;
+  text += `💬 کل: ${totalMessages}\n`;
+  text += `🤖 نوا: ${engineCounts.gemini}\n`;
+  text += `🎨 لونا: ${engineCounts.sambanova}\n`;
+  text += `🔬 زارا: ${engineCounts.pollinations}\n\n`;
+  
+  text += `🎤 **کل ویس‌ها:** ${totalVoices}\n\n`;
+  text += `🖼️ **کل تصاویر امروز:** ${totalImages}\n\n`;
+  
+  if (mostPopularEngine[1] > 0) {
+    const engineKey = `engine_${mostPopularEngine[0]}` as keyof typeof TRANSLATIONS.fa;
+    const engLabel = TRANSLATIONS.fa[engineKey] || mostPopularEngine[0];
+    text += `⭐ **محبوب‌ترین مدل:** ${engLabel} (${mostPopularEngine[1]} پیام)`;  
+  }
+  
+  text += `━━━━━━━━━━━━━━━━━━━━\n\n`;
+  text += `📋 **لیست کاربران (${Math.min(10, users.length)} نفر اول):**\n\n`;
+  
+  // ✅ نمایش 10 کاربر اول با جزئیات خلاصه
+  users.slice(0, 10).forEach((user, index) => {
+    const num = index + 1;
+    
+    // ✅ محاسبه زمان آخرین فعالیت
+    const lastSeen = user.statistics.lastSeen && user.statistics.lastSeen > 0
+      ? new Date(user.statistics.lastSeen).toLocaleString('fa-IR', { 
+          timeZone: 'Asia/Tehran',
+          month: 'short', 
+          day: 'numeric',
+          hour: '2-digit',
+          minute: '2-digit'
+        })
+      : 'نامشخص';
+    
+    // ✅ محاسبه اولین استفاده
+    const firstUsed = user.statistics.firstUsed && user.statistics.firstUsed > 0
+      ? new Date(user.statistics.firstUsed).toLocaleDateString('fa-IR', {
+          timeZone: 'Asia/Tehran',
+          month: 'short',
+          day: 'numeric'
+        })
+      : 'نامشخص';
+    
+    // ✅ نمایش اطلاعات کاربر
+    const vipBadge = user.vipStatus ? '👑 ' : '';
+    
+    text += `**${num}.** ${vipBadge}${user.firstName}\n`;
+    text += `🆔 \`${user.userId}\` | 👤 @${user.userName || 'ندارد'}\n`;
+    
+    // ✅ آمار پیام‌ها
+    text += `💬 **جمع:** ${user.statistics.totalMessages || 0} | `;
+    text += `🤖 ${user.statistics.geminiMessages || 0} | `;
+    text += `🎨 ${user.statistics.sambanovaMessages || 0} | `;
+    text += `🔬 ${user.statistics.pollinationsMessages || 0}\n`;
+    
+    // ✅ آمار رسانه‌ها
+    text += `🎤 ${user.statistics.voicesReceived || 0} ویس\n`;
+    
+    // ✅ زمان‌ها
+    text += `📅 اولین: ${firstUsed} | ⏰ آخرین: ${lastSeen}\n`;
+    
+    // ✅ محدودیت‌های امروز (فقط برای غیر VIP)
+    if (!user.vipStatus) {
+      text += `📊 **امروز:** `;
+      text += `${user.dailyLimits.messages || 0}/50 پیام | `;
+      text += `${user.dailyLimits.voicesSent || 0}/5 ویس ارسالی | `;
+      text += `${user.dailyLimits.voicesReceived || 0}/10 ویس دریافتی | `;
+    }
+    
+    text += `\n`;
+  });
+  
+  // ✅ اگر کاربران بیشتری وجود دارن
+  if (users.length > 10) {
+    text += `➕ ... و ${users.length - 10} کاربر دیگر\n\n`;
+    text += `💡 برای مشاهده جزئیات هر کاربر، از پنل ادمین استفاده کنید.`;
+  }
+  
+  return text;
+}
+
+async function setUserBlocked(userId: number, isBlocked: boolean, env: Env): Promise<void> {
+  const key = `user_blocked:${userId}`;
+  
+  try {
+    if (isBlocked) {
+      await env.SESSIONS.put(key, JSON.stringify({
+        blocked: true,
+        since: Date.now(),
+        reason: "Blocked by admin"
+      }));
+      logger.info(`✅ User ${userId} blocked`);
+    } else {
+      await env.SESSIONS.delete(key);
+      logger.info(`✅ User ${userId} unblocked`);
+    }
+  } catch (error) {
+    logger.error(`Failed to set block status for ${userId}`, error);
+  }
+}
+
+// ✅ تابع چک کردن Block بودن کاربر
+async function isUserBlocked(userId: number, env: Env): Promise<boolean> {
+  const key = `user_blocked:${userId}`;
+  
+  try {
+    const stored = await env.SESSIONS.get(key, "json");
+    if (!stored) return false;
+    
+    const data = stored as { blocked: boolean; since: number };
+    return data.blocked || false;
+  } catch (error) {
+    logger.warn(`Failed to check block status for ${userId}`, error);
+    return false;
+  }
+}
+
+// ✅ تابع اصلاح شده formatDetailedUserStats
+function formatDetailedUserStats(user: UserStatistics): string {
+  // ✅ Escape کردن تمام کاراکترهای خطرناک در Markdown
+  const escapeMarkdown = (text: string | undefined): string => {
+    if (!text) return 'نامشخص';
+    return String(text)
+      .replace(/[_*[\]()~`>#+=|{}.!-]/g, '\\$&');
+  };
+  
+  const formatSafeDate = (timestamp: number | undefined, format: 'full' | 'short' = 'full'): string => {
+    if (!timestamp || isNaN(timestamp) || timestamp === 0) {
+      return 'نامشخص';
+    }
+    
+    try {
+      const options: Intl.DateTimeFormatOptions = {
+        timeZone: 'Asia/Tehran'
+      };
+      
+      if (format === 'full') {
+        options.year = 'numeric';
+        options.month = 'long';
+        options.day = 'numeric';
+        options.hour = '2-digit';
+        options.minute = '2-digit';
+      } else {
+        options.year = 'numeric';
+        options.month = 'short';
+        options.day = 'numeric';
+      }
+      
+      return new Date(timestamp).toLocaleString('fa-IR', options);
+    } catch {
+      return 'نامشخص';
+    }
+  };
+  
+  const calculateUsageDuration = (): string => {
+    const firstUsed = user.statistics?.firstUsed || 0;
+    const lastSeen = user.statistics?.lastSeen || 0;
+    
+    if (firstUsed === 0 || lastSeen === 0) return 'نامشخص';
+    
+    const durationMs = lastSeen - firstUsed;
+    const days = Math.floor(durationMs / (24 * 60 * 60 * 1000));
+    const hours = Math.floor((durationMs % (24 * 60 * 60 * 1000)) / (60 * 60 * 1000));
+    
+    if (days > 0) {
+      return `${days} روز و ${hours} ساعت`;
+    } else if (hours > 0) {
+      return `${hours} ساعت`;
+    } else {
+      const minutes = Math.floor(durationMs / (60 * 1000));
+      return `${minutes} دقیقه`;
+    }
+  };
+  
+  const getFavoriteEngine = (): { name: string; count: number; percentage: number } => {
+    const stats = user.statistics || {};
+    const engines = [
+      { key: 'gemini' as const, count: stats.geminiMessages || 0 },
+      { key: 'sambanova' as const, count: stats.sambanovaMessages || 0 },
+      { key: 'pollinations' as const, count: stats.pollinationsMessages || 0 }
+    ];
+    
+    const favorite = engines.sort((a, b) => b.count - a.count)[0];
+    const total = stats.totalMessages || 1;
+    const percentage = Math.round((favorite.count / total) * 100);
+    
+    return {
+      name: TRANSLATIONS[favorite.key] || 'نامشخص',
+      count: favorite.count,
+      percentage
+    };
+  };
+  
+  const getActivityStatus = (): { status: string; emoji: string } => {
+    const lastSeen = user.statistics?.lastSeen || 0;
+    const now = Date.now();
+    const diff = now - lastSeen;
+    
+    if (diff < 60 * 60 * 1000) {
+      return { status: 'آنلاین اخیر', emoji: '🟢' };
+    } else if (diff < 24 * 60 * 60 * 1000) {
+      return { status: 'فعال امروز', emoji: '🟡' };
+    } else if (diff < 7 * 24 * 60 * 60 * 1000) {
+      return { status: 'فعال این هفته', emoji: '🟠' };
+    } else {
+      return { status: 'غیرفعال', emoji: '⚪' };
+    }
+  };
+  
+  const activity = getActivityStatus();
+  const favorite = getFavoriteEngine();
+  const usageDuration = calculateUsageDuration();
+  
+  // ✅ استفاده از escapeMarkdown برای تمام مقادیر دینامیک
+  const safeName = escapeMarkdown(user.firstName);
+  const safeUsername = escapeMarkdown(user.userName || 'ندارد');
+  const safeUserId = escapeMarkdown(String(user.userId || 'نامشخص'));
+  
+  let text = `👤 **اطلاعات کامل کاربر**\n\n`;
+  text += `━━━━━━━━━━━━━━━━━━━━\n\n`;
+  
+  text += `📝 **مشخصات:**\n`;
+  text += `• نام: ${safeName}\n`;
+  text += `• یوزرنیم: @${safeUsername}\n`;
+  text += `• آیدی: \`${safeUserId}\`\n`;
+  text += `• وضعیت: ${user.vipStatus ? '👑 VIP' : '🆓 رایگان'}\n\n`;
+  
+  text += `${activity.emoji} **وضعیت فعالیت:** ${activity.status}\n`;
+  text += `• مدت استفاده: ${usageDuration}\n\n`;
+  
+  const stats = user.statistics || {};
+  text += `📊 **آمار پیام‌ها:**\n`;
+  text += `• **کل:** ${stats.totalMessages || 0}\n`;
+  text += `  ├─ 🤖 نوا: ${stats.geminiMessages || 0}\n`;
+  text += `  ├─ 🎨 لونا: ${stats.sambanovaMessages || 0}\n`;
+  text += `  └─ 🔬 زارا: ${stats.pollinationsMessages || 0}\n`;
+  text += `\n⭐ **موتور محبوب:** ${favorite.name} (${favorite.percentage}%)\n\n`;
+  
+  text += `🎨 **آمار رسانه‌ها:**\n`;
+  text += `• 🎤 ویس دریافتی: ${stats.voicesReceived || 0}\n\n`;
+  
+  if (!user.vipStatus) {
+    text += `⏳ **محدودیت‌های امروز:**\n`;
+    const limits = user.dailyLimits || { messages: 0, voicesSent: 0, voicesReceived: 0, imagesGenerated: 0 };
+    text += `• 💬 پیام: ${limits.messages || 0}/100\n`;
+    text += `• 🔊 ویس: ${limits.voicesSent || 0}/10\n`;
+    text += `• 🖼️ تصویر: ${limits.imagesGenerated || 0}/5\n\n`;
+  } else {
+    text += `✨ **کاربر VIP - بدون محدودیت**\n\n`;
+  }
+  
+  text += `📅 **تاریخچه:**\n`;
+  text += `• اولین استفاده: ${formatSafeDate(stats.firstUsed)}\n`;
+  text += `• آخرین فعالیت: ${formatSafeDate(stats.lastSeen)}\n`;
+  
+  text += `\n━━━━━━━━━━━━━━━━━━━━`;
+  
+  return text;
+}
+
+// --- SECTION: AI API CALLS ---
+function getActivePrompt(session: ChatSession, userName: string | User, isGroup: boolean = false): string {
+  const customPrompt = session.customPrompts[session.activeEngine];
+  const currentTime = new Date().toLocaleDateString('fa-IR', { timeZone: 'Asia/Tehran' });
+  
+  let userId: number;
+  let userFirstName: string;
+  
+  if (typeof userName === 'object') {
+    userId = userName.id;
+    userFirstName = userName.first_name;
+  } else {
+    userFirstName = userName;
+    userId = 0;
+  }
+  
+  const userMemory = userId ? session.userMemories.get(userId) : null;
+  const groupAnalysis = isGroup && session.settings.contextAwareness ? 
+    analyzeGroupConversation(getGroupContext(session.id), { id: userId, first_name: userFirstName } as User , session.language) : "";
+  
+  if (customPrompt) {
+    return `${customPrompt}\nYou are talking to ${userFirstName}. Current date: ${currentTime}.${isGroup ? ` This is a group chat. ${groupAnalysis}` : ''}`;
+  }
+  
+  return buildDefaultPrompt(session.activeEngine, userFirstName, isGroup, userMemory, groupAnalysis, session.language);
+}
+
+function sanitizeHistoryForAPI(history: HistoryItem[]): Array<{ role: string, parts: Part[] }> {
+  const sanitized = history
+    .filter(item => item.parts && item.parts.length > 0)
+    .map(({ role, parts }) => {
+      // تبدیل نقش‌ها برای جمنای
+      let apiRole = role;
+      if (role === 'assistant') apiRole = 'model';
+      if (role === 'system') apiRole = 'user'; 
+      
+      return { 
+        role: apiRole, 
+        parts: parts.filter(part => part.text || part.inline_data) 
+      };
+    });
+
+  // 🔴 رفع باگ حیاتی Gemini: نقش‌ها باید حتما یکی در میان باشند
+  const merged: Array<{ role: string, parts: Part[] }> =[];
+  
+  for (const item of sanitized) {
+    if (merged.length > 0 && merged[merged.length - 1].role === item.role) {
+      // اگر دو پیام کاربر (یا ربات) پشت سر هم بود، آن‌ها را یکی کن
+      merged[merged.length - 1].parts.push({text: "\n\n"}, ...item.parts);
+    } else {
+      merged.push({ role: item.role, parts: [...item.parts] });
+    }
+  }
+
+  // API جمنای همیشه باید با پیام user شروع شود
+  if (merged.length > 0 && merged[0].role !== 'user') {
+      merged.shift();
+  }
+
+  return merged;
+}
+
+// AI API calls remain the same but with enhanced context
+async function callGeminiAPI(parts: Part[], model: string, apiKey: string, history: HistoryItem[]): Promise<string> {
+  const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
+  const contents = [...sanitizeHistoryForAPI(history), { role: "user" as const, parts }];
+  
+  const response = await fetchWithTimeout(url, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      contents,
+      generationConfig: { temperature: 0.8, topK: 40, topP: 0.95, maxOutputTokens: 8192 },
+      safetySettings: [
+        { category: "HARM_CATEGORY_HARASSMENT", threshold: "BLOCK_NONE" },
+        { category: "HARM_CATEGORY_HATE_SPEECH", threshold: "BLOCK_NONE" },
+        { category: "HARM_CATEGORY_SEXUALLY_EXPLICIT", threshold: "BLOCK_NONE" },
+        { category: "HARM_CATEGORY_DANGEROUS_CONTENT", threshold: "BLOCK_NONE" }
+      ]
+    }),
+  });
+  
+  const data = await response.json();
+  
+  if (data.error) {
+    const errorMsg = data.error.message.toLowerCase();
+    // فقط خطاها را دسته‌بندی می‌کنیم تا در handleGeminiRequest تصمیم گرفته شود
+    throw new Error(`Gemini API Error: ${data.error.message}`);
+  }
+
+  const candidate = data.candidates?.[0];
+  if (candidate?.finishReason === "SAFETY") throw new Error("SAFETY_BLOCKED");
+  if (candidate?.finishReason === "RECITATION") throw new Error("RECITATION_BLOCKED");
+  
+  const text = candidate?.content?.parts?.[0]?.text;
+  if (!text || text.trim().length === 0) throw new Error("EMPTY_RESPONSE");
+  
+  return text.trim();
+}
+
+function escapeMarkdown(text: string): string {
+  return text.replace(/[_*[\]()~`>#+=|{}.!-]/g, '\\$&');
+}
+
+// Fixed SambaNova API call with correct endpoint
+async function callSambanovaAPI(prompt: string, history: HistoryItem[], model: string,apiKey: string): Promise<string> {
+  const url = "https://api.sambanova.ai/v1/chat/completions";
+  
+  const messages = [
+    { 
+      role: "system", 
+      content: history[0]?.parts[0]?.text || buildDefaultPrompt("sambanova", "کاربر") 
+    },
+    ...history.slice(1).map(h => ({ 
+      role: h.role === "model" ? "assistant" : h.role, 
+      content: h.parts[0]?.text || "" 
+    })),
+    { role: "user", content: sanitizeInput(prompt) },
+  ].filter(msg => msg.content.trim().length > 0);
+  
+  const response = await fetchWithTimeout(url, {
+    method: "POST",
+    headers: { 
+      "Authorization": `Bearer ${apiKey}`, 
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({ 
+      model: model,
+      messages, 
+      temperature: 0.7, 
+      top_p: 0.9, 
+      max_tokens: 4096,
+      stream: false
+    }),
+  });
+  
+  const data = await response.json();
+  
+  if (data.error) {
+    const errorMsg = data.error.message || JSON.stringify(data.error);
+    throw new Error(`SambaNova API error: ${errorMsg}`);
+
+    if (errorMsg.includes('quota') || errorMsg.includes('rate limit')) {
+      throw new Error(`SambaNova quota exceeded: ${errorMsg}`);
+    }
+  }
+  
+  const text = data.choices?.[0]?.message?.content;
+  if (!text) {
+    throw new Error("خطای پاسخ خالی!");
+  }
+  
+  return text.trim();
+}
+
+async function fetchSambanovaModels(apiKey: string): Promise<ModelInfo[]> {
+  try {
+    const url = "https://api.sambanova.ai/v1/models";
+    const response = await fetchWithTimeout(url, { 
+      headers: { "Authorization": `Bearer ${apiKey}` } 
+    }, 30000);
+    
+    const data = await response.json();
+    
+    if (!data.data) return [];
+    
+    return data.data
+      .map((m: any) => ({
+        id: m.id,
+        name: m.name || m.id,
+        description: m.description || '',
+        context_length: m.context_length || 0
+      }))
+      .slice(0, 100);
+      
+  } catch (error) {
+    logger.error("Failed to fetch SambaNova models", error);
+    return [
+      { id: "DeepSeek-V3.1", name: "DeepSeek-V3.1" },
+      { id: "Qwen3-32B", name: "Qwen3-32B" },
+      { id: "Llama-4-Maverick-17B-128E-Instruct", name: "Llama 4 Maverick" }
+    ];
+  }
+}
+
+function getFallbackPollinationsModels(): ModelInfo[] {
+  return [
+    { id: "deepseek", name: "DeepSeek V3.1", description: "Tier: seed - Advanced reasoning model" },
+    { id: "gemini", name: "Gemini 2.5 Flash Lite", description: "Tier: seed - Multimodal AI with vision" },
+    { id: "gemini-search", name: "Gemini 2.5 Flash Lite with Google Search", description: "Tier: seed - Search-enabled multimodal AI" },
+    { id: "mistral", name: "Mistral Small 3.2 24B", description: "Tier: seed - Efficient instruct model" },
+    { id: "openai", name: "OpenAI GPT-5 Nano", description: "Tier: anonymous - Basic multimodal chat" },
+    { id: "openai-audio", name: "OpenAI GPT-4o Mini Audio Preview", description: "Tier: seed - Audio and vision capable" },
+    { id: "openai-fast", name: "OpenAI GPT-4.1 Nano", description: "Tier: anonymous - Fast multimodal model" },
+    { id: "openai-large", name: "OpenAI GPT-4.1", description: "Tier: seed - Large context model" },
+    { id: "openai-reasoning", name: "OpenAI o4 Mini", description: "Tier: seed - Reasoning focused model" },
+    { id: "qwen-coder", name: "Qwen 2.5 Coder 32B", description: "Tier: flower - Coding specialized model" },
+    { id: "roblox-rp", name: "Llama 3.1 8B Instruct", description: "Tier: seed - RP and instruct model" },
+    { id: "bidara", name: "BIDARA (NASA Biomimetic AI)", description: "Tier: anonymous - NASA research assistant" },
+    { id: "chickytutor", name: "ChickyTutor AI Language Tutor", description: "Tier: anonymous - Language learning tutor" },
+    { id: "evil", name: "Evil AI", description: "Tier: seed - Uncensored multimodal AI" },
+    { id: "midijourney", name: "MIDIjourney", description: "Tier: anonymous - MIDI generation AI" },
+    { id: "rtist", name: "Rtist", description: "Tier: seed - Art and design AI" },
+    { id: "unity", name: "Unity Unrestricted Agent", description: "Tier: seed - Uncensored multi-modal agent" }
+  ];
+}
+
+// --- ZARA (POLLINATIONS) LOGIC ---
+async function fetchPollinationsModels(): Promise<ModelInfo[]> {
+  // لیست مدل‌های ترکیبی بر اساس داکیومنت ارسالی شما
+  const textModels = [
+    { id: "openai", name: "💬 GPT-5 Mini", type: "text" },
+    { id: "openai-large", name: "🧠 GPT-5.2 (Reasoning)", type: "text" },
+    { id: "deepseek", name: "🧠 DeepSeek V3.1", type: "text" },
+    { id: "gemini", name: "💬 Gemini 3 Flash", type: "text" },
+    { id: "grok", name: "💬 Grok 4 Fast", type: "text" },
+    { id: "mistral", name: "💬 Mistral Small", type: "text" },
+    { id: "nova-micro", name: "⚡ Amazon Nova (Ultra Fast)", type: "text" }
+  ];
+  
+  const imageModels = [
+    { id: "flux", name: "🖼️ Flux (High Quality)", type: "image" },
+    { id: "turbo", name: "🖼️ Turbo (Fast)", type: "image" }
+  ];
+
+  return [...textModels, ...imageModels] as ModelInfo[];
+}
+
+// ✅ تابع آمایش مدل‌ها به صورت async
+async function getModelsWithCache(engine: AIEngine, env: Env, forceRefresh: boolean = false): Promise<ModelCache> {
+  const cacheKey = `model_cache:${engine}`;
+  
+  try {
+    const stored = await env.SESSIONS.get(cacheKey, "json");
+    
+    if (stored) {
+      const cached = stored as ModelCache;
+      const isExpired = (Date.now() - cached.lastUpdated) > MODEL_CACHE_TTL;
+      
+      // 🚀 اگه cache داریم، فوراً برگردون (حتی اگه منقضی شده)
+      if (!forceRefresh) {
+        // ⚡ اگه منقضی شده، پس‌زمینه refresh کن
+        if (isExpired) {
+          logger.info(`⚡ Serving stale cache for ${engine}, refreshing in background...`);
+          refreshModelsInBackground(engine, env); // 🔥 Non-blocking!
+        }
+        
+        const cachedModelIds = cached.models.map(m => m.id);
+        if (engine === 'sambanova') config.SAMBANOVA_MODELS = cachedModelIds;
+        if (engine === 'pollinations') config.POLLINATIONS_MODELS = cachedModelIds;
+        
+        return cached;
+      }
+    }
+    
+    return await fetchAndCacheModels(engine, env);
+    
+  } catch (error) {
+    logger.warn(`Failed to read cache for ${engine}`, error);
+    return await fetchAndCacheModels(engine, env);
+  }
+}
+
+async function refreshModelsInBackground(engine: AIEngine, env: Env): Promise<void> {
+  try {
+    const newCache = await fetchAndCacheModels(engine, env);
+    logger.info(`✅ Background refresh completed for ${engine}: ${newCache.models.length} models`);
+  } catch (error) {
+    logger.warn(`Background refresh failed for ${engine}`, error);
+  }
+}
+
+async function fetchAndCacheModels(engine: AIEngine, env: Env): Promise<ModelCache> {
+  let models: ModelInfo[] = [];
+  
+  if (engine === 'gemini') {
+    models = config.GEMINI_MODELS.map(id => ({ id, name: id, description: 'Gemini AI Model' }));
+  } else if (engine === 'sambanova' && config.SAMBANOVA_KEYS.length > 0) {
+    models = await fetchSambanovaModels(config.SAMBANOVA_KEYS[0]);
+  } else if (engine === 'pollinations') {
+    models = await fetchPollinationsModels();
+  }
+  
+  const newCache: ModelCache = {
+    engine,
+    models,
+    lastUpdated: Date.now()
+  };
+  
+  // آپدیت config
+  const finalModels = models.map(m => m.id);
+  if (engine === 'sambanova') config.SAMBANOVA_MODELS = finalModels;
+  if (engine === 'pollinations') config.POLLINATIONS_MODELS = finalModels;
+  
+  // ذخیره async
+  env.SESSIONS.put(`model_cache:${engine}`, JSON.stringify(newCache)).catch(err => 
+    logger.error(`Failed to cache models for ${engine}`, err)
+  );
+  
+  return newCache;
+}
+
+function getModelListState(chatId: number, engine: AIEngine): ModelListState {
+  const key = `${chatId}_${engine}`;
+  return modelListStates.get(key) || { page: 0, perPage: 8, totalPages: 0 };
+}
+
+function setModelListState(chatId: number, engine: AIEngine, state: ModelListState): void {
+  const key = `${chatId}_${engine}`;
+  modelListStates.set(key, state);
+}
+
+async function refreshUserCommands(chatId: number, session: ChatSession) {
+  const lang = session.language || 'fa';
+  
+  try {
+    // ✅ ابتدا همه دستورات قدیمی را حذف کنیم
+    await callTelegramAPI("deleteMyCommands", {
+      scope: { type: "all_private_chats" }
+    }).catch(() => {});
+    
+    // دستورات کامل بر اساس زبان
+    const commands = lang === 'fa' ? [
+      { command: "start", description: "🏠 صفحه اصلی" },
+      { command: "new", description: "🆕 مکالمه جدید" },
+      { command: "model", description: "🤖 تغییر مدل هوش مصنوعی" },
+      { command: "img", description: "🎨 ساخت تصویر" },
+      { command: "search", description: "🔍 جستجوی تصویر" },
+      { command: "prompt", description: "✏️ شخصی‌سازی شخصیت" },
+      { command: "language", description: "🌐 تغییر زبان" },
+      { command: "help", description: "❓ راهنمای کامل" }
+    ] : [
+      { command: "start", description: "🏠 Home" },
+      { command: "new", description: "🆕 New Chat" },
+      { command: "model", description: "🤖 Change AI Model" },
+      { command: "img", description: "🎨 Generate Image" },
+      { command: "search", description: "🔍 Search Images" },
+      { command: "prompt", description: "✏️ Customize Personality" },
+      { command: "language", description: "🌐 Change Language" },
+      { command: "help", description: "❓ Full Guide" }
+    ];
+
+    const finalCommands = [...commands];
+    
+    // ✅ اضافه کردن دستورات ادمین
+    if (chatId === config.BOT_OWNER_ID) {
+      if (lang === 'fa') {
+        finalCommands.push(
+          { command: "admin", description: "👑 پنل مدیریت" },
+          { command: "log", description: "📋 لاگ‌ها" },
+          { command: "blocked", description: "🚫 کاربران مسدود" },
+          { command: "rebuild", description: "🔧 بازسازی دیتابیس" },
+          { command: "keys", description: "🔑 وضعیت کلیدها" }
+        );
+      } else {
+        finalCommands.push(
+          { command: "admin", description: "👑 Admin Panel" },
+          { command: "log", description: "📋 Logs" },
+          { command: "blocked", description: "🚫 Blocked Users" },
+          { command: "rebuild", description: "🔧 Rebuild Database" },
+          { command: "keys", description: "🔑 API Keys Status" }
+        );
+      }
+    }
+
+    // ✅ تنظیم دستورات برای همه کاربران خصوصی
+    await callTelegramAPI("setMyCommands", {
+      commands: finalCommands,
+      scope: { type: "all_private_chats" }
+    });
+    
+    logger.info(`✅ Commands updated for ${lang} language - ${finalCommands.length} commands`);
+    
+  } catch (error) {
+    logger.warn(`Failed to update commands`, error);
+  }
+}
+
+// --- SECTION: TELEGRAM API WRAPPERS ---
+async function callTelegramAPI(method: string, params: Record<string, any>): Promise<any> {
+  const maxRetries = 3;
+  let lastError: Error;
+  
+  for (let attempt = 1; attempt <= maxRetries; attempt++) {
+    try {
+      const response = await fetchWithTimeout(`${API_URL}/${method}`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(params),
+      });
+      
+      const result = await response.json();
+      
+      if (!result.ok) {
+        // 🛠️ مدیریت هوشمند خطاها
+        
+        // 1. اگر ارور "تغییری نکرده" بود، خطا محسوب نمی‌شود.
+        if (result.description?.includes("message is not modified")) {
+           return true; // موفق در نظر می‌گیریم
+        }
+
+        // 2. مدیریت Rate Limit
+        if (result.error_code === 429) {
+          const retryAfter = result.parameters?.retry_after || 1;
+          if (attempt < maxRetries) {
+            // فقط اگر زمان کم بود لاگ نگیر، اگر زیاد بود لاگ بگیر
+            if (retryAfter > 5) logger.warn(`Rate limited, retrying after ${retryAfter}s`);
+            await new Promise(resolve => setTimeout(resolve, retryAfter * 1000));
+            continue;
+          }
+        }
+        
+        throw new Error(`Telegram API Error (${result.error_code}): ${result.description}`);
+      }
+      
+      return result.result;
+    } catch (error) {
+      lastError = error instanceof Error ? error : new Error(String(error));
+      
+      // خطاهای شبکه را تا ۳ بار تلاش مجدد کن
+      if (attempt < maxRetries && (lastError.message.includes('timeout') || lastError.message.includes('network') || lastError.message.includes('fetch'))) {
+        await new Promise(resolve => setTimeout(resolve, 1000 * attempt));
+        continue;
+      }
+      break;
+    }
+  }
+  
+  if (!lastError!.message.includes("message is not modified")) {
+      logger.error(`API Call Failed: ${method}`, lastError!);
+  }
+  throw lastError!;
+}
+
+async function sendMessage(chatId: number, text: string, options: Record<string, any> = {}): Promise<Message> {
+  const params: Record<string, any> = {
+    chat_id: chatId,
+    text: String(text).substring(0, 4096),
+    parse_mode: "Markdown",
+    disable_web_page_preview: true,
+    ...options,
+  };
+  
+  try {
+    return await callTelegramAPI("sendMessage", params);
+  } catch (error) {
+    if (error instanceof Error && error.message.includes("can't parse entities")) {
+      logger.warn("Markdown parse error, retrying without parse_mode", {
+        textPreview: text.substring(0, 100)
+      });
+      
+      delete params.parse_mode;
+      return await callTelegramAPI("sendMessage", params);
+    }
+    
+    if (error instanceof Error && error.message.includes("403")) {
+      logger.warn(`Cannot send message to ${chatId}: user blocked or bot not member`);
+      return null as any; // یا یک شیء ساختگی برگردانید
+    }
+    throw error;
+  }
+}
+
+async function sendPhoto(chatId: number, photo: string | Uint8Array, caption?: string, options: Record<string, any> = {}): Promise<Message> {
+  // اگر آدرس URL عکس است
+  if (typeof photo === 'string' && (photo.startsWith("http://") || photo.startsWith("https://"))) {
+    const params: Record<string, any> = { chat_id: chatId, photo: photo, ...options };
+    if (caption) params.caption = caption.substring(0, 1024);
+    return await callTelegramAPI("sendPhoto", params);
+  }
+  
+  const formData = new FormData();
+  formData.append("chat_id", chatId.toString());
+  
+  // اگر دیتای مستقیم باینری است (مثل ساخت عکس با کلودفلر)
+  if (photo instanceof Uint8Array) {
+    formData.append("photo", new Blob([photo], { type: "image/png" }), "generated_image.png");
+  } 
+  // اگر Base64 است (مثل خروجی زارا)
+  else if (typeof photo === 'string') {
+    const binaryData = Uint8Array.from(atob(photo), c => c.charCodeAt(0));
+    formData.append("photo", new Blob([binaryData], { type: "image/png" }), "generated_image.png");
+  }
+  
+  if (caption) formData.append("caption", caption.substring(0, 1024));
+  Object.entries(options).forEach(([key, value]) => {
+    if (key !== 'photo' && key !== 'caption' && key !== 'chat_id') {
+      formData.append(key, String(value));
+    }
+  });
+  
+  const response = await fetchWithTimeout(`${API_URL}/sendPhoto`, { method: "POST", body: formData });
+  const result = await response.json();
+  if (!result.ok) throw new Error(`Telegram API Error: ${result.description}`);
+  return result.result;
+}
+
+async function editMessageText(chatId: number, messageId: number, text: string, options: Record<string, any> = {}): Promise<void> {  
+  const params: any = {
+    chat_id: chatId,
+    message_id: messageId,
+    text: String(text).substring(0, 4096),
+    ...options
+  };
+
+  // اگر parse_mode صراحتاً غیرفعال نشده باشد، پیش‌فرض Markdown است
+  if (params.parse_mode === undefined) {
+    params.parse_mode = "Markdown";
+  }
+
+  try {
+    await callTelegramAPI("editMessageText", params);
+  } catch (error) {
+    const err = error instanceof Error ? error : new Error(String(error));
+    const errorMsg = err.message || '';
+
+    // ۱. ارورهای "تغییری نکرده" را نادیده بگیر
+    if (errorMsg.includes("not modified") || errorMsg.includes("exactly the same")) {
+      return;
+    }
+
+    // ۲. اگر ارور مربوط به فرمت متن بود (Markdown)، فرمت را حذف کن و دوباره بفرست
+    if (errorMsg.includes("can't parse entities") || errorMsg.includes("Markdown")) {
+      // حذف حالت مارک‌داون
+      delete params.parse_mode; 
+      
+      try {
+        await callTelegramAPI("editMessageText", params);
+      } catch (retryError) {
+        // اگر باز هم نشد، فقط لاگ بگیر (ارور به کاربر نده)
+        logger.warn(`Failed to edit message ${messageId} even without markdown: ${(retryError as Error).message}`);
+      }
+    } else {
+      logger.warn(`Failed to edit message ${messageId}: ${errorMsg}`);
+    }
+  }
+}
+
+async function deleteMessage(chatId: number, messageId: number): Promise<void> {
+  try {
+    await callTelegramAPI("deleteMessage", { chat_id: chatId, message_id: messageId });
+  } catch (error) {
+    logger.warn(`Failed to delete message ${messageId}`, (error as any)?.message);
+  }
+}
+
+async function sendTypingAction(chatId: number): Promise<void> {
+  if (!chatId) return; // اضافه کنید
+  callTelegramAPI("sendChatAction", { chat_id: chatId, action: "typing" }).catch(() => {});
+}
+
+async function answerCallbackQuery(callbackQueryId: string, text?: string, showAlert = false): Promise<void> {
+  try {
+    await callTelegramAPI("answerCallbackQuery", { 
+      callback_query_id: callbackQueryId, 
+      text: text?.substring(0, 200), 
+      show_alert: showAlert 
+    });
+  } catch (error) {
+    logger.warn("Failed to answer callback query", (error as any)?.message);
+  }
+}
+
+function shouldRespondInGroup(message: Message, session: ChatSession): boolean {
+  const text = message.text || message.caption || "";
+  const botUsername = BOT_INFO?.username || 'nova';
+  const lowerText = text.toLowerCase();
+  
+  const atMention = text.includes(`@${botUsername}`) ||
+                    (message.entities?.some(e => 
+                      e.type === 'mention' && 
+                      text.substring(e.offset, e.offset + e.length)
+                          .toLowerCase().includes(botUsername.toLowerCase())
+                    ) ?? false);
+  
+  const textualMention = lowerText.includes('nova') || lowerText.includes('نوا') || lowerText.includes('نووا');
+  
+  // 🔥 تغییر اصلی: هر ریپلای به یک بات = ریپلای به خودمون
+  let isReply = false;
+  if (message.reply_to_message) {
+    const repliedUser = message.reply_to_message.from;
+    if (repliedUser && repliedUser.is_bot === true) {
+      isReply = true;  // فرض می‌کنیم ریپلای به ربات خودمون است
+    }
+  }
+  
+  return (atMention || textualMention || isReply);
+}
+
+async function generateImageWithCloudflare(
+  prompt: string,
+  model: string,
+  env: Env
+): Promise<Uint8Array> {
+  const pairs = config.CLOUDFLARE_PAIRS;
+  if (pairs.length === 0) {
+    throw new Error("❌ هیچ کلید Cloudflare AI تنظیم نشده است.");
+  }
+
+  const errors: string[] = [];
+  // به ترتیب آرایه امتحان می‌کنیم (در آینده می‌توانید اندیس قبلی را ذخیره کنید)
+  for (let i = 0; i < pairs.length; i++) {
+    const { accountId, token } = pairs[i];
+    
+    // رد کردن کلیدی که قبلاً غیرفعال شده
+    if (await isCFKeyDisabled(accountId, token)) continue;
+    
+    try {
+      const result = await _generateWithSingleCF(prompt, model, accountId, token);
+      return result; // موفقیت آمیز
+    } catch (err: any) {
+      const msg = err.message?.toLowerCase() || "";
+      if (msg.includes("quota") || msg.includes("limit") || msg.includes("429")) {
+        // غیرفعال کردن موقت این کلید
+        disableCFKey(accountId, token);
+        errors.push(`🔑 ${i+1} محدودیت مصرف (غیرفعال موقت)`);
+      } else {
+        errors.push(`🔑 ${i+1}: ${msg.substring(0, 50)}`);
+      }
+    }
+  }
+  
+  // اگر همه کلیدها ناموفق بودند
+  throw new Error(`همه کلیدهای Cloudflare ناموفق:\n${errors.join("\n")}`);
+}
+
+// تابع داخلی که واقعاً یک درخواست را انجام می‌دهد
+async function _generateWithSingleCF(
+  prompt: string,
+  model: string,
+  accountId: string,
+  apiToken: string
+): Promise<Uint8Array> {
+  const url = `https://api.cloudflare.com/client/v4/accounts/${accountId}/ai/run/${model}`;
+  const isFlux2Model = model.includes('flux-2');
+  const isPhoenix = model.includes('phoenix');
+  const isLucid = model.includes('lucid');
+
+  let response: Response;
+  if (isFlux2Model) {
+    const formData = new FormData();
+    formData.append('prompt', prompt);
+    formData.append('width', '1024');
+    formData.append('height', '1024');
+    response = await fetch(url, {
+      method: 'POST',
+      headers: { 'Authorization': `Bearer ${apiToken}` },
+      body: formData,
+    });
+  } else if (isPhoenix) {
+    response = await fetch(url, {
+      method: 'POST',
+      headers: { 'Authorization': `Bearer ${apiToken}`, 'Content-Type': 'application/json' },
+      body: JSON.stringify({ prompt, width: 1024, height: 1024, num_steps: 50, guidance: 7 }),
+    });
+  } else if (isLucid) {
+    response = await fetch(url, {
+      method: 'POST',
+      headers: { 'Authorization': `Bearer ${apiToken}`, 'Content-Type': 'application/json' },
+      body: JSON.stringify({ prompt, width: 1024, height: 1024, num_steps: 40, guidance: 7 }),
+    });
+  } else {
+    response = await fetch(url, {
+      method: 'POST',
+      headers: { 'Authorization': `Bearer ${apiToken}`, 'Content-Type': 'application/json' },
+      body: JSON.stringify({ prompt, num_steps: model.includes('dreamshaper') ? 20 : 8, seed: Math.floor(Math.random() * 100000) }),
+    });
+  }
+
+  if (!response.ok) {
+    const errText = await response.text();
+    throw new Error(`Cloudflare AI (${model}) returned ${response.status}: ${errText.substring(0, 300)}`);
+  }
+
+  const contentType = response.headers.get('content-type') || '';
+  if (contentType.includes('image/') || isPhoenix) {
+    const buffer = await response.arrayBuffer();
+    return new Uint8Array(buffer);
+  } else {
+    const result = await response.json() as { result?: { image?: string }, image?: string };
+    const base64Image = result?.result?.image || result?.image;
+    if (!base64Image) throw new Error("No image in Cloudflare response");
+    const binaryString = atob(base64Image);
+    const bytes = new Uint8Array(binaryString.length);
+    for (let i = 0; i < binaryString.length; i++) bytes[i] = binaryString.charCodeAt(i);
+    return bytes;
+  }
+}
+
+async function handleImageGenerationCommand(message: Message, args: string[], env: Env): Promise<void> {
+  const { chat, from } = message;
+  if (!from) return;
+
+  //await resetDailyLimitsIfNeede(session);
+  let originalPrompt = args.join(' ').trim();
+  let prompt = originalPrompt;
+  const session = await getOrCreateSession(chat, from, env);
+  const lang = session.language;
+  const txt = TRANSLATIONS[lang];
+  
+  if (config.CLOUDFLARE_PAIRS.length === 0) {
+    await sendMessage(chat.id, "❌ هیچ کلید Cloudflare AI تنظیم نشده است.", { reply_to_message_id: message.message_id });
+    return;
+  }
+  
+  if (args.length === 0) {
+    await sendMessage(chat.id, txt.img_help, { reply_to_message_id: message.message_id });
+    return;
+  }
+  
+  // محدودیت روزانه
+  if (!session.vipStatus && session.dailyLimits.imagesGenerated >= 5) {
+    await sendMessage(chat.id, txt.img_limit, { reply_to_message_id: message.message_id });
+    return;
+  }
+  
+  // 1. ترجمه
+  let wasTranslated = false;
+  if (prompt.match(/[\u0600-\u06FF]/)) {
+    const transMsg = await sendMessage(chat.id, txt.img_translating, { reply_to_message_id: message.message_id });
+    try {
+      const translated = await translateToEnglishPrompt(prompt, env);
+      if (translated && !translated.match(/[\u0600-\u06FF]/)) {
+        prompt = translated;
+        wasTranslated = true;
+      }
+      await deleteMessage(chat.id, transMsg.message_id);
+    } catch (e) {
+      await deleteMessage(chat.id, transMsg.message_id);
+    }
+  }
+
+  let statusText = `${txt.img_start}\n`;
+  if (wasTranslated) {
+    statusText += `📝: "${originalPrompt.substring(0, 50)}..."\n🇬🇧: \`${prompt}\`\n`;
+  } else {
+    statusText += `📝: \`${prompt}\`\n`;
+  }
+  statusText += txt.img_processing.replace('{count}', String(config.AI_IMAGE_MODELS.length));
+
+  const processingMsg = await sendMessage(chat.id, statusText, { reply_to_message_id: message.message_id });
+  
+  let successCount = 0;
+  const errors: string[] = [];
+  
+  const IMAGE_TIMEOUT = 20000;
+  
+  // ✅ پردازش Sequential (یکی یکی) به جای Parallel
+  // این باعث می‌شود کل زمان کنترل‌پذیرتر باشه
+  for (let i = 0; i < config.AI_IMAGE_MODELS.length; i++) {
+    const model = config.AI_IMAGE_MODELS[i];
+    
+    try {
+      // ✅ Update progress
+      await editMessageText(chat.id, processingMsg.message_id, 
+        `${statusText}\n\n🎨 ${getShortModelName(model)} (${i + 1}/${config.AI_IMAGE_MODELS.length})...`
+      ).catch(() => {});
+
+      const imageBuffer = await withTimeout(generateImageWithCloudflare(prompt, model, env), IMAGE_TIMEOUT, "Timeout");
+
+      // ارسال مستقیم باینری به بله (سرعت رعدآسا)
+      await sendPhoto(chat.id, imageBuffer, `🤖 **${getShortModelName(model)}**`, {
+        reply_to_message_id: message.message_id
+      });
+      
+      successCount++;
+      
+    } catch (error) {
+      let errorMsg = getRawError(error);
+      if (from.id === config.BOT_OWNER_ID) {
+        errors.push(`• **${getShortModelName(model)}**: ${errorMsg}`);
+      } else {
+        if (errorMsg.includes('Timeout')) errorMsg = "⏱️ تایم‌اوت";
+        else if (errorMsg.includes('NSFW') || errorMsg.includes('safety')) errorMsg = "🔞 محتوای نامناسب";
+        else if (errorMsg.includes('500') || errorMsg.includes('502')) errorMsg = "🔥 خطای سرور";
+        else if (errorMsg.includes('400')) errorMsg = "⛔ رد شد";
+        else errorMsg = "❌ خطا";
+        errors.push(`• **${getShortModelName(model)}**: ${errorMsg}`);
+      }
+    }
+    
+    const elapsedTime = Date.now() - message.date * 1000;
+    if (elapsedTime > 25000) {
+      logger.warn("Approaching Workers timeout, stopping generation");
+      break;
+    }
+  }
+  
+  // ✅ گزارش نهایی
+  let finalText = successCount > 0 ? txt.img_success : txt.img_failed;
+  if (wasTranslated) {
+    finalText += `\n\nPrompt: \`${prompt}\``;
+  }
+
+  if (errors.length > 0) {
+    finalText += lang === 'fa' ?
+      `\n⚠️ **گزارش خطاها:**\n${errors.join('\n')}` :
+      `\n⚠️ **Error report:**\n${errors.join('\n')}`;
+  } else if (successCount > 0) {
+    finalText += lang === 'fa' ?
+      `\n🎉 ${successCount} تصویر با موفقیت ساخته شد.` :
+      `\n🎉 ${successCount} images generated successfully.`;
+  }
+
+  await editMessageText(chat.id, processingMsg.message_id, finalText);
+    
+  if (!session.vipStatus && successCount > 0) {
+    session.dailyLimits.imagesGenerated++; 
+    session.statistics.totalMessages++;
+    
+    // ✅ Non-blocking save
+    saveSessionWithLock(session, env, false).catch(() => {});
+  }
+}
+
+// --- SECTION: COMMAND HANDLERS ---
+async function handleStartCommand(message: Message, env: Env) {
+  const { chat, from } = message;
+  if (!from) return;
+
+  const maintenanceCheck = await checkMaintenanceMode(env, from.id);
+  if (maintenanceCheck.blocked) {
+    await sendMessage(chat.id, maintenanceCheck.message!, { reply_to_message_id: message.message_id });
+    return;
+  }
+  
+  // ✅ چک کردن آیا session موجود است
+  const sessionKey = `session:${chat.id}`;
+  const existingSession = await env.SESSIONS.get(sessionKey, "json");
+  const hasExistingSession = !!existingSession;
+  
+  const session = await getOrCreateSession(chat, from, env);
+  const isGroup = chat.type === "group" || chat.type === "supergroup";
+  const isNewUser = !hasExistingSession && session.statistics.totalMessages === 0;
+
+  // ✅ کاربر کاملا جدید - سوال زبان
+  if (isNewUser && !isGroup) {
+    await saveSessionWithLock(session, env, true);
+    await notifyAdminNewUser(from, env);
+    
+    const langKeyboard = {
+      inline_keyboard: [
+        [
+          { text: "🇮🇷 فارسی", callback_data: "set_lang_fa" },
+          { text: "🇺🇸 English", callback_data: "set_lang_en" }
+        ]
+      ]
+    };
+    
+    await sendMessage(chat.id, 
+      `👋 **Welcome / خوش آمدید**\n\n` +
+      `Please select your language:\n` +
+      `لطفاً زبان خود را انتخاب کنید:`, 
+      {
+        reply_markup: JSON.stringify(langKeyboard),
+        reply_to_message_id: message.message_id
+      }
+    );
+    
+    logger.info(`✅ New user registered: ${from.id} (${from.first_name}) - asking for language`);
+    return;
+  }
+  
+  // ✅ کاربر قدیمی که session ندارد (ریست شده) - سوال زبان
+  if (!hasExistingSession && !isGroup) {
+    const langKeyboard = {
+      inline_keyboard: [
+        [
+          { text: "🇮🇷 فارسی", callback_data: "set_lang_fa" },
+          { text: "🇺🇸 English", callback_data: "set_lang_en" }
+        ]
+      ]
+    };
+    
+    await sendMessage(chat.id, 
+      `🔄 **Welcome Back / خوش آمدید**\n\n` +
+      `Please select your language:\n` +
+      `لطفاً زبان خود را انتخاب کنید:`, 
+      {
+        reply_markup: JSON.stringify(langKeyboard),
+        reply_to_message_id: message.message_id
+      }
+    );
+    
+    logger.info(`✅ Returning user without session: ${from.id} - asking for language`);
+    return;
+  }
+  
+  // ✅ کاربر با session موجود - نمایش صفحه اصلی
+  await refreshUserCommands(chat.id, session);
+
+  const welcomeText = t(session, isGroup ? 'welcome_group' : 'welcome_private', { name: from.first_name });
+  const keyboard = getStartKeyboard(isGroup, session.language);
+  
+  await sendMessage(chat.id, welcomeText, { 
+    reply_markup: JSON.stringify(validateKeyboard(keyboard)),
+    reply_to_message_id: message.message_id
+  });
+}
+
+async function sendWithTyping(
+  chatId: number, 
+  text: string, 
+  delay: number = 100,
+  options: Record<string, any> = {}
+): Promise<Message> {
+  await sendTypingAction(chatId).catch(() => {});
+  
+  if (delay > 0) {
+    await new Promise(resolve => setTimeout(resolve, delay));
+  }
+  
+  return await sendMessage(chatId, text, options);
+}
+
+async function handleNewCommand(message: Message, env: Env) {
+  const { chat, from } = message;
+  if (!from) return;
+
+  const maintenanceCheck = await checkMaintenanceMode(env, from.id);
+  if (maintenanceCheck.blocked) {
+    await sendMessage(chat.id, maintenanceCheck.message!, { reply_to_message_id: message.message_id });
+    return;
+  }
+  
+  const session = await getOrCreateSession(chat, from, env);
+  const isGroup = chat.type === "group" || chat.type === "supergroup";
+  const timestamp = Date.now();
+  
+  // ... (کد پاک کردن هیستوری که داشتید اینجا بماند - بدون تغییر) ...
+  // Reset logic start
+  const activeEngine = session.activeEngine;
+  const userMemory = session.userMemories.get(from.id);
+
+  // Resetting history based on engine...
+  if (activeEngine === 'gemini') {
+      session.engines.gemini.history = [{ 
+        role: "user", parts: [{ text: getActivePrompt(session, from, isGroup) }], timestamp, userId: from.id, userName: from.first_name
+      }, { role: "model", parts: [{ text: "..." }], timestamp }]; // Placeholder response
+      session.engines.gemini.userHistories.set(from.id, []);
+  } else if (activeEngine === 'sambanova') {
+      session.engines.sambanova.history = [{ role: "assistant", parts: [{ text: getActivePrompt(session, from, isGroup) }], timestamp, userId: from.id, userName: from.first_name }];
+      session.engines.sambanova.userHistories.set(from.id, []);
+  } else if (activeEngine === 'pollinations') {
+      session.engines.pollinations.history = [{ role: "assistant", parts: [{ text: getActivePrompt(session, from, isGroup) }], timestamp, userId: from.id, userName: from.first_name }];
+      session.engines.pollinations.userHistories.set(from.id, []);
+  }
+  
+  session.messageCount = 0;
+  // Reset logic end
+  
+  await saveSessionWithLock(session, env);
+  
+  // ساخت پیام با ترجمه
+  const engineName = getEngineName(session.activeEngine, session.language);
+  let resetText = session.language === 'fa' 
+    ? `🧠 **حافظه مکالمه پاک شد!**\n\nمدل فعال: **${engineName}**\n\nآماده برای گفتگوی جدید! 🚀`
+    : `🧠 **Conversation memory cleared!**\n\nActive Model: **${engineName}**\n\nReady for a new topic! 🚀`;
+
+  if (userMemory && userMemory.messageCount > 0) {
+     resetText += session.language === 'fa' 
+        ? `\n(حافظه شخصی شما محفوظ است)` 
+        : `\n(Your personal memory is safe)`;
+  }
+  
+  await sendMessage(chat.id, resetText, { 
+    reply_to_message_id: message.message_id 
+  });
+}
+
+async function handleModelCommand(message: Message, env: Env) {
+  const { chat, from } = message;
+  if (!from) return;
+
+  const maintenanceCheck = await checkMaintenanceMode(env, from.id);
+  if (maintenanceCheck.blocked) {
+    await sendMessage(chat.id, maintenanceCheck.message!, {
+      reply_to_message_id: message.message_id
+    });
+    return;
+  }
+  
+  const session = await getOrCreateSession(chat, from, env);
+  const sentMessage = await sendModelSelection(chat.id, message.message_id, session);
+}
+
+async function handleHelpCommand(message: Message, env: Env, editMsgId?: number) {
+  const { chat, from } = message;
+  if (!from) return;
+
+  const maintenanceCheck = await checkMaintenanceMode(env, from.id);
+  if (maintenanceCheck.blocked) {
+    const msg = maintenanceCheck.message!;
+    if (editMsgId) {
+      await editMessageText(chat.id, editMsgId, msg);
+    } else {
+      await sendMessage(chat.id, msg, { reply_to_message_id: message.message_id });
+    }
+    return;
+  }
+  
+  const session = await getOrCreateSession(chat, from, env);
+  const lang = session.language || 'fa';
+  const isGroup = chat.type === "group" || chat.type === "supergroup";
+
+  // ✅ صفحه اصلی راهنما (Main Menu)
+  const helpText = buildMainHelpPage(session, from, isGroup);
+  const keyboard = buildMainHelpKeyboard(session, from.id, isGroup);
+  
+  if (editMsgId) {
+    await editMessageText(chat.id, editMsgId, helpText, { 
+      reply_markup: JSON.stringify(validateKeyboard(keyboard)) 
+    });
+  } else {
+    await sendMessage(chat.id, helpText, { 
+      reply_markup: JSON.stringify(validateKeyboard(keyboard)), 
+      reply_to_message_id: message.message_id 
+    });
+  }
+}
+
+function buildMainHelpPage(session: ChatSession, user: User, isGroup: boolean): string {
+  const lang  = session.language || 'fa';
+  const m     = MODEL_META;
+  const mName = lang === 'fa' ? m.fa : m.en;
+  const vip   = session.vipStatus ? '👑 VIP' : (lang === 'fa' ? '🆓 حساب رایگان' : '🆓 Free Account');
+
+  if (lang === 'fa') {
+    return (
+      `📚 **مرکز راهنمای نوآ**\n\n` +
+      `> 👤 کاربر: **${user.first_name}**\n` +
+      `> 🤖 موتور فعال: **${m.emoji} ${mName}**\n` +
+      `> 💳 وضعیت: **${vip}**\n\n` +
+      `لطفاً دسته‌بندی مورد نظرت رو از دکمه‌های زیر انتخاب کن 👇`
+    );
+  }
+  return (
+    `📚 **Nova Help Center**\n\n` +
+    `> 👤 User: **${user.first_name}**\n` +
+    `> 🤖 Engine: **${m.emoji} ${mName}**\n` +
+    `> 💳 Status: **${vip}**\n\n` +
+    `Select a category from the buttons below 👇`
+  );
+}
+
+function buildMainHelpKeyboard(session: ChatSession, userId: number, isGroup: boolean) {
+  const lang = session.language || 'fa';
+  
+  const keyboard = {
+    inline_keyboard: [
+      // ردیف 1: گفتگو و تصویر
+      [
+        { text: lang === 'fa' ? '💬 گفتگو' : '💬 Chat', callback_data: 'help_chat' },
+        { text: lang === 'fa' ? '🎨 تصویر' : '🎨 Images', callback_data: 'help_images' }
+      ],
+      // ردیف 2: مدل‌ها و شخصی‌سازی
+      [
+        { text: lang === 'fa' ? '🤖 مدل‌ها' : '🤖 Models', callback_data: 'help_models' },
+        { text: lang === 'fa' ? '✏️ شخصی‌سازی' : '✏️ Customize', callback_data: 'help_customize' }
+      ],
+      // ردیف 3: دستورات و تنظیمات
+      [
+        { text: lang === 'fa' ? '⚡ دستورات' : '⚡ Commands', callback_data: 'help_commands' },
+        { text: lang === 'fa' ? '⚙️ تنظیمات' : '⚙️ Settings', callback_data: 'help_settings' }
+      ]
+    ]
+  };
+
+  // ✅ اگه گروهه، دکمه تنظیمات گروه اضافه کن
+  if (isGroup) {
+    keyboard.inline_keyboard.push([
+      { text: lang === 'fa' ? '👥 تنظیمات گروه' : '👥 Group Settings', callback_data: 'group_settings' }
+    ]);
+  }
+
+  // ✅ ردیف بستن
+  keyboard.inline_keyboard.push([
+    { text: lang === 'fa' ? '❌ بستن' : '❌ Close', callback_data: 'close_help' }
+  ]);
+
+  // ✅ اگه ادمینه، دکمه پنل ادمین
+  if (userId === config.BOT_OWNER_ID) {
+    keyboard.inline_keyboard.push([
+      { text: lang === 'fa' ? '👑 پنل مدیریت' : '👑 Admin Panel', callback_data: 'open_admin' }
+    ]);
+  }
+
+  return keyboard;
+}
+
+// ✅ راهنمای گفتگو
+async function showHelpChat(cb: CallbackQuery, env: Env) {
+  const session = await getOrCreateSession(cb.message!.chat, cb.from, env);
+  const lang = session.language || 'fa';
+  
+  const text = lang === 'fa' ? `💬 **راهنمای گفتگو**
+
+**🗣️ گفتگوی متنی:**
+- فقط پیامتو بفرست، من جواب میدم!
+- میتونی سوال بپرسی، چیزی یاد بگیری یا چت کنی
+- من ${config.HISTORY_LIMIT} پیام آخرت رو به یاد میارم
+
+**🎤 پیام صوتی:**
+- ویس بفرست، من متن رو میفهمم و جواب میدم
+- حداکثر ۲ دقیقه
+- به زبان فارسی یا انگلیسی
+
+**📸 تصویر:**
+- عکس بفرست + توضیح (اختیاری)
+- من تحلیل میکنم و توضیح میدم
+- فرمت: JPG, PNG, WebP, GIF
+
+**🎬 ویدیو:**
+- ویدیو بفرست (حداکثر 20MB)
+- من محتواش رو میبینم و توضیح میدم
+
+**💡 نکات:**
+- برای پاک کردن حافظه: \`/new\`
+- برای تغییر مدل: \`/model\`
+- برای زبان: \`/language\`
+
+━━━━━━━━━━━━━━━━━━━━
+**محدودیت روزانه (رایگان):**
+- پیام: ${session.dailyLimits.messages}/100
+- ویس: ${session.dailyLimits.voicesSent}/10
+${session.vipStatus ? '\n✅ **شما VIP هستید - بدون محدودیت!**' : '\n🌟 برای نامحدود، VIP شوید'}` 
+  : 
+  `💬 **Chat Guide**
+
+**🗣️ Text Chat:**
+- Just send your message, I'll reply!
+- Ask questions, learn, or chat
+- I remember your last ${config.HISTORY_LIMIT} messages
+
+**🎤 Voice:**
+- Send voice note, I'll understand and reply
+- Max 2 minutes
+- Persian or English
+
+**📸 Image:**
+- Send photo + description (optional)
+- I'll analyze and explain
+- Format: JPG, PNG, WebP, GIF
+
+**🎬 Video:**
+- Send video (max 20MB)
+- I'll watch and explain
+
+**💡 Tips:**
+- Clear memory: \`/new\`
+- Change model: \`/model\`
+- Language: \`/language\`
+
+━━━━━━━━━━━━━━━━━━━━
+**Daily Limits (Free):**
+- Messages: ${session.dailyLimits.messages}/100
+- Voice: ${session.dailyLimits.voicesSent}/10
+${session.vipStatus ? '\n✅ **You are VIP - Unlimited!**' : '\n🌟 Go VIP for unlimited'}`;
+
+  await answerCallbackQuery(cb.id);
+  await editMessageText(cb.message!.chat.id, cb.message!.message_id, text, {
+    reply_markup: JSON.stringify({
+      inline_keyboard: [[
+        { text: lang === 'fa' ? '🔙 بازگشت' : '🔙 Back', callback_data: 'help_back' }
+      ]]
+    })
+  });
+}
+
+// ✅ راهنمای تصاویر
+async function showHelpImages(cb: CallbackQuery, env: Env) {
+  const session = await getOrCreateSession(cb.message!.chat, cb.from, env);
+  const lang = session.language || 'fa';
+  
+  const text = lang === 'fa' ? `🎨 **راهنمای تصاویر**
+
+**🖼️ ساخت تصویر:**
+\`\`\`
+/img یک گربه در فضا
+\`\`\`
+- 3 مدل قدرتمند همزمان میسازن
+- کیفیت بالا (1280x1280)
+- حداکثر 5 تصویر در روز (رایگان)
+
+**🔍 جستجوی تصویر:**
+\`\`\`
+/search طبیعت زیبا
+\`\`\`
+- جستجو در گوگل
+- ۵ تصویر برتر
+- دانلود مستقیم
+
+**💡 نکات:**
+- برای نتیجه بهتر، توضیحات دقیق بده
+- میتونی به فارسی بنویسی، من ترجمه میکنم
+- VIP: نامحدود
+
+━━━━━━━━━━━━━━━━━━━━
+**امروز:**
+- تصاویر ساخته شده: ${session.dailyLimits.imagesGenerated}/5
+${session.vipStatus ? '✅ **VIP: نامحدود**' : '🌟 **VIP شو برای نامحدود**'}` 
+  : 
+  `🎨 **Images Guide**
+
+**🖼️ Generate:**
+\`\`\`
+/img a cat in space
+\`\`\`
+- 3 powerful models work together
+- High quality (1280x1280)
+- Max 5 per day (free)
+
+**🔍 Search:**
+\`\`\`
+/search beautiful nature
+\`\`\`
+- Search Google
+- Top 5 results
+- Direct download
+
+**💡 Tips:**
+- Be specific for better results
+- I'll translate Persian to English
+- VIP: Unlimited
+
+━━━━━━━━━━━━━━━━━━━━
+**Today:**
+- Generated: ${session.dailyLimits.imagesGenerated}/5
+${session.vipStatus ? '✅ **VIP: Unlimited**' : '🌟 **Go VIP for unlimited**'}`;
+
+  await answerCallbackQuery(cb.id);
+  await editMessageText(cb.message!.chat.id, cb.message!.message_id, text, {
+    reply_markup: JSON.stringify({
+      inline_keyboard: [[
+        { text: lang === 'fa' ? '🔙 بازگشت' : '🔙 Back', callback_data: 'help_back' }
+      ]]
+    })
+  });
+}
+
+// ✅ راهنمای مدل‌ها
+async function showHelpModels(cb: CallbackQuery, env: Env) {
+  const session = await getOrCreateSession(cb.message!.chat, cb.from, env);
+  const lang = session.language || 'fa';
+  const currentEngine = getEngineName(session.activeEngine, lang);
+  
+  const text = lang === 'fa' ? `🤖 **راهنمای مدل‌ها**
+
+**مدل فعال:** ${currentEngine}
+
+**🌟 مدل‌های موجود:**
+
+**🤖 نوا (Gemini)**
+- سریع و دقیق
+- پشتیبانی کامل از فارسی
+- چند رسانه‌ای (متن + تصویر)
+- ${config.GEMINI_KEYS.length} کلید API
+
+**🎨 لونا (SambaNova)**
+- مدل‌های متنوع
+- قدرتمند در استدلال
+- ${config.SAMBANOVA_MODELS.length} مدل
+- ${config.SAMBANOVA_KEYS.length} کلید API
+
+**🔬 زارا (Pollinations)**
+- مدل‌های متنوع (متن + تصویر)
+- خلاقیت بالا
+- ${config.POLLINATIONS_MODELS.length} مدل
+- رایگان و نامحدود
+
+**🔄 تغییر مدل:**
+\`/model\` یا دکمه زیر
+
+━━━━━━━━━━━━━━━━━━━━
+💡 هر مدل شخصیت خاص خودش رو داره!` 
+  : 
+  `🤖 **Models Guide**
+
+**Active:** ${currentEngine}
+
+**🌟 Available:**
+
+**🤖 Nova (Gemini)**
+- Fast & accurate
+- Full Persian support
+- Multimodal (text + image)
+- ${config.GEMINI_KEYS.length} API keys
+
+**🎨 Luna (SambaNova)**
+- Diverse models
+- Strong reasoning
+- ${config.SAMBANOVA_MODELS.length} models
+- ${config.SAMBANOVA_KEYS.length} API keys
+
+**🔬 Zara (Pollinations)**
+- Diverse (text + image)
+- High creativity
+- ${config.POLLINATIONS_MODELS.length} models
+- Free & unlimited
+
+**🔄 Switch:**
+\`/model\` or button below
+
+━━━━━━━━━━━━━━━━━━━━
+💡 Each has unique personality!`;
+
+  await answerCallbackQuery(cb.id);
+  await editMessageText(cb.message!.chat.id, cb.message!.message_id, text, {
+    reply_markup: JSON.stringify({
+      inline_keyboard: [
+        [{ text: lang === 'fa' ? '🔄 تغییر مدل' : '🔄 Switch Model', callback_data: 'model_settings' }],
+        [{ text: lang === 'fa' ? '🔙 بازگشت' : '🔙 Back', callback_data: 'help_back' }]
+      ]
+    })
+  });
+}
+
+// ✅ راهنمای دستورات (خلاصه)
+// ✅ راهنمای شخصی‌سازی
+async function showHelpCustomize(cb: CallbackQuery, env: Env) {
+  const session = await getOrCreateSession(cb.message!.chat, cb.from, env);
+  const lang = session.language || 'fa';
+  
+  const text = lang === 'fa' ? `✏️ **راهنمای شخصی‌سازی**
+
+**🎭 تنظیم شخصیت ربات:**
+
+من میتونم شخصیت‌های مختلف داشته باشم! تو میتونی برای هر مدل یه شخصیت جداگانه بسازی.
+
+**📝 روش استفاده:**
+
+**1️⃣ با دستور:**
+\`\`\`
+/setprompt نوا تو یک معلم ریاضی هستی
+\`\`\`
+
+**2️⃣ با منو:**
+\`/prompt\` → دکمه "مدیریت پرامپت‌ها"
+
+**🎨 مثال‌های کاربردی:**
+
+**معلم:**
+\`\`\`
+/setprompt نوا تو یک معلم صبور هستی که با مثال توضیح میدی
+\`\`\`
+
+**دوست صمیمی:**
+\`\`\`
+/setprompt نوا تو یک دوست صمیمی و شوخ‌طبع هستی
+\`\`\`
+
+**مشاور:**
+\`\`\`
+/setprompt نوا تو یک مشاور حرفه‌ای و محترم هستی
+\`\`\`
+
+**برنامه‌نویس:**
+\`\`\`
+/setprompt نوا تو یک برنامه‌نویس حرفه‌ای هستی
+\`\`\`
+
+**🔄 ریست کردن:**
+از منو \`/prompt\` دکمه "ریست" رو بزن
+
+**💡 نکته:**
+- هر مدل پرامپت مستقل خودش رو داره
+- بعد از تنظیم، بدون \`/new\` اجرا میشه
+- VIP: دسترسی به همه مدل‌ها
+- Free: فقط نوا
+
+━━━━━━━━━━━━━━━━━━━━
+**پرامپت‌های فعلی شما:**
+
+🤖 **نوا:** ${session.customPrompts.gemini || 'پیش‌فرض'}
+🎨 **لونا:** ${session.customPrompts.sambanova || 'پیش‌فرض'}
+🔬 **زارا:** ${session.customPrompts.pollinations || 'پیش‌فرض'}
+
+${!session.vipStatus ? '\n⚠️ **تنظیم لونا و زارا فقط برای VIP**' : ''}` 
+  : 
+  `✏️ **Customization Guide**
+
+**🎭 Set Bot Personality:**
+
+I can have different personalities! You can create a unique personality for each model.
+
+**📝 How to Use:**
+
+**1️⃣ With Command:**
+\`\`\`
+/setprompt nova you are a math teacher
+\`\`\`
+
+**2️⃣ With Menu:**
+\`/prompt\` → "Manage Prompts" button
+
+**🎨 Examples:**
+
+**Teacher:**
+\`\`\`
+/setprompt nova you are a patient teacher who explains with examples
+\`\`\`
+
+**Friend:**
+\`\`\`
+/setprompt nova you are a friendly and funny companion
+\`\`\`
+
+**Advisor:**
+\`\`\`
+/setprompt nova you are a professional advisor
+\`\`\`
+
+**Developer:**
+\`\`\`
+/setprompt nova you are a professional programmer
+\`\`\`
+
+**🔄 Reset:**
+Use \`/prompt\` menu and click "Reset"
+
+**💡 Note:**
+- Each model has independent prompt
+- Works immediately after setting
+- VIP: All models
+- Free: Nova only
+
+━━━━━━━━━━━━━━━━━━━━
+**Your Current Prompts:**
+
+🤖 **Nova:** ${session.customPrompts.gemini || 'Default'}
+🎨 **Luna:** ${session.customPrompts.sambanova || 'Default'}
+🔬 **Zara:** ${session.customPrompts.pollinations || 'Default'}
+
+${!session.vipStatus ? '\n⚠️ **Luna & Zara: VIP Only**' : ''}`;
+
+  await answerCallbackQuery(cb.id);
+  await editMessageText(cb.message!.chat.id, cb.message!.message_id, text, {
+    reply_markup: JSON.stringify({
+      inline_keyboard: [
+        [{ 
+          text: lang === 'fa' ? '✏️ مدیریت پرامپت‌ها' : '✏️ Manage Prompts', 
+          callback_data: 'custom_prompt_menu' 
+        }],
+        [{ 
+          text: lang === 'fa' ? '🔙 بازگشت' : '🔙 Back', 
+          callback_data: 'help_back' 
+        }]
+      ]
+    })
+  });
+}
+
+// ✅ راهنمای دستورات (کامل با دسته‌بندی)
+async function showHelpCommands(cb: CallbackQuery, env: Env) {
+  const session = await getOrCreateSession(cb.message!.chat, cb.from, env);
+  const lang = session.language || 'fa';
+  const isAdmin = cb.from.id === config.BOT_OWNER_ID;
+  
+  const text = lang === 'fa' ? `⚡ **لیست کامل دستورات**
+
+**🏠 دستورات اصلی:**
+- \`/start\` - صفحه اصلی و خوش‌آمدگویی
+- \`/help\` - راهنمای کامل (همین صفحه)
+- \`/new\` - شروع مکالمه جدید و پاک کردن حافظه
+
+**🤖 مدیریت مدل‌ها:**
+- \`/model\` - تغییر مدل هوش مصنوعی
+- انتخاب از: نوا، لونا، زارا
+
+**🎨 تصاویر:**
+- \`/img [توضیح]\` - ساخت تصویر
+  مثال: \`/img یک گربه در فضا\`
+  
+- \`/search [متن]\` - جستجوی تصویر در گوگل
+  مثال: \`/search طبیعت زیبا\`
+
+**✏️ شخصی‌سازی:**
+- \`/prompt\` - مشاهده و مدیریت پرامپت‌ها
+- \`/setprompt [مدل] [متن]\` - تنظیم شخصیت
+  مثال: \`/setprompt نوا تو یک معلم هستی\`
+
+**🌐 تنظیمات:**
+- \`/language\` - تغییر زبان (فارسی/انگلیسی)
+
+${isAdmin ? `
+━━━━━━━━━━━━━━━━━━━━
+**👑 دستورات مدیریتی:**
+- \`/admin\` - پنل مدیریت کاربران
+- \`/log\` - مشاهده لاگ‌های سیستم
+- \`/blocked\` - لیست کاربران مسدود
+- \`/rebuild\` - بازسازی دیتابیس
+- \`/dbstats\` - آمار دیتابیس
+- \`/dbclean\` - پاکسازی خودکار
+- \`/keys\` - وضعیت API Keys
+- \`/setvip\` - فعال‌سازی VIP گروه
+- \`/unsetvip\` - غیرفعال‌سازی VIP گروه
+` : ''}
+
+━━━━━━━━━━━━━━━━━━━━
+**💡 نکات مهم:**
+- بیشتر کارها با دکمه‌ها انجام میشه
+- برای مشاهده وضعیت: \`/start\`
+- برای راهنمای هر بخش: همین منو
+
+**🎯 میانبرها:**
+- برای پاسخ سریع، فقط پیام بفرست
+- برای تصویر، \`/img\` کافیه
+- برای حافظه جدید، \`/new\` بزن` 
+  : 
+  `⚡ **Complete Commands List**
+
+**🏠 Main:**
+- \`/start\` - Home & welcome
+- \`/help\` - Complete guide (this page)
+- \`/new\` - New chat & clear memory
+
+**🤖 Models:**
+- \`/model\` - Switch AI model
+- Choose: Nova, Luna, Zara
+
+**🎨 Images:**
+- \`/img [prompt]\` - Generate image
+  Example: \`/img a cat in space\`
+  
+- \`/search [query]\` - Search Google Images
+  Example: \`/search beautiful nature\`
+
+**✏️ Customization:**
+- \`/prompt\` - View & manage prompts
+- \`/setprompt [model] [text]\` - Set personality
+  Example: \`/setprompt nova you are a teacher\`
+
+**🌐 Settings:**
+- \`/language\` - Change language (Persian/English)
+
+${isAdmin ? `
+━━━━━━━━━━━━━━━━━━━━
+**👑 Admin Commands:**
+- \`/admin\` - User management panel
+- \`/log\` - System logs
+- \`/blocked\` - Blocked users
+- \`/rebuild\` - Rebuild database
+- \`/dbstats\` - Database statistics
+- \`/dbclean\` - Auto cleanup
+- \`/keys\` - API Keys status
+- \`/setvip\` - Enable group VIP
+- \`/unsetvip\` - Disable group VIP
+` : ''}
+
+━━━━━━━━━━━━━━━━━━━━
+**💡 Tips:**
+- Most actions work with buttons
+- Check status: \`/start\`
+- Help for each section: this menu
+
+**🎯 Shortcuts:**
+- Quick reply: just send message
+- Image: just \`/img\`
+- New memory: just \`/new\``;
+
+  await answerCallbackQuery(cb.id);
+  await editMessageText(cb.message!.chat.id, cb.message!.message_id, text, {
+    reply_markup: JSON.stringify({
+      inline_keyboard: [[
+        { text: lang === 'fa' ? '🔙 بازگشت' : '🔙 Back', callback_data: 'help_back' }
+      ]]
+    })
+  });
+}
+
+// ✅ راهنمای تنظیمات
+async function showHelpSettings(cb: CallbackQuery, env: Env) {
+  const session = await getOrCreateSession(cb.message!.chat, cb.from, env);
+  const lang = session.language || 'fa';
+  const isGroup = cb.message!.chat.type === "group" || cb.message!.chat.type === "supergroup";
+  const text = lang === 'fa' ? `⚙️ **راهنمای تنظیمات**
+
+**🌐 زبان:**
+- فارسی 🇮🇷 / انگلیسی 🇺🇸
+- تغییر با: \`/language\`
+- همه متن‌ها و منوها تغییر میکنه
+
+**🤖 مدل فعال:**
+- نوا (Gemini) - سریع و دقیق
+- لونا (SambaNova) - قدرتمند
+- زارا (Pollinations) - خلاق
+- تغییر: \`/model\`
+
+**✏️ شخصی‌سازی:**
+- پرامپت سفارشی برای هر مدل
+- ذخیره خودکار
+- ریست در هر لحظه
+- مدیریت: \`/prompt\`
+
+**🧠 حافظه:**
+- ${config.HISTORY_LIMIT} پیام آخر ذخیره میشه
+- پاکسازی: \`/new\`
+- جداگانه برای هر مدل
+
+${isGroup ? `
+**👥 تنظیمات گروه:**
+- حالت پاسخ:
+  - همیشه: به همه پیام‌ها
+  - فقط منشن: وقتی @نوآ
+  - هوشمند: تصمیم خودکار (پیشنهادی)
+- تایپینگ: نشان دادن "در حال نوشتن"
+- مدیریت: دکمه "تنظیمات گروه" زیر
+
+💡 **فقط ادمین‌ها میتونن تنظیمات رو تغییر بدن**
+` : ''}
+
+**📊 محدودیت‌ها:**
+${session.vipStatus ? `
+✅ **شما VIP هستید:**
+- پیام: نامحدود
+- ویس: نامحدود
+- تصویر: نامحدود
+` : `
+**رایگان (روزانه):**
+- پیام: ${session.dailyLimits.messages}/100
+- ویس ارسالی: ${session.dailyLimits.voicesSent}/10
+- ویس دریافتی: ${session.dailyLimits.voicesReceived}/10
+- تصویر: ${session.dailyLimits.imagesGenerated}/5
+
+🌟 **VIP شوید:**
+- دسترسی نامحدود
+- همه مدل‌ها
+- پرامپت‌های سفارشی
+- اولویت در پردازش
+- تماس: @Hacker1382
+`}
+
+━━━━━━━━━━━━━━━━━━━━
+**🔄 ریست روزانه:**
+محدودیت‌ها هر ۲۴ ساعت صفر میشه` 
+  : 
+  `⚙️ **Settings Guide**
+
+**🌐 Language:**
+- Persian 🇮🇷 / English 🇺🇸
+- Change: \`/language\`
+- All texts & menus change
+
+**🤖 Active Model:**
+- Nova (Gemini) - Fast & accurate
+- Luna (SambaNova) - Powerful
+- Zara (Pollinations) - Creative
+- Switch: \`/model\`
+
+**✏️ Customization:**
+- Custom prompt per model
+- Auto save
+- Reset anytime
+- Manage: \`/prompt\`
+
+**🧠 Memory:**
+- Last ${config.HISTORY_LIMIT} messages saved
+- Clear: \`/new\`
+- Separate per model
+
+${isGroup ? `
+**👥 Group Settings:**
+- Response mode:
+  - Always: Reply to all
+  - Mention only: When @nova
+  - Smart: Auto decide (recommended)
+- Typing: Show "typing..."
+- Manage: "Group Settings" button below
+
+💡 **Only admins can change settings**
+` : ''}
+
+**📊 Limits:**
+${session.vipStatus ? `
+✅ **You are VIP:**
+- Messages: Unlimited
+- Voice: Unlimited
+- Images: Unlimited
+` : `
+**Free (Daily):**
+- Messages: ${session.dailyLimits.messages}/100
+- Voice sent: ${session.dailyLimits.voicesSent}/10
+- Voice received: ${session.dailyLimits.voicesReceived}/10
+- Images: ${session.dailyLimits.imagesGenerated}/5
+
+🌟 **Go VIP:**
+- Unlimited access
+- All models
+- Custom prompts
+- Priority processing
+- Contact: @Hacker1382
+`}
+
+━━━━━━━━━━━━━━━━━━━━
+**🔄 Daily Reset:**
+Limits reset every 24 hours`;
+  const keyboard = { inline_keyboard: [] as any[][] };
+  // اگه گروهه، دکمه تنظیمات گروه
+  if (isGroup) {
+    keyboard.inline_keyboard.push([
+      { text: lang === 'fa' ? '👥 تنظیمات گروه' : '👥 Group Settings', callback_data: 'group_settings' }
+    ]);
+  }
+
+  keyboard.inline_keyboard.push([
+    { text: lang === 'fa' ? '🔙 بازگشت' : '🔙 Back', callback_data: 'help_back' }
+  ]);
+
+  await answerCallbackQuery(cb.id);
+  await editMessageText(cb.message!.chat.id, cb.message!.message_id, text, {
+    reply_markup: JSON.stringify(validateKeyboard(keyboard))
+  });
+}
+
+async function handleAdminCommand(message: Message, env: Env) {
+  const { chat, from } = message;
+  if (!from || from.id !== config.BOT_OWNER_ID) return;
+
+  if (chat.type !== "private") {
+    await sendMessage(chat.id, "⚠️ **پنل مدیریت فقط در چت خصوصی قابل دسترسی است**", {
+      reply_to_message_id: message.message_id
+    });
+    return;
+  }
+  
+  adminPanelStates.set(chat.id, {
+    page: 0,
+    perPage: 5,
+    sortBy: 'new'
+  });
+  
+  const processingMsg = await sendMessage(chat.id, "⏳ **در حال جمع‌آوری آمار...**", {
+    reply_to_message_id: message.message_id
+  });
+  
+  try {
+    await updateAdminPanel(chat.id, processingMsg.message_id, env);
+  } catch (error) {
+    logger.error("Admin command failed", error);
+    await editMessageText(chat.id, processingMsg.message_id, "❌ **خطا در جمع‌آوری آمار**");
+  }
+}
+
+async function handleBlockedUsersCommand(message: Message, env: Env): Promise<void> {
+  const { chat } = message;
+  
+  if (message.from?.id !== config.BOT_OWNER_ID) {
+    await sendMessage(chat.id, "🚫 دسترسی محدود", {
+      reply_to_message_id: message.message_id
+    });
+    return;
+  }
+  
+  const processingMsg = await sendMessage(chat.id, 
+    "🔍 **در حال اسکن کاربران...**\n\n⏳ این کار ممکنه چند دقیقه طول بکشه", 
+    { reply_to_message_id: message.message_id }
+  );
+  
+  try {
+    // ✅ مرحله 1: جمع‌آوری لیست کاربران با سیستم Pagination برای بالای 1000 کاربر
+    let allKeys: any[] = [];
+    let listResult = await env.SESSIONS.list({ prefix: "session:" });
+    allKeys.push(...listResult.keys);
+    
+    while (!listResult.list_complete && listResult.cursor) {
+      listResult = await env.SESSIONS.list({ prefix: "session:", cursor: listResult.cursor });
+      allKeys.push(...listResult.keys);
+    }
+    
+    const allUserIds: number[] = [];
+    const userInfoMap = new Map<number, { firstName: string; userName: string; lastSeen: number }>();
+    
+    for (const item of allKeys) {
+      try {
+        const stored = await env.SESSIONS.get(item.name, "json");
+        if (!stored) continue;
+        
+        const session = stored as ChatSession;
+        
+        // ✅ فقط چت‌های خصوصی
+        if (session.type !== "private") continue;
+        
+        // ✅ فقط کاربرایی که حداقل یه بار پیام دادن
+        if (session.messageCount < 1) continue;
+        
+        const userMemories = session.userMemories;
+        const firstUser = Array.from(userMemories.values())[0];
+        
+        if (firstUser && firstUser.userId) {
+          allUserIds.push(firstUser.userId);
+          userInfoMap.set(firstUser.userId, {
+            firstName: firstUser.firstName,
+            userName: firstUser.userName || '',
+            lastSeen: session.lastSeen
+          });
+        }
+        
+      } catch (error) {
+        continue;
+      }
+    }
+    
+    if (allUserIds.length === 0) {
+      await editMessageText(chat.id, processingMsg.message_id, 
+        "📭 **هیچ کاربری یافت نشد**"
+      );
+      return;
+    }
+    
+    // ✅ مرحله 2: چک کردن وضعیت
+    await editMessageText(chat.id, processingMsg.message_id, 
+      `🔍 **در حال بررسی ${allUserIds.length} کاربر...**\n\n` +
+      `⏳ لطفاً صبر کنید (حدود ${Math.ceil(allUserIds.length * 0.15)} ثانیه)`
+    );
+    
+    const blockedUsers: Array<{
+      userId: number;
+      firstName: string;
+      userName: string;
+      lastSeen: number;
+    }> = [];
+    
+    // ✅ چک گروهی با progress update
+    let checked = 0;
+    const batchSize = 10; // هر 10 تا یه آپدیت
+    
+    for (let i = 0; i < allUserIds.length; i++) {
+      const userId = allUserIds[i];
+      const isBlocked = await isUserBlockedBot(userId);
+      
+      if (isBlocked) {
+        const info = userInfoMap.get(userId)!;
+        blockedUsers.push({
+          userId,
+          firstName: info.firstName,
+          userName: info.userName,
+          lastSeen: info.lastSeen
+        });
+      }
+      
+      checked++;
+      
+      // آپدیت پیشرفت هر 10 کاربر
+      if (checked % batchSize === 0 || checked === allUserIds.length) {
+        await editMessageText(chat.id, processingMsg.message_id, 
+          `🔍 **در حال بررسی...**\n\n` +
+          `📊 پیشرفت: ${checked}/${allUserIds.length}\n` +
+          `🚫 مسدود: ${blockedUsers.length}`
+        ).catch(() => {}); // اگه خطا داد مهم نیست
+      }
+      
+      // ✅ تاخیر 100ms بین هر درخواست
+      await new Promise(resolve => setTimeout(resolve, 100));
+    }
+    
+    // ✅ مرحله 3: نمایش نتایج
+    let text = `🚫 **کاربران مسدودکننده ربات**\n\n`;
+    text += `📊 از ${allUserIds.length} کاربر بررسی شده:\n`;
+    text += `✅ فعال: ${allUserIds.length - blockedUsers.length}\n`;
+    text += `🚫 مسدود: ${blockedUsers.length}\n\n`;
+    
+    if (blockedUsers.length === 0) {
+      text += `🎉 **همه کاربران ربات رو فعال دارن!**`;
+    } else {
+      text += `➖➖➖➖➖➖➖➖➖➖\n\n`;
+      
+      // مرتب‌سازی بر اساس آخرین فعالیت
+      blockedUsers.sort((a, b) => b.lastSeen - a.lastSeen);
+      
+      blockedUsers.slice(0, 30).forEach((user, i) => {
+        const lastSeenDate = new Date(user.lastSeen).toLocaleDateString('fa-IR', {
+          year: 'numeric',
+          month: 'short',
+          day: 'numeric'
+        });
+        
+        text += `**${i + 1}.** ${user.firstName}\n`;
+        text += `🆔 \`${user.userId}\`\n`;
+        text += `👤 @${user.userName || 'ندارد'}\n`;
+        text += `📅 آخرین فعالیت: ${lastSeenDate}\n\n`;
+      });
+      
+      if (blockedUsers.length > 30) {
+        text += `➕ ... و ${blockedUsers.length - 30} کاربر دیگر\n\n`;
+      }
+      
+      text += `💡 **توجه:** این لیست فقط کاربرایی رو نشون میده که ربات رو مسدود کردن.`;
+    }
+    
+    const keyboard = {
+      inline_keyboard: [
+        [
+          { text: "🗑️ حذف سشن‌های مسدود", callback_data: "admin_delete_blocked" }
+        ],
+        [
+          { text: "📥 دانلود لیست", callback_data: "admin_export_blocked" }
+        ],
+        [
+          { text: "🔙 بازگشت", callback_data: "admin_back_to_main" }
+        ]
+      ]
+    };
+    
+    await editMessageText(chat.id, processingMsg.message_id, text, {
+      reply_markup: JSON.stringify(validateKeyboard(keyboard))
+    });
+    
+  } catch (error) {
+    logger.error("Blocked users check failed", error);
+    await editMessageText(chat.id, processingMsg.message_id, 
+      "❌ **خطا در بررسی**\n\nلطفاً دوباره تلاش کنید."
+    );
+  }
+}
+
+async function handleRebuildDatabaseCommand(message: Message, env: Env): Promise<void> {
+  const { chat } = message;
+  
+  const processingMsg = await sendMessage(chat.id, 
+    "🔧 **در حال بازسازی دیتابیس...**\n\n⏳ لطفاً صبر کنید", 
+    { reply_to_message_id: message.message_id }
+  );
+  
+  try {
+    // ✅ سیستم Pagination جدید برای دریافت کل دیتابیس
+    let allKeys: any[] = [];
+    let listResult = await env.SESSIONS.list({ prefix: "session:" });
+    allKeys.push(...listResult.keys);
+    
+    while (!listResult.list_complete && listResult.cursor) {
+      listResult = await env.SESSIONS.list({ prefix: "session:", cursor: listResult.cursor });
+      allKeys.push(...listResult.keys);
+    }
+    
+    let totalSessions = 0;
+    let fixedSessions = 0;
+    let createdUsers = 0;
+    let skippedSessions = 0;
+    
+    await editMessageText(chat.id, processingMsg.message_id, 
+      `🔧 **در حال بازسازی...**\n\n` +
+      `📊 پیدا شد: ${allKeys.length} سشن\n` +
+      `⏳ در حال پردازش...`
+    );
+    
+    for (const item of allKeys) {
+      try {
+        totalSessions++;
+        
+        const stored = await env.SESSIONS.get(item.name, "json");
+        if (!stored) {
+          skippedSessions++;
+          continue;
+        }
+        
+        const session = stored as ChatSession;
+        let wasModified = false;
+        
+        // ✅ بررسی و ترمیم userMemories
+        if (!session.userMemories || 
+            (typeof session.userMemories === 'object' && Object.keys(session.userMemories).length === 0)) {
+          
+          logger.info(`🔧 Fixing session ${session.id} - empty userMemories`);
+          
+          // ✅ ساخت userMemories جدید
+          session.userMemories = new Map<number, UserMemory>();
+          
+          // ✅ استخراج اطلاعات از تاریخچه موتورها
+          let userId: number | null = null;
+          let userName = 'Unknown User';
+          
+          // جستجو در تاریخچه‌ها
+          const engines: AIEngine[] = ['gemini', 'sambanova', 'pollinations'];
+          
+          for (const engineName of engines) {
+            const engine = session.engines[engineName];
+            if (!engine || !engine.history) continue;
+            
+            // پیدا کردن اولین پیام که userId داره
+            for (const item of engine.history) {
+              if (item.userId && item.userId > 0) {
+                userId = item.userId;
+                userName = item.userName || 'Unknown';
+                break;
+              }
+            }
+            
+            if (userId) break;
+          }
+          
+          // اگه از تاریخچه پیدا نشد، از chat ID استفاده کن
+          if (!userId && session.type === 'private') {
+            userId = session.id;
+            logger.warn(`Using chat ID as user ID for session ${session.id}`);
+          }
+          
+          if (userId) {
+            // ✅ ساخت UserMemory
+            const userMemory: UserMemory = {
+              userId: userId,
+              userName: userName,
+              firstName: userName,
+              lastSeen: session.lastSeen || Date.now(),
+              messageCount: session.messageCount || 0,
+              topics: [],
+              personality: "",
+              preferences: [],
+              interactionStyle: ""
+            };
+            
+            session.userMemories.set(userId, userMemory);
+            createdUsers++;
+            wasModified = true;
+            
+            logger.info(`✅ Created userMemory for user ${userId} in session ${session.id}`);
+          } else {
+            logger.warn(`⚠️ Could not find userId for session ${session.id}`);
+            skippedSessions++;
+          }
+        } else {
+          // ✅ userMemories وجود داره، ولی باید بررسی کنیم Map هست یا Object
+          const rawMemories = session.userMemories as any;
+          
+          if (!(rawMemories instanceof Map)) {
+            logger.info(`🔧 Converting userMemories to Map for session ${session.id}`);
+            
+            const newMap = new Map<number, UserMemory>();
+            
+            // تبدیل Object یا Array به Map
+            if (Array.isArray(rawMemories)) {
+              rawMemories.forEach(([key, value]: [any, any]) => {
+                const numKey = typeof key === 'number' ? key : parseInt(String(key), 10);
+                if (!isNaN(numKey) && value) {
+                  newMap.set(numKey, value);
+                }
+              });
+            } else if (typeof rawMemories === 'object') {
+              Object.entries(rawMemories).forEach(([key, value]) => {
+                const numKey = parseInt(key, 10);
+                if (!isNaN(numKey) && value) {
+                  newMap.set(numKey, value as UserMemory);
+                }
+              });
+            }
+            
+            if (newMap.size > 0) {
+              session.userMemories = newMap;
+              wasModified = true;
+            }
+          }
+        }
+        
+        // ✅ ترمیم statistics اگه نداشت
+        if (!session.statistics) {
+          session.statistics = {
+            totalMessages: session.messageCount || 0,
+            geminiMessages: 0,
+            sambanovaMessages: 0,
+            pollinationsMessages: 0,
+            voicesReceived: 0,
+            firstUsed: session.lastSeen || Date.now(),
+            lastSeen: session.lastSeen || Date.now()
+          };
+          wasModified = true;
+        }
+        
+        // ✅ ترمیم dailyLimits اگه نداشت
+        if (!session.dailyLimits) {
+          session.dailyLimits = {
+            messages: 0,
+            voicesSent: 0,
+            voicesReceived: 0,
+            imagesGenerated: 0,
+            lastReset: Date.now()
+          };
+          wasModified = true;
+        }
+        
+        // ✅ ذخیره اگه تغییری داشته
+        if (wasModified) {
+          // تبدیل Map به Object برای ذخیره
+          const dataToSave = {
+            ...session,
+            userMemories: Object.fromEntries(
+              Array.from(session.userMemories.entries()).map(([k, v]) => [String(k), v])
+            )
+          };
+          
+          await env.SESSIONS.put(item.name, JSON.stringify(dataToSave));
+          fixedSessions++;
+          
+          logger.info(`✅ Fixed and saved session ${session.id}`);
+        }
+        
+        // آپدیت پیشرفت هر 10 سشن
+        if (totalSessions % 10 === 0) {
+          await editMessageText(chat.id, processingMsg.message_id, 
+            `🔧 **در حال بازسازی...**\n\n` +
+            `📊 پیشرفت: ${totalSessions}/${allKeys.length}\n` +
+            `✅ ترمیم شده: ${fixedSessions}\n` +
+            `👤 کاربر جدید: ${createdUsers}\n` +
+            `⏭️ رد شده: ${skippedSessions}`
+          ).catch(() => {});
+        }
+        
+      } catch (error) {
+        logger.error(`Failed to process session ${item.name}`, error);
+        skippedSessions++;
+        continue;
+      }
+    }
+    
+    // ✅ پاکسازی کش
+    sessionCache.clear();
+    userCache.clear();
+    
+    // ✅ نمایش نتیجه
+    let resultText = `✅ **بازسازی دیتابیس تکمیل شد!**\n\n`;
+    resultText += `📊 **گزارش:**\n`;
+    resultText += `• کل سشن‌ها: ${totalSessions}\n`;
+    resultText += `• ترمیم شده: ${fixedSessions}\n`;
+    resultText += `• کاربر بازیابی شده: ${createdUsers}\n`;
+    resultText += `• رد شده: ${skippedSessions}\n\n`;
+    
+    if (fixedSessions > 0 || createdUsers > 0) {
+      resultText += `🎉 **موفق:** ${fixedSessions + createdUsers} مورد بازسازی شد!\n\n`;
+      resultText += `💡 حالا می‌تونی /admin رو بزنی و ببینی همه کاربرا اومدن.`;
+    } else {
+      resultText += `✅ دیتابیس سالم بود، نیازی به ترمیم نداشت.`;
+    }
+    
+    const keyboard = {
+      inline_keyboard: [
+        [
+          { text: "📊 مشاهده پنل ادمین", callback_data: "open_admin" }
+        ],
+        [
+          { text: "🗑️ بستن", callback_data: "admin_close" }
+        ]
+      ]
+    };
+    
+    await editMessageText(chat.id, processingMsg.message_id, resultText, {
+      reply_markup: JSON.stringify(validateKeyboard(keyboard))
+    });
+    
+  } catch (error) {
+    logger.error("Database rebuild failed", error);
+    await editMessageText(chat.id, processingMsg.message_id, 
+      `❌ **خطا در بازسازی**\n\n${error instanceof Error ? error.message : 'خطای نامشخص'}`
+    );
+  }
+}
+
+async function notifyAdminNewUser(user: User, env: Env) {
+  if (!config.BOT_OWNER_ID) return;
+  
+  const text = `🎉 **کاربر جدید!**\n\n` +
+    `👤 نام: ${user.first_name}\n` +
+    `🆔 آیدی: \`${user.id}\`\n` +
+    `👤 یوزرنیم: ${user.username ? '@' + user.username : 'ندارد'}\n` +
+    `🌐 زبان بله: ${user.language_code || 'نامشخص'}\n` +
+    `⏰ زمان: ${new Date().toLocaleString('fa-IR', { timeZone: 'Asia/Tehran' })}`;
+  
+  const keyboard = {
+    inline_keyboard: [
+      [
+        { text: "👁️ مشاهده پروفایل", callback_data: `admin_user_${user.id}` },
+        { text: "👑 VIP کردن", callback_data: `admin_toggle_vip_${user.id}` }
+      ]
+    ]
+  };
+  
+  try {
+    await sendMessage(config.BOT_OWNER_ID, text, {
+      reply_markup: JSON.stringify(keyboard)
+    });
+    logger.info(`✅ Notified admin about new user: ${user.id}`);
+  } catch (error) {
+    logger.warn(`Failed to notify admin about new user ${user.id}`, error);
+  }
+}
+
+async function isUserBlockedBot(userId: number): Promise<boolean> {
+  try {
+    // ✅ ارسال یه پیام خیلی ساده با disable_notification
+    const testMessage = await callTelegramAPI("sendMessage", {
+      chat_id: userId,
+      text: ".", // فقط یه نقطه!
+      disable_notification: true // بدون صدا
+    });
+    
+    // اگه پیام ارسال شد، فوراً حذفش کن
+    if (testMessage && testMessage.message_id) {
+      await deleteMessage(userId, testMessage.message_id).catch(() => {
+        // اگه حذف نشد مهم نیست
+      });
+    }
+    
+    // ✅ یوزر ربات رو بلاک نکرده
+    return false;
+    
+  } catch (error) {
+    const err = error instanceof Error ? error : new Error(String(error));
+    const errorMsg = err.message.toLowerCase();
+    
+    // ✅ چک کردن خطاهای مربوط به Block
+    if (
+      errorMsg.includes('blocked by the user') ||
+      errorMsg.includes('bot was blocked') ||
+      errorMsg.includes('user is deactivated') ||
+      errorMsg.includes('403') ||
+      errorMsg.includes('chat not found')
+    ) {
+      logger.info(`✅ User ${userId} has blocked the bot`);
+      return true;
+    }
+    
+    // خطای دیگه‌ای بود، احتیاط کن
+    logger.warn(`⚠️ Unknown error checking ${userId}: ${errorMsg}`);
+    return false; // فرض می‌کنیم بلاک نکرده
+  }
+}
+
+async function updateAdminPanel(chatId: number, messageId: number, env: Env) {
+  const state = adminPanelStates.get(chatId) || { page: 0, perPage: 5, sortBy: 'new' as const };
+  
+  const allUsers = await getAllUserStatistics(env);
+  
+  // Sort based on sortBy
+  let sortedUsers = [...allUsers];
+  if (state.sortBy === 'new') {
+    sortedUsers.sort((a, b) => {
+      const aTime = a.statistics.firstUsed || 0;
+      const bTime = b.statistics.firstUsed || 0;
+      return bTime - aTime;
+    });
+  } else if (state.sortBy === 'active') {
+    sortedUsers.sort((a, b) => {
+      const aTime = a.statistics.lastSeen || 0;
+      const bTime = b.statistics.lastSeen || 0;
+      return bTime - aTime;
+    });
+  } else if (state.sortBy === 'messages') {
+    sortedUsers.sort((a, b) => {
+      const aMsg = a.statistics.totalMessages || 0;
+      const bMsg = b.statistics.totalMessages || 0;
+      return bMsg - aMsg;
+    });
+  }
+  const currentKvMode = await env.SESSIONS.get("maintenance_mode", "text");
+  const isInMaintenance = currentKvMode === "true";
+  const totalPages = Math.ceil(sortedUsers.length / state.perPage);
+  const startIdx = state.page * state.perPage;
+  const endIdx = startIdx + state.perPage;
+  const pageUsers = sortedUsers.slice(startIdx, endIdx);
+  
+  // Format page
+  const totalMessages = allUsers.reduce((sum, u) => sum + u.statistics.totalMessages, 0);
+  const vipUsers = allUsers.filter(u => u.vipStatus).length;
+  const activeToday = allUsers.filter(u => Date.now() - u.statistics.lastSeen < 24 * 60 * 60 * 1000).length;
+  const blockedCount = await getBlockedUsersCount(env);
+
+  let text = `📊 **پنل مدیریت**\n\n`;
+  text += `👥 کل کاربران: ${allUsers.length}\n`;
+  text += `👑 VIP: ${vipUsers} | 🆓 رایگان: ${allUsers.length - vipUsers}\n`;
+  text += `🔥 فعال امروز: ${activeToday}\n`;
+  text += `🚫 مسدود شده: ${blockedCount}\n`;
+  text += `💬 کل پیام‌ها: ${totalMessages}\n\n`;
+  text += `📄 صفحه ${state.page + 1} از ${totalPages}\n`;
+  text += `📊 مرتب‌سازی: ${state.sortBy === 'new' ? '🆕 جدیدترین' : state.sortBy === 'active' ? '⚡ فعال‌ترین' : '💬 پرپیام‌ترین'}\n\n`;
+  
+  text += `➖➖➖➖➖➖➖➖➖➖\n\n`;
+  
+  pageUsers.forEach((user, idx) => {
+    const num = startIdx + idx + 1;
+    const escapedName = user.firstName;
+    const lastSeen = user.statistics.lastSeen && user.statistics.lastSeen > 0 
+      ? new Date(user.statistics.lastSeen).toLocaleDateString('fa-IR', { 
+          month: 'short', 
+          day: 'numeric', 
+          hour: '2-digit', 
+          minute: '2-digit'
+        })
+      : 'نامشخص';
+    
+    text += `**${num}\\.** ${escapedName} ${user.vipStatus ? '👑' : ''}\n`;
+    text += `🆔 \`${user.userId}\`\n`;
+    
+    text += `💬 ${user.statistics.totalMessages} پیام \\| ⏰ ${lastSeen}\n`;
+    text += `📊 امروز: ${user.dailyLimits.messages}/50 پیام\n\n`;
+  });
+  
+  // Keyboard
+  const keyboard: any = { inline_keyboard: [] };
+  
+  // User action buttons
+  const userButtons: any[] = [];
+  pageUsers.forEach((user, idx) => {
+    userButtons.push({
+      text: user.vipStatus ? `✅ ${idx + 1}` : `${idx + 1}`,
+      callback_data: `admin_user_${user.userId}`
+    });
+  });
+  
+  // Split into rows of 5
+  for (let i = 0; i < userButtons.length; i += 5) {
+    keyboard.inline_keyboard.push(userButtons.slice(i, i + 5));
+  }
+  
+  // Navigation row
+  const navRow: any[] = [];
+  if (state.page > 0) {
+    navRow.push({ text: "◀️ قبلی", callback_data: "admin_page_prev" });
+  }
+  navRow.push({ text: `${state.page + 1}/${totalPages}`, callback_data: "admin_noop" });
+  if (state.page < totalPages - 1) {
+    navRow.push({ text: "بعدی ▶️", callback_data: "admin_page_next" });
+  }
+  keyboard.inline_keyboard.push(navRow);
+  
+  // Sort & Actions row
+  keyboard.inline_keyboard.push([
+    { text: "🆕 جدیدترین", callback_data: "admin_sort_new" },
+    { text: "⚡ فعال‌ترین", callback_data: "admin_sort_active" },
+    { text: "💬 پرپیام", callback_data: "admin_sort_messages" }
+  ]);
+  
+  keyboard.inline_keyboard.push([
+    { 
+      text: isInMaintenance ? "✅ خروج از تعمیرات" : "🛠️ ورود به تعمیرات", 
+      callback_data: "admin_toggle_maintenance" 
+    },
+    { text: "📊 CSV", callback_data: "admin_export_csv" }
+  ]);
+
+  keyboard.inline_keyboard.push([
+    { text: "📢 ارسال پیام همگانی", callback_data: "admin_broadcast" }
+  ]);
+  
+  keyboard.inline_keyboard.push([
+    { text: "🔄 بروزرسانی", callback_data: "admin_refresh" },
+    { text: "❌ بستن", callback_data: "admin_close" }
+  ]);
+  
+  await editMessageText(chatId, messageId, text, {
+    reply_markup: JSON.stringify(validateKeyboard(keyboard))
+  });
+  
+  adminPanelStates.set(chatId, state);
+}
+
+// عد از adminPanelStates
+const broadcastStates = new Map<number, { mode: 'all' | 'vip' | 'free' | 'specific'; userId?: number }>();
+
+// اضافه کن تابع جدید
+async function handleBroadcastCallback(cb: CallbackQuery, env: Env) {
+  const chat = cb.message!.chat;
+  const user = cb.from;
+  
+  if (user.id !== config.BOT_OWNER_ID) {
+    await answerCallbackQuery(cb.id, "🚫 دسترسی محدود", true);
+    return;
+  }
+  
+  const text = `📢 **ارسال پیام همگانی**\n\nگیرندگان را انتخاب کنید:`;
+  
+  const keyboard = {
+    inline_keyboard: [
+      [
+        { text: "👥 همه کاربران", callback_data: "broadcast_all" },
+        { text: "👑 فقط VIP", callback_data: "broadcast_vip" }
+      ],
+      [
+        { text: "🆓 فقط رایگان", callback_data: "broadcast_free" }
+      ],
+      [
+        { text: "🔙 بازگشت", callback_data: "admin_back_to_main" }
+      ]
+    ]
+  };
+  
+  await answerCallbackQuery(cb.id);
+  await editMessageText(chat.id, cb.message!.message_id, text, {
+    reply_markup: JSON.stringify(validateKeyboard(keyboard))
+  });
+}
+
+async function showUserDetail(chatId: number, messageId: number, userId: number, env: Env) {
+  const allUsers = await getAllUserStatistics(env);
+  const user = allUsers.find(u => u.userId === userId);
+  
+  if (!user) {
+    await editMessageText(chatId, messageId, "❌ **کاربر یافت نشد**");
+    return;
+  }
+  
+  // ✅ استفاده از تابع جدید
+  const text = formatDetailedUserStats(user);
+  const isBlocked = await isUserBlocked(userId, env);
+  
+  const keyboard = {
+    inline_keyboard: [
+      [
+        { 
+          text: user.vipStatus ? "❌ حذف VIP" : "✅ افزودن VIP", 
+          callback_data: `admin_toggle_vip_${userId}` 
+        }
+      ],
+      [
+        { 
+          text: isBlocked ? "✅ رفع مسدودیت" : "🚫 مسدود کردن",  
+          callback_data: `admin_block_${userId}` 
+        }
+      ],
+      [
+        { text: "📨 ارسال پیام خصوصی", callback_data: `admin_msg_${userId}` }
+      ],
+      [
+        { text: "🧠 دیدن حافظه", callback_data: `admin_view_memory_${userId}` }
+      ],
+      [
+        { text: "🔙 بازگشت", callback_data: "admin_back_to_main" }
+      ]
+    ]
+  };
+  
+  await editMessageText(chatId, messageId, text, {
+    reply_markup: JSON.stringify(validateKeyboard(keyboard))
+  });
+}
+
+async function showUserMemory(chatId: number, messageId: number, userId: number, env: Env): Promise<void> {
+  try {
+    const sessionKey = `session:${userId}`;
+    const stored = await env.SESSIONS.get(sessionKey, "json");
+    
+    if (!stored) {
+      await editMessageText(chatId, messageId, "❌ **سشن یافت نشد**");
+      return;
+    }
+    
+    const userSession = stored as ChatSession;
+    const allUsers = await getAllUserStatistics(env);
+    const user = allUsers.find(u => u.userId === userId);
+    const userName = user?.firstName || 'Unknown';
+    
+    // ✅ محاسبه تعداد واقعی پیام‌ها در history
+    const activeEngine = userSession.engines[userSession.activeEngine];
+    const historyCount = activeEngine.history?.length || 0;
+    const totalSent = userSession.statistics?.totalMessages || 0;
+    
+    let text = `🧠 **حافظه کاربر ${userName}**\n\n`;
+    text += `🆔 \`${userId}\`\n`;
+    text += `📊 کل پیام‌های ارسالی: **${totalSent}**\n`;
+    text += `💾 ذخیره شده در حافظه: **${historyCount}** (محدودیت: ${config.HISTORY_LIMIT})\n`; // ✅ اضافه شد
+    text += `🤖 موتور فعال: ${getEngineName(userSession.activeEngine, 'fa')}\n\n`;
+    
+    // ✅ نمایش آمار موتورها
+    text += `📈 **آمار پیام‌ها به تفکیک موتور:**\n`;
+    text += `• 🤖 نوا: ${userSession.statistics?.geminiMessages || 0}\n`;
+    text += `• 🎨 لونا: ${userSession.statistics?.sambanovaMessages || 0}\n`;
+    text += `• 🔬 زارا: ${userSession.statistics?.pollinationsMessages || 0}\n\n`;
+    text += `━━━━━━━━━━━━━━━━━━━━\n\n`;
+    
+    const history = activeEngine.history || [];
+    
+    if (history.length === 0) {
+      text += '📭 **حافظه خالی است**';
+    } else {
+      const userMessages = history.filter(h => h.role === 'user').length;
+      const modelMessages = history.filter(h => h.role === 'model' || h.role === 'assistant').length;
+      
+      text += `📚 **خلاصه حافظه:**\n`;
+      text += `• کل پیام‌ها: ${history.length}\n`;
+      text += `• پیام‌های کاربر: ${userMessages}\n`;
+      text += `• پاسخ‌های ربات: ${modelMessages}\n\n`;
+      
+      // ⚠️ هشدار اگر حافظه کامل نیست
+      if (totalSent > historyCount) {
+        text += `⚠️ **توجه:** از ${totalSent} پیام ارسالی، فقط ${historyCount} پیام اخیر در حافظه ذخیره شده است.\n\n`;
+      }
+      
+      text += `🔖 **آخرین مکالمات (10 پیام اخیر):**\n\n`;
+      
+      const recentHistory = history.slice(-10);
+      
+      recentHistory.forEach((item, index) => {
+        const role = item.role === 'user' ? '👤' : 
+                     item.role === 'model' ? '🤖' : '⚙️';
+        
+        const timestamp = item.timestamp ? 
+          new Date(item.timestamp).toLocaleString('fa-IR', {
+            month: 'short',
             day: 'numeric',
             hour: '2-digit',
             minute: '2-digit'
-        });
+          }) : 'نامشخص';
+        
+        const messageText = item.parts[0]?.text || '[رسانه]';
+        const preview = messageText.length > 60 ? 
+          messageText.substring(0, 60) + '...' : 
+          messageText;
+        
+        text += `${role} \`${timestamp}\`\n${preview}\n\n`;
+      });
+      
+      if (history.length > 10) {
+        text += `➕ ... و ${history.length - 10} پیام قدیمی‌تر\n\n`;
+      }
     }
     
-    static calculateTokens(text) {
-        return Math.ceil(text.length / 4);
-    }
+    text += `━━━━━━━━━━━━━━━━━━━━\n\n`;
+    text += `💾 **جزئیات تکنیکال:**\n`;
+    text += `• آخرین فعالیت: ${formatSafeDate(userSession.lastSeen, 'short')}\n`;
+    text += `• تعداد در موتورها:\n`;
+    text += `  - نوا: ${userSession.engines.gemini.history.length}\n`;
+    text += `  - لونا: ${userSession.engines.sambanova.history.length}\n`;
+    text += `  - زارا: ${userSession.engines.pollinations.history.length}\n`;
     
-    static truncate(text, length = 100) {
-        if (text.length <= length) return text;
-        return text.substring(0, length) + '...';
-    }
+    const keyboard = {
+      inline_keyboard: [
+        [
+          createInlineButton('📥 دانلود کامل حافظه', `admin_download_memory_${userId}`)
+        ],
+        [
+          createInlineButton('🗑️ ریست حافظه', `admin_confirm_reset_memory_${userId}`)
+        ],
+        [
+          createInlineButton('🔙 بازگشت', `admin_user_${userId}`)
+        ]
+      ]
+    };
     
-    static sleep(ms) {
-        return new Promise(resolve => setTimeout(resolve, ms));
-    }
+    await editMessageText(chatId, messageId, text, {
+      reply_markup: JSON.stringify(validateKeyboard(keyboard))
+    });
     
-    static arrayToChunks(array, chunkSize) {
-        const chunks = [];
-        for (let i = 0; i < array.length; i += chunkSize) {
-            chunks.push(array.slice(i, i + chunkSize));
-        }
-        return chunks;
-    }
-    
-    static sanitizeInput(text) {
-        return text.replace(/[<>]/g, '').trim();
-    }
-    
-    static validateEmail(email) {
-        const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        return regex.test(email);
-    }
-    
-    static hashString(str) {
-        let hash = 0;
-        for (let i = 0; i < str.length; i++) {
-            const char = str.charCodeAt(i);
-            hash = ((hash << 5) - hash) + char;
-            hash = hash & hash;
-        }
-        return hash.toString(36);
-    }
+  } catch (error) {
+    logger.error(`Failed to show memory for user ${userId}`, error);
+    await editMessageText(chatId, messageId, "❌ **خطا در نمایش حافظه**");
+  }
 }
 
-// ==================== LOGGER ====================
-class Logger {
-    constructor(env) {
-        this.env = env;
-        this.logChannel = MEGA_CONFIG.LOG_CHANNEL_ID;
+function resetDailyLimitsIfNeeded(session: ChatSession): void {
+  const now = Date.now();
+  const lastReset = session.dailyLimits.lastReset || 0;
+  const oneDayMs = 24 * 60 * 60 * 1000;
+  
+  if (now - lastReset > oneDayMs) {
+    session.dailyLimits.messages = 0;
+    session.dailyLimits.voicesSent = 0;
+    session.dailyLimits.voicesReceived = 0;
+    session.dailyLimits.imagesGenerated = 0;
+    session.dailyLimits.lastReset = now;
+    // session رو ذخیره کن (non-blocking)
+  }
+}
+
+async function searchPixabayImages(query: string, perPage: number = 5): Promise<string[]> {
+  if (!config.PIXABAY_KEY) {
+    throw new Error("❌ کلید Pixabay تنظیم نشده است.");
+  }
+  
+  const url = new URL("https://pixabay.com/api/");
+  url.searchParams.set("key", config.PIXABAY_KEY);
+  url.searchParams.set("q", encodeURIComponent(query));
+  url.searchParams.set("image_type", "photo");
+  url.searchParams.set("per_page", perPage.toString());
+  url.searchParams.set("safesearch", "false");
+  
+  const response = await fetchWithTimeout(url.toString(), {}, 15000);
+  const data = await response.json();
+  
+  if (!response.ok || !data.hits) {
+    throw new Error(`Pixabay API error: ${data.message || "unknown"}`);
+  }
+  
+  const images = data.hits.map((hit: any) => hit.webformatURL || hit.largeImageURL).filter(Boolean);
+  if (images.length === 0) throw new Error("NO_RESULTS");
+  
+  return images.slice(0, perPage);
+}
+
+// ---- sendImageResults ----
+async function sendImageResults(chatId: number, messageId: number, images: string[], caption: string, txt: any): Promise<void> {
+  try {
+    if (!images || images.length === 0) {
+      throw new Error("تصویری برای ارسال وجود ندارد");
     }
-    
-    async log(level, message, data = {}) {
-        const timestamp = new Date().toISOString();
-        const logEntry = {
-            timestamp,
-            level,
-            message,
-            data,
-            version: MEGA_CONFIG.VERSION
-        };
-        
-        console.log(`[${level}] ${message}`, data);
-        
-        // ارسال لاگ به کانال تلگرام (فقط خطاها و وارنینگ‌ها)
-        if (['ERROR', 'WARN', 'CRITICAL'].includes(level) && this.logChannel) {
-            const emoji = {
-                'ERROR': '❌',
-                'WARN': '⚠️',
-                'CRITICAL': '🚨'
-            }[level] || 'ℹ️';
-            
-            const text = `${emoji} *${level}*\n\n` +
-                        `📝 ${message}\n` +
-                        `⏰ ${timestamp}\n` +
-                        `📊 ${JSON.stringify(data, null, 2)}`;
-            
-            try {
-                await this.sendToChannel(text);
-            } catch (e) {
-                console.error('Failed to send log to channel:', e);
-            }
+
+    logger.info(`📤 Sending ${images.length} images to chat ${chatId}`);
+
+    for (let i = 0; i < Math.min(images.length, 5); i++) {
+      const img = images[i];
+      const isGif = img.toLowerCase().includes(".gif");
+
+      try {
+        if (!img.startsWith('http://') && !img.startsWith('https://')) {
+          logger.warn(`Invalid image URL: ${img}`);
+          continue;
         }
+
+        if (i === 0) {
+          const fullCaption = txt.search_results
+            .replace('{caption}', caption)
+            .replace('{count}', String(images.length)) + txt.search_attribution;
+          
+          if (isGif) {
+            await sendAnimation(chatId, img, fullCaption, {
+              reply_to_message_id: messageId
+            });
+          } else {
+            await sendPhoto(chatId, img, fullCaption, {
+              reply_to_message_id: messageId
+            });
+          }
+        } else {
+          if (isGif) {
+            await sendAnimation(chatId, img);
+          } else {
+            await sendPhoto(chatId, img);
+          }
+        }
+
+        logger.info(`✅ Image ${i + 1} sent successfully`);
+        
+        await new Promise(resolve => setTimeout(resolve, 800));
+        
+      } catch (imageError) {
+        logger.warn(`Failed to send image ${i + 1}:`, imageError);
+        
+        if (i === 0) {
+          const fallbackText = txt.search_link_fallback
+             .replace('{link}', img)
+             .replace('{count}', String(images.length));
+
+          await sendMessage(chatId, fallbackText, { reply_to_message_id: messageId });
+        }
+        
+        continue;
+      }
+    }
+
+  } catch (error) {
+    logger.error("Failed to send image results", error);
+    throw new Error(`خطا در ارسال تصاویر: ${error instanceof Error ? error.message : 'نامشخص'}`);
+  }
+}
+
+async function sendAnimation(chatId: number, animation: string, caption?: string, options: Record<string, any> = {}): Promise<Message> {
+  const params: Record<string, any> = {
+    chat_id: chatId,
+    animation: animation,
+    ...options
+  };
+  
+  if (caption) {
+    params.caption = caption.substring(0, 1024);
+  }
+  
+  return await callTelegramAPI("sendAnimation", params);
+}
+
+  
+async function sendModelSelection(
+  chatId: number,
+  replyToMessageId: number | undefined,
+  session: ChatSession
+): Promise<Message> {
+  return await sendMessage(chatId, buildModelSelectionText(session), {
+    reply_markup: JSON.stringify(validateKeyboard(buildModelSelectionKeyboard(session))),
+    reply_to_message_id: replyToMessageId,
+  });
+}
+
+async function updateModelSelection(
+  chatId: number,
+  messageId: number,
+  session: ChatSession
+): Promise<void> {
+  await editMessageText(chatId, messageId, buildModelSelectionText(session), {
+    reply_markup: JSON.stringify(validateKeyboard(buildModelSelectionKeyboard(session))),
+  });
+}
+
+async function updatePromptMenu(chatId: number, messageId: number, session: ChatSession) {
+  const lang = session.language || 'fa';
+  const txt = TRANSLATIONS[lang];
+  const defText = txt.prompt_default || 'پیش‌فرض';
+
+  const geminiPrompt = session.customPrompts.gemini || defText;
+  const sambanovaPrompt = session.customPrompts.sambanova || defText;
+  const pollinationsPrompt = session.customPrompts.pollinations || defText;
+  
+  const short = (t: string) => {
+    const safeText = String(t || defText);
+    return safeText.length > 30 ? safeText.substring(0, 30) + '...' : safeText;
+  };
+
+  const text = `${txt.prompt_title}\n\n${txt.prompt_current}\n\n🤖 **${getEngineName('gemini', lang)}:** ${short(geminiPrompt)}\n\n🎨 **${getEngineName('sambanova', lang)}:** ${short(sambanovaPrompt)}\n\n🌟 **${getEngineName('pollinations', lang)}:** ${short(pollinationsPrompt)}\n\n${txt.prompt_guide}`;  
+  
+  const resetGemini = `${txt.prompt_reset || 'ریست'} ${getEngineName('gemini', lang)} 🗑️`;
+  const resetSambanova = `${txt.prompt_reset || 'ریست'} ${getEngineName('sambanova', lang)} 🗑️`;
+  const resetPollinations = `${txt.prompt_reset || 'ریست'} ${getEngineName('pollinations', lang)} 🗑️`;
+  
+  const keyboard = {
+    inline_keyboard: [
+      [
+        createInlineButton(resetGemini, 'reset_prompt_gemini'),
+        createInlineButton(resetSambanova, 'reset_prompt_sambanova')
+      ],
+      [
+        createInlineButton(resetPollinations, 'reset_prompt_pollinations')
+      ],
+      [
+        createInlineButton(txt.prompt_show, 'show_prompts')
+      ],
+      [
+        createInlineButton(txt.btn_back, 'open_help')
+      ]
+    ]
+  };
+  
+  await editMessageText(chatId, messageId, text, { 
+    reply_markup: JSON.stringify(validateKeyboard(keyboard))
+  });
+}
+
+async function handleSetPromptCommand(message: Message, args: string[], env: Env) {
+  const { chat, from } = message;
+  if (!from) return;
+
+  const session = await getOrCreateSession(chat, from, env);
+  const lang = session.language || 'fa';
+  // @ts-ignore
+  const txt = TRANSLATIONS[lang];
+
+  // 1. بررسی آرگومان‌ها
+  if (args.length < 2) {
+    const usage = lang === 'fa' 
+      ? "استفاده: `/setprompt [موتور] متن پرامپت`\n\nموتورها: `نوا`, `لونا`, `زارا`"
+      : "Usage: `/setprompt [engine] prompt text`\n\nEngines: `nova`, `luna`, `arya`, `zara`";
+      
+    await sendMessage(chat.id, `${txt.err_format}\n\n${usage}`, {
+      reply_to_message_id: message.message_id
+    });
+    return;
+  }
+  
+  const engineAlias = args[0].toLowerCase();
+  const promptText = args.slice(1).join(' ').trim();
+  
+  // مپ کردن هم نام‌های فارسی و هم انگلیسی
+  const engineMap: { [key: string]: AIEngine | undefined } = {
+    'نوا': 'gemini', 'nova': 'gemini', 'gemini': 'gemini',
+    'لونا': 'sambanova', 'luna': 'sambanova', 'sambanova': 'sambanova',
+    'زارا': 'pollinations', 'zara': 'pollinations', 'pollinations': 'pollinations'
+  };
+
+  const engine = engineMap[engineAlias];
+  
+  if (!engine) {
+    await sendMessage(chat.id, txt.err_engine_invalid, {
+      reply_to_message_id: message.message_id
+    });
+    return;
+  }
+
+  const isBotOwner = from.id === config.BOT_OWNER_ID;
+
+  // چک VIP
+  if (!isBotOwner && !session.vipStatus && engine !== 'gemini') {
+    await sendMessage(chat.id, txt.err_vip_prompt, {
+      reply_to_message_id: message.message_id,
+      reply_markup: JSON.stringify(getVIPUpgradeKeyboard())
+    });
+    return;
+  }
+
+  if (!promptText || promptText.length === 0) {
+    await sendMessage(chat.id, lang === 'fa' ? "❌ پرامپت نمی‌تواند خالی باشد" : "❌ Prompt cannot be empty", {
+      reply_to_message_id: message.message_id
+    });
+    return;
+  }
+  
+  if (promptText.length > config.MAX_PROMPT_LENGTH) {
+    await sendMessage(chat.id, lang === 'fa' 
+      ? `❌ پرامپت خیلی طولانی است. حداکثر ${config.MAX_PROMPT_LENGTH} کاراکتر.` 
+      : `❌ Prompt too long. Max ${config.MAX_PROMPT_LENGTH} characters.`, {
+      reply_to_message_id: message.message_id
+    });
+    return;
+  }
+  
+  // ذخیره
+  session.customPrompts[engine as AIEngine] = promptText;
+  
+  // اعمال در هیستوری
+  const timestamp = Date.now();
+  const currentPrompt = getActivePrompt(session, from.first_name, session.type !== "private");
+  const engineKey = engine as AIEngine;
+  
+  if (session.engines[engineKey].history.length > 0) {
+     const role = engineKey === 'gemini' ? 'user' : 'assistant';
+     // فرض می‌کنیم اولین پیام همیشه System prompt است
+     session.engines[engineKey].history[0] = {
+        role: role,
+        parts: [{ text: currentPrompt }],
+        timestamp
+     };
+  }
+
+  await saveSessionWithLock(session, env);
+
+  const engineName = getEngineName(engine as AIEngine, lang);
+  const successMsg = lang === 'fa'
+    ? `✅ **پرامپت ${engineName} تنظیم و اعمال شد**\n\nبدون نیاز به /new از الان فعال است!`
+    : `✅ **${engineName} prompt set and applied**\n\nActive immediately (no /new needed)!`;
+
+  await sendMessage(chat.id, successMsg, {
+    reply_to_message_id: message.message_id
+  });
+}
+
+
+async function handleMediaMessage(message: Message, env: Env, config: ReturnType<typeof createConfig>) {
+  const { chat, from, caption, photo, document, animation, video } = message;
+  if (!from) return;
+  const chatId = chat.id;
+  const isGroup = chat.type === "group" || chat.type === "supergroup";
+
+  // ✅ فقط یک بار session بگیر
+  const session = await getOrCreateSession(chat, from, env);
+
+  // ✅ اگر گروه است و منشن/ریپلای نشده، بدون پردازش برگرد
+  if (isGroup && !shouldRespondInGroup(message, session)) {
+    return;
+  }
+
+  if (config.MAINTENANCE_MODE && from.id !== config.BOT_OWNER_ID) {
+    await sendMessage(chat.id, "> 🛠️ **ربات در حال تعمیرات است.**", { reply_to_message_id: message.message_id });
+    return;
+  }
+
+  const requestId = generateRequestId();
+
+  function isTextFile(mimeType: string, fileName: string): boolean {
+    if (mimeType.startsWith('text/')) return true;
+    const ext = fileName.split('.').pop()?.toLowerCase() || '';
+    const textExts = ['txt', 'json', 'js', 'py', 'ts', 'csv', 'md', 'html', 'css'];
+    return textExts.includes(ext);
+  }
+
+  let mediaCategory: 'image' | 'gif' | 'video' | 'text_file' | 'pdf' | 'unsupported' | null = null;
+  let fileMimeType = '';
+  let fileName = '';
+  let fileId = '';
+
+  if (photo && photo.length > 0) {
+    mediaCategory = 'image';
+    fileId = photo[photo.length - 1].file_id; 
+    fileMimeType = 'image/jpeg';
+  } else if (animation) {
+    mediaCategory = 'gif';
+    fileId = animation.file_id;
+    fileMimeType = animation.mime_type || 'image/gif';
+  } else if (video) {
+    mediaCategory = 'video';
+    fileId = video.file_id;
+    fileMimeType = video.mime_type || 'video/mp4';
+    if (video.file_size && video.file_size > 8 * 1024 * 1024) {
+      await sendMessage(chatId, "⚠️ **حجم ویدیو زیاد است**\n> حداکثر حجم پردازش ویدیو 8 مگابایت است.", { reply_to_message_id: message.message_id });
+      return;
+    }
+  } else if (document) {
+    fileMimeType = document.mime_type || '';
+    fileName = document.file_name || '';
+    fileId = document.file_id;
+
+    if (fileMimeType === 'application/pdf') mediaCategory = 'pdf';
+    else if (isTextFile(fileMimeType, fileName)) mediaCategory = 'text_file';
+    else mediaCategory = 'unsupported';
+  }
+
+  if (!mediaCategory) return;
+
+  if (mediaCategory === 'unsupported') {
+    await sendMessage(chatId,
+      "⚠️ **فرمت پشتیبانی نشده**\n\n> 📄 متنی: `txt, json, py, js, md, csv...`\n> 📑 اسناد: `pdf`\n> 🖼️ تصاویر: `jpg, png, gif`\n> 🎬 ویدیو: تا 20MB",
+      { reply_to_message_id: message.message_id }
+    );
+    return;
+  }
+
+  try {
+    const lang = session.language || 'fa';
+
+    if (isGroup && !session.vipStatus) {
+      await sendMessage(chatId, "> ⚠️ **دسترسی محدود**\nتحلیل فایل و تصویر در گروه‌ها مخصوص کاربران VIP است.", { reply_to_message_id: message.message_id });
+      return;
+    }
+
+    const bucket = getUserBucket(from.id, session.vipStatus);
+    if (!bucket.tryConsume()) {
+      await sendMessage(chatId, "⏳ بزار ببینم...", { reply_to_message_id: message.message_id });
+      return;
+    }
+
+    if (config.GEMINI_KEYS.length === 0) {
+      await sendMessage(chatId, "❌ موتور پردازش مدیا در دسترس نیست.", { reply_to_message_id: message.message_id });
+      return;
+    }
+
+    let loadingIcon = mediaCategory === 'image' ? '👁️' : mediaCategory === 'pdf' ? '📑' : '📄';
+    let loadingText = lang === 'fa' ? `> ${loadingIcon} **بزار محتواشو ببینم...**` : `> ${loadingIcon} **Analyzing content...**`;
+    
+    const loadingMsg = await sendMessage(chatId, loadingText, { reply_to_message_id: message.message_id });
+
+    // ──────────────────────────────────────────────────────────────
+    // 1. فایل متنی
+    if (mediaCategory === 'text_file') {
+      const ext = fileName.split('.').pop()?.toLowerCase() || 'txt';
+      const fileUrl = await getFileUrl(fileId);
+      const fileResponse = await fetchWithTimeout(fileUrl, {}, 30000);
+      const fileBuffer = await fileResponse.arrayBuffer();
+      const fileText = new TextDecoder('utf-8', { fatal: false }).decode(fileBuffer);
+      const fileContent = fileText.substring(0, 30000); 
+      
+      const userQuestion = caption?.trim() || '';
+      const promptText = lang === 'fa' 
+        ? `محتوای فایل \`${fileName}\` را بخوان. اگر کاربر درخواستی دارد انجام بده، وگرنه یک خلاصه مفید بده.\n\n\`\`\`${ext}\n${fileContent}\n\`\`\`\n\nدرخواست کاربر: ${userQuestion}`
+        : `Analyze the file \`${fileName}\`.\n\n\`\`\`${ext}\n${fileContent}\n\`\`\`\n\nUser request: ${userQuestion}`;
+        
+      const userParts: Part[] = [{ text: promptText }];
+      const responseText = await processWithGeminiRobust(userParts, config);
+      
+      await sendStreamingResponse(chatId, message.message_id, sanitizeMarkdown(responseText), loadingMsg.message_id);
+      saveMediaHistory(session, env, ` ${userQuestion}`, responseText);
+      return;
+    }
+
+    // ──────────────────────────────────────────────────────────────
+    // 2. فایل PDF
+    if (mediaCategory === 'pdf') {
+      const fileUrl = await getFileUrl(fileId);
+      const fileResponse = await fetchWithTimeout(fileUrl, {}, 30000);
+      const base64Data = arrayBufferToBase64(await fileResponse.arrayBuffer());
+      
+      const userQuestion = caption?.trim() || '';
+      const promptText = userQuestion || (lang === 'fa' 
+        ? 'این سند PDF را با دقت بخوان و یک خلاصه جامع، عناوین کلیدی و نکات مهم آن را به من بگو.' 
+        : 'Read this PDF thoroughly and provide a comprehensive summary.');
+
+      // آرایه اصلاح شد
+      const userParts: Part[] = [
+        { inline_data: { mime_type: "application/pdf", data: base64Data } },
+        { text: promptText }
+      ];
+      const responseText = await processWithGeminiRobust(userParts, config);
+      
+      await sendStreamingResponse(chatId, message.message_id, sanitizeMarkdown(responseText), loadingMsg.message_id);
+      saveMediaHistory(session, env, ` ${userQuestion}`, responseText);
+      return;
+    }
+
+    // ──────────────────────────────────────────────────────────────
+// 3. عکس و ویدیو
+const fileInfo = await callTelegramAPI("getFile", { file_id: fileId });
+const fileUrl = `https://api.telegram.org/file/bot${config.TOKEN}/${fileInfo.file_path}`;
+const mediaResponse = await fetchWithTimeout(fileUrl, {}, 30000);
+const base64Data = arrayBufferToBase64(await mediaResponse.arrayBuffer());
+
+const userCaption = caption?.trim() || '';
+const sysPrompt = lang === 'fa'
+  ? `تو یک دوست باهوش هستی. به این مدیا نگاه کن.\nاگر سوالی بود دقیق جواب بده. اگر نه، نظرت رو دوستانه بگو و از ایموجی استفاده کن. هرگز نگو "من هوش مصنوعی هستم".\nکاربر: ${userCaption}`
+  : `You are a smart friend. Look at this media. Answer clearly or give a friendly reaction with emojis. Never say "I am an AI".\nUser: ${userCaption}`;
+
+const userParts: Part[] = [
+  { text: sysPrompt },
+  { inline_data: { mime_type: fileMimeType, data: base64Data } }
+];
+const responseText = await processWithGeminiRobust(userParts, config);
+const finalResponse = formatResponseForHuman(responseText, lang);
+
+await sendStreamingResponse(chatId, message.message_id, finalResponse, loadingMsg.message_id);
+saveMediaHistory(session, env, ` ${userCaption}`, finalResponse);
+
+  } catch (error) {
+      logger.error("Media processing failed", error);
+      const lang = session?.language || 'fa';
+      let errMsg;
+      if (from.id === config.BOT_OWNER_ID) {
+          errMsg = `❌ **Raw error:**\n\`\`\`\n${getRawError(error)}\n\`\`\``;
+      } else {
+          errMsg = lang === 'fa'
+              ? "> ❌ **نتونستم فایل رو پردازش کنم!**\nشاید فرمتش مشکل داره یا سرور شلوغه. یه بار دیگه امتحان کن."
+              : "> ❌ **Failed to process media!**\nPlease try again.";
+      }
+      try {
+          await callTelegramAPI("sendMessage", { chat_id: chatId, text: errMsg, reply_to_message_id: message.message_id, parse_mode: "Markdown" });
+      } catch (e) {}
+  } finally {
+    releaseRequest(chatId, requestId);
+  }
+}
+/**
+ * تابع مقاوم برای تلاش مجدد ارسال درخواست به جمنای
+ */
+async function processWithGeminiRobust(parts: Part[], config: any): Promise<string> {
+  let lastError: Error | null = null;
+  for (const apiKey of config.GEMINI_KEYS) {
+    try {
+      const responseText = await withTimeout(
+        callGeminiAPI(parts, config.GEMINI_MODEL, apiKey,[]), // بدون سابقه قبلی برای فوکوس روی فایل
+        55000,
+        '⏱️ زمان پردازش فایل تمام شد.'
+      );
+      return responseText;
+    } catch (err) {
+      lastError = err as Error;
+      const msg = lastError.message.toLowerCase();
+      if (msg.includes('safety') || msg.includes('blocked')) break;
+      await new Promise(r => setTimeout(r, 1000));
+    }
+  }
+  throw lastError || new Error("تمامی کلیدهای پردازش ناموفق بودند.");
+}
+
+function saveMediaHistory(session: ChatSession, env: Env, userText: string, aiText: string) {
+  const timestamp = Date.now();
+  const engine = session.engines[session.activeEngine];
+  addToHistory(engine.history, "user", [{ text: userText }], timestamp);
+  addToHistory(engine.history, "model", [{ text: aiText }], timestamp);
+  
+  session.messageCount++;
+  session.statistics.totalMessages++;
+  recordRequest(session);
+  saveSessionWithLock(session, env, false).catch(() => {});
+}
+
+function formatResponseForHuman(text: string, lang: 'fa' | 'en'): string {
+  // حذف جملات رباتیک
+  const roboticPhrases = lang === 'fa' ? [
+    'به عنوان یک هوش مصنوعی',
+    'من یک مدل زبانی هستم',
+    'من یک AI هستم',
+    'من یک ربات هستم',
+    'من یک دستیار مجازی هستم'
+  ] : [
+    'As an AI',
+    'I am a language model',
+    'I am an AI',
+    'I am a bot',
+    'I am a virtual assistant'
+  ];
+
+  let cleanedText = text;
+  roboticPhrases.forEach(phrase => {
+    const regex = new RegExp(phrase + '[^.!?]*[.!?]', 'gi');
+    cleanedText = cleanedText.replace(regex, '');
+  });
+
+  // اضافه کردن احساس انسانی
+  const humanTouches = lang === 'fa' ? [
+    '😊 ', '👍 ', '🙂 ', '✨ ', '🌟 '
+  ] : [
+    '😊 ', '👍 ', '🙂 ', '✨ ', '🌟 '
+  ];
+
+  // فقط اگر متن کوتاه نیست، ایموجی اضافه کن
+  if (cleanedText.length > 50) {
+    const randomTouch = humanTouches[Math.floor(Math.random() * humanTouches.length)];
+    cleanedText = randomTouch + cleanedText;
+  }
+
+  return cleanedText.trim();
+}
+
+async function handleVoiceMessage(message: Message, env: Env, config: ReturnType<typeof createConfig>) {
+  const { chat, from, voice } = message;
+  if (!from || !voice) return;
+  
+  const session = await getOrCreateSession(chat, from, env);
+  const isGroup = chat.type === "group" || chat.type === "supergroup";
+
+  if (isGroup && !shouldRespondInGroup(message, session)) {
+    return;
+  }
+  
+  if (config.MAINTENANCE_MODE && from.id !== config.BOT_OWNER_ID) {
+    await sendMessage(chat.id, "> 🛠️ **ربات در حال تعمیرات است.**\nلطفاً دقایقی دیگر تلاش کنید.", { reply_to_message_id: message.message_id });
+    return;
+  }
+
+  const requestId = generateRequestId();
+  
+  if (!canProcessConcurrentRequest(chat.id, requestId)) {
+    await sendMessage(chat.id, "🚦 سرور به شدت شلوغ است. لطفاً ۳۰ ثانیه دیگر پیام بدهید.", { reply_to_message_id: message.message_id });
+    return;
+  }
+  let loadingMsg: Message | null = null;
+  
+  try {
+    const lang = session.language || 'fa';
+    
+    if (isGroup && !shouldRespondInGroup(message, session)) return;
+    
+    if (config.GEMINI_KEYS.length === 0) {
+      await sendMessage(chat.id, "❌ تشخیص گفتار در حال حاضر غیرفعال است.", { reply_to_message_id: message.message_id });
+      return;
     }
     
-    async sendToChannel(text) {
-        await fetch(`https://api.telegram.org/bot${this.env.TELEGRAM_TOKEN}/sendMessage`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                chat_id: this.logChannel,
-                text: text.substring(0, 4096),
-                parse_mode: 'Markdown'
+    if (voice.file_size && voice.file_size > 10 * 1024 * 1024) {
+      await sendMessage(chat.id, "⚠️ **حجم فایل بالاست!**\n> حداکثر حجم مجاز برای پردازش صوت ۱۰ مگابایت است.", { reply_to_message_id: message.message_id });
+      return;
+    }
+    
+    const limitCheck = checkDailyLimit(session, 'voice_sent');
+    if (!limitCheck.allowed) {
+      await sendMessage(chat.id, limitCheck.message!, { reply_to_message_id: message.message_id });
+      return;
+    }
+    
+    // 🎨 UI جدید لودینگ ویس
+    loadingMsg = await sendMessage(chat.id, 
+      lang === 'fa' ? '> 🎤 **در حال دریافت صوت...**' : '> 🎤 **Fetching audio...**', 
+      { reply_to_message_id: message.message_id }
+    ).catch(() => null);
+    
+    await sendTypingAction(chat.id).catch(() => {});
+    
+    let fileUrl: string;
+    try {
+      fileUrl = await getFileUrl(voice.file_id);
+    } catch (error) {
+      const errMsg = lang === 'fa' ? '❌ خطا در دانلود فایل از سرور بله.' : '❌ Could not fetch voice file.';
+      if (loadingMsg) await editMessageText(chat.id, loadingMsg.message_id, errMsg).catch(() => {});
+      return;
+    }
+    
+    if (loadingMsg) {
+      await editMessageText(chat.id, loadingMsg.message_id, 
+        lang === 'fa' ? '> 🔊 **در حال استخراج متن از صدا...**' : '> 🔊 **Transcribing audio...**'
+      ).catch(() => {});
+    }
+    
+    let transcribedText: string;
+    try {
+      transcribedText = await transcribeVoiceWithGemini(fileUrl, config);
+    } catch (error) {
+      const err = error instanceof Error ? error : new Error(String(error));
+      const errorMsg = err.message.toLowerCase();
+      
+      let userMessage = lang === 'fa' ? '❌ **خطا در تشخیص صدا!**\n\n' : '❌ **Could not understand!**\n\n';
+      
+      if (errorMsg.includes('timeout') || errorMsg.includes('زمان')) {
+        userMessage += lang === 'fa' ? '> ⏱️ زمان پردازش سرور تمام شد.' : '> ⏱️ Processing timed out.';
+      } else {
+        userMessage += lang === 'fa' ? '> 💡 لطفاً واضح‌تر صحبت کن یا از محیط خلوت‌تری ویس بده.' : '> 💡 Please speak clearly or re-record.';
+      }
+      
+      if (loadingMsg) await editMessageText(chat.id, loadingMsg.message_id, userMessage).catch(() => {});
+      return;
+    }
+    
+    if (transcribedText.length < 2) {
+      const errMsg = lang === 'fa' ? '🔇 صدایی تشخیص داده نشد. لطفاً واضح‌تر صحبت کن.' : '🔇 No speech detected. Please speak clearly.';
+      if (loadingMsg) await editMessageText(chat.id, loadingMsg.message_id, errMsg).catch(() => {});
+      return;
+    }
+    
+    // 🎨 نمایش متن ویس به زیباترین شکل ممکن
+    const transcriptDisplay = lang === 'fa' 
+      ? `> 🎙️ **شما گفتید:**\n> _${transcribedText}_\n> ⏳ در حال بررسی...`
+      : `> 🎙️ **You said:**\n> _${transcribedText}_\n> ⏳ Processing...`;
+    
+    if (loadingMsg) {
+      await editMessageText(chat.id, loadingMsg.message_id, transcriptDisplay).catch(() => {});
+    }
+    
+    incrementDailyUsage(session, 'voice_sent');
+    session.statistics.voicesReceived++;
+    recordRequest(session);
+    session.lastSeen = Date.now();
+    
+    // ارسال به هوش مصنوعی (آرایه اینجا به درستی تنظیم شد)
+    await processAIRequest(
+      session, 
+      from,
+      [{ text: transcribedText }],
+      loadingMsg || message,      
+      env, 
+      requestId
+    );
+    
+  } catch (error) {
+    logger.error("Voice processing failed", error);
+    const lang = (await getOrCreateSession(chat, from, env).catch(() => ({ language: 'fa' as const }))).language;
+    const errMsg = lang === 'fa'
+      ? '> ❌ **خطای سیستمی!**\n> در حال حاضر پردازش ویس مقدور نیست. می‌تونی متن بفرستی.'
+      : '> ❌ **System Error!**\n> Voice processing failed. Try text instead.';
+    
+    if (loadingMsg) await editMessageText(chat.id, loadingMsg.message_id, errMsg).catch(() => {});
+  } finally {
+    releaseRequest(chat.id, requestId);
+  }
+}
+
+async function resetUserMemory(chatId, messageId, userId, env) {
+  try {
+    const sessionKey = `session:${userId}`;
+    const stored = await env.SESSIONS.get(sessionKey, "json");
+    if (!stored) {
+      await editMessageText(chatId, messageId, "❌ سشنی برای این کاربر یافت نشد.");
+      return;
+    }
+    const session = stored as ChatSession;
+    // ریست کردن history برای تمام موتورها
+    const engines = ['gemini', 'sambanova', 'pollinations'];
+    for (const eng of engines) {
+      if (session.engines[eng]) {
+        session.engines[eng].history = [];
+        session.engines[eng].userHistories = new Map();
+      }
+    }
+    session.messageCount = 0;
+    session.statistics.totalMessages = 0;
+    session.statistics.geminiMessages = 0;
+    session.statistics.sambanovaMessages = 0;
+    session.statistics.pollinationsMessages = 0;
+    await env.SESSIONS.put(sessionKey, JSON.stringify(session));
+    await editMessageText(chatId, messageId, `✅ حافظه کاربر ${userId} با موفقیت ریست شد.`);
+  } catch (error) {
+    logger.error(`Failed to reset memory for user ${userId}`, error);
+    await editMessageText(chatId, messageId, "❌ خطا در ریست حافظه");
+  }
+}
+
+async function handleTextMessage(message: Message, env: Env, config: ReturnType<typeof createConfig>) {
+  const { chat, from, text } = message;
+  if (!text || !from) return;
+  
+  const requestId = generateRequestId();
+  //await resetDailyLimitsIfNeede(session);
+  
+  try {
+    const maintenanceCheck = await checkMaintenanceMode(env, from.id);
+    if (maintenanceCheck.blocked) {
+      await sendMessage(chat.id, maintenanceCheck.message!, {
+        reply_to_message_id: message.message_id
+      });
+      return;
+    }
+    
+    const session = await getOrCreateSession(chat, from, env);
+    const isGroup = chat.type === "group" || chat.type === "supergroup";
+
+    if (isGroup && !shouldRespondInGroup(message, session)) {
+      return;
+    }
+
+    if (isGroup && from) {
+      const banKey = `banned:${chat.id}:${from.id}`;
+      const banData = await env.SESSIONS.get(banKey, 'json') as any;
+  
+      if (banData && banData.until > Date.now()) {
+        // هنوز بن هست - پیامو پاک کن
+        await deleteMessage(chat.id, message.message_id).catch(() => {});
+        return;
+      } else if (banData && banData.until <= Date.now()) {
+        // بن تموم شده - از KV پاک کن
+        await env.SESSIONS.delete(banKey).catch(() => {});
+      }
+    }
+    
+    if (isGroup && !text.startsWith('/') && !shouldRespondInGroup(message, session)) {
+      return;
+    }
+
+    const isBlocked = await isUserBlocked(from.id, env);
+    if (isBlocked && from.id !== config.BOT_OWNER_ID) {
+      await sendMessage(chat.id, 
+        "🚫 **دسترسی مسدود**\n\nحساب شما توسط مدیر مسدود شده است.\n\n📞 برای رفع مسدودیت با @Hacker1382 تماس بگیرید.",
+        { reply_to_message_id: message.message_id }
+      );
+      return;
+    }
+    
+    const broadcastState = broadcastStates.get(chat.id);
+    if (broadcastState && from.id === config.BOT_OWNER_ID) {
+      if (text === '/cancel') {
+        broadcastStates.delete(chat.id);
+        await env.SESSIONS.delete('broadcast_job:current').catch(() => {});
+        await sendMessage(chat.id, "❌ **ارسال پیام لغو شد**", {
+          reply_to_message_id: message.message_id
+        });
+        return;
+      }
+
+      recordRequest(session);
+  
+      // Send broadcast
+      const processingMsg = await sendMessage(chat.id, "⏳ **در حال آماده‌سازی لیست...**", {
+        reply_to_message_id: message.message_id
+      });
+      
+      try {
+        const allUsers = await getAllUserStatistics(env);
+        let targetUsers = allUsers;
+  
+        if (broadcastState.mode === 'vip') {
+          targetUsers = allUsers.filter(u => u.vipStatus);
+        } else if (broadcastState.mode === 'free') {
+          targetUsers = allUsers.filter(u => !u.vipStatus);
+        } else if (broadcastState.mode === 'specific' && broadcastState.userId) {
+          targetUsers = allUsers.filter(u => u.userId === broadcastState.userId);
+        }
+  
+        if (targetUsers.length === 0) {
+          broadcastStates.delete(chat.id);
+          await editMessageText(chat.id, processingMsg.message_id, "❌ هیچ کاربری یافت نشد");
+          return;
+        }
+  
+        const job: BroadcastJob = {
+          id: `broadcast_${Date.now()}`,
+          mode: broadcastState.mode,
+          targetUserId: broadcastState.userId,
+          message: text,
+          userIds: targetUsers.map(u => u.userId),
+          processedIndex: 0,
+          sent: 0,
+          failed: 0,
+          totalUsers: targetUsers.length,
+          adminChatId: chat.id,
+          adminMessageId: processingMsg.message_id,
+          createdAt: Date.now(),
+          status: 'pending'
+        };
+
+        await env.SESSIONS.put('broadcast_job:current', JSON.stringify(job));
+        broadcastStates.delete(chat.id);
+
+        await editMessageText(chat.id, processingMsg.message_id,
+          `📋 **پیام در صف ارسال قرار گرفت!**\n\n` +
+          `👥 تعداد گیرندگان: **${targetUsers.length}** نفر\n` +
+          `⏳ هر ۳۰ ثانیه **۲۰ نفر** پیام می‌گیرن\n` +
+          `📊 زمان تقریبی: **${Math.ceil(targetUsers.length / 20) * 30} ثانیه**\n\n` +
+          `🔄 در حال شروع اولین batch...`,
+          {
+            reply_markup: JSON.stringify({
+              inline_keyboard: [[
+                { text: "📊 وضعیت", callback_data: "broadcast_status" },
+                { text: "🛑 لغو", callback_data: "broadcast_cancel" }
+              ]]
             })
-        });
-    }
-    
-    info(message, data) { return this.log('INFO', message, data); }
-    warn(message, data) { return this.log('WARN', message, data); }
-    error(message, data) { return this.log('ERROR', message, data); }
-    critical(message, data) { return this.log('CRITICAL', message, data); }
-}
+          }
+        );
 
-// ==================== CACHE MANAGER ====================
-class CacheManager {
-    constructor() {
-        this.cache = new Map();
-        this.hits = 0;
-        this.misses = 0;
-    }
-    
-    set(key, value, ttl = MEGA_CONFIG.CACHE.ttl) {
-        const expiresAt = Date.now() + (ttl * 1000);
-        this.cache.set(key, { value, expiresAt });
-        
-        // حذف موارد منقضی شده
-        this.cleanup();
-    }
-    
-    get(key) {
-        const item = this.cache.get(key);
-        
-        if (!item) {
-            this.misses++;
-            return null;
-        }
-        
-        if (Date.now() > item.expiresAt) {
-            this.cache.delete(key);
-            this.misses++;
-            return null;
-        }
-        
-        this.hits++;
-        return item.value;
-    }
-    
-    delete(key) {
-        return this.cache.delete(key);
-    }
-    
-    clear() {
-        this.cache.clear();
-        this.hits = 0;
-        this.misses = 0;
-    }
-    
-    cleanup() {
-        const now = Date.now();
-        for (const [key, item] of this.cache.entries()) {
-            if (now > item.expiresAt) {
-                this.cache.delete(key);
-            }
-        }
-        
-        // حذف قدیمی‌ترین موارد اگر بیش از حد شد
-        if (this.cache.size > MEGA_CONFIG.CACHE.max_size) {
-            const entries = Array.from(this.cache.entries());
-            entries.sort((a, b) => a[1].expiresAt - b[1].expiresAt);
-            
-            const toDelete = entries.slice(0, Math.floor(MEGA_CONFIG.CACHE.max_size * 0.2));
-            toDelete.forEach(([key]) => this.cache.delete(key));
-        }
-    }
-    
-    getStats() {
-        const total = this.hits + this.misses;
-        const hitRate = total > 0 ? (this.hits / total * 100).toFixed(2) : 0;
-        
-        return {
-            size: this.cache.size,
-            hits: this.hits,
-            misses: this.misses,
-            hitRate: `${hitRate}%`,
-            maxSize: MEGA_CONFIG.CACHE.max_size
-        };
-    }
-}
+        // شروع فوری اولین batch (بدون انتظار برای scheduled)
+        await processBroadcastBatch(env);
 
-// ==================== DATABASE MANAGER ====================
-class DatabaseManager {
-    constructor(env) {
-        this.db = env.DB;
-        this.logger = new Logger(env);
+      } catch (error) {
+        logger.error("Broadcast job creation failed", error);
+        broadcastStates.delete(chat.id);
+        await editMessageText(chat.id, processingMsg.message_id, "❌ خطا در ایجاد job").catch(() => {});
+      }
+      return;
     }
     
-    async initialize() {
-        try {
-            const tables = [
-                // Users Table
-                `CREATE TABLE IF NOT EXISTS users (
-                    user_id TEXT PRIMARY KEY,
-                    username TEXT,
-                    first_name TEXT,
-                    last_name TEXT,
-                    tier TEXT DEFAULT 'FREE',
-                    personality TEXT DEFAULT 'friendly',
-                    preferred_model TEXT DEFAULT 'CF_AI',
-                    preferred_vision_model TEXT DEFAULT 'GEMINI_FLASH',
-                    human_mode INTEGER DEFAULT 1,
-                    typo_mode INTEGER DEFAULT 1,
-                    language TEXT DEFAULT 'fa',
-                    referral_code TEXT UNIQUE,
-                    referred_by TEXT,
-                    referral_count INTEGER DEFAULT 0,
-                    bonus_messages INTEGER DEFAULT 0,
-                    total_messages INTEGER DEFAULT 0,
-                    total_tokens INTEGER DEFAULT 0,
-                    total_spent REAL DEFAULT 0,
-                    tier_expires_at DATETIME,
-                    is_banned INTEGER DEFAULT 0,
-                    ban_reason TEXT,
-                    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-                    last_active DATETIME DEFAULT CURRENT_TIMESTAMP,
-                    metadata JSON
-                )`,
-                
-                // Messages Table
-                `CREATE TABLE IF NOT EXISTS messages (
-                    id INTEGER PRIMARY KEY AUTOINCREMENT,
-                    user_id TEXT NOT NULL,
-                    role TEXT NOT NULL,
-                    content TEXT NOT NULL,
-                    model TEXT,
-                    tokens INTEGER DEFAULT 0,
-                    cost REAL DEFAULT 0,
-                    has_image INTEGER DEFAULT 0,
-                    response_time_ms INTEGER,
-                    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-                    FOREIGN KEY (user_id) REFERENCES users(user_id)
-                )`,
-                
-                // Usage Logs
-                `CREATE TABLE IF NOT EXISTS usage_logs (
-                    id INTEGER PRIMARY KEY AUTOINCREMENT,
-                    user_id TEXT NOT NULL,
-                    model TEXT NOT NULL,
-                    tokens INTEGER DEFAULT 0,
-                    cost REAL DEFAULT 0,
-                    success INTEGER DEFAULT 1,
-                    error_message TEXT,
-                    ip_address TEXT,
-                    user_agent TEXT,
-                    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
-                )`,
-                
-                // Payments Table
-                `CREATE TABLE IF NOT EXISTS payments (
-                    id INTEGER PRIMARY KEY AUTOINCREMENT,
-                    transaction_id TEXT UNIQUE NOT NULL,
-                    user_id TEXT NOT NULL,
-                    plan TEXT NOT NULL,
-                    amount REAL NOT NULL,
-                    status TEXT DEFAULT 'pending',
-                    payment_method TEXT,
-                    authority TEXT,
-                    ref_id TEXT,
-                    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-                    completed_at DATETIME,
-                    FOREIGN KEY (user_id) REFERENCES users(user_id)
-                )`,
-                
-                // Referrals Table
-                `CREATE TABLE IF NOT EXISTS referrals (
-                    id INTEGER PRIMARY KEY AUTOINCREMENT,
-                    referrer_id TEXT NOT NULL,
-                    referred_id TEXT NOT NULL,
-                    reward_claimed INTEGER DEFAULT 0,
-                    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-                    FOREIGN KEY (referrer_id) REFERENCES users(user_id),
-                    FOREIGN KEY (referred_id) REFERENCES users(user_id)
-                )`,
-                
-                // Analytics Table
-                `CREATE TABLE IF NOT EXISTS analytics (
-                    id INTEGER PRIMARY KEY AUTOINCREMENT,
-                    event_type TEXT NOT NULL,
-                    user_id TEXT,
-                    data JSON,
-                    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
-                )`,
-                
-                // Blocked Users
-                `CREATE TABLE IF NOT EXISTS blocked_users (
-                    user_id TEXT PRIMARY KEY,
-                    reason TEXT NOT NULL,
-                    blocked_by TEXT NOT NULL,
-                    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
-                )`,
-                
-                // Feedback Table
-                `CREATE TABLE IF NOT EXISTS feedback (
-                    id INTEGER PRIMARY KEY AUTOINCREMENT,
-                    user_id TEXT NOT NULL,
-                    rating INTEGER,
-                    comment TEXT,
-                    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
-                )`,
-                
-                // Create Indexes
-                `CREATE INDEX IF NOT EXISTS idx_messages_user ON messages(user_id)`,
-                `CREATE INDEX IF NOT EXISTS idx_messages_created ON messages(created_at)`,
-                `CREATE INDEX IF NOT EXISTS idx_usage_user ON usage_logs(user_id)`,
-                `CREATE INDEX IF NOT EXISTS idx_usage_created ON usage_logs(created_at)`,
-                `CREATE INDEX IF NOT EXISTS idx_payments_user ON payments(user_id)`,
-                `CREATE INDEX IF NOT EXISTS idx_payments_status ON payments(status)`,
-                `CREATE INDEX IF NOT EXISTS idx_analytics_type ON analytics(event_type)`,
-                `CREATE INDEX IF NOT EXISTS idx_analytics_created ON analytics(created_at)`
-            ];
-            
-            const statements = tables.map(sql => this.db.prepare(sql));
-            await this.db.batch(statements);
-            
-            await this.logger.info('Database initialized successfully');
-            return true;
-            
-        } catch (error) {
-            await this.logger.error('Database initialization failed', { error: error.message });
-            throw error;
-        }
-    }
-    
-    // User Management
-    async registerUser(userData) {
-        try {
-            const referralCode = Utils.generateId(8).toUpperCase();
-            
-            await this.db.prepare(`
-                INSERT OR IGNORE INTO users 
-                (user_id, username, first_name, last_name, referral_code) 
-                VALUES (?, ?, ?, ?, ?)
-            `).bind(
-                userData.user_id,
-                userData.username || null,
-                userData.first_name || null,
-                userData.last_name || null,
-                referralCode
-            ).run();
-            
-            return { success: true, referralCode };
-        } catch (error) {
-            await this.logger.error('User registration failed', { error: error.message, userData });
-            throw error;
-        }
-    }
-    
-    async getUser(userId) {
-        try {
-            const user = await this.db.prepare(
-                "SELECT * FROM users WHERE user_id = ?"
-            ).bind(userId).first();
-            
-            return user;
-        } catch (error) {
-            await this.logger.error('Get user failed', { error: error.message, userId });
-            return null;
-        }
-    }
-    
-    async updateUser(userId, updates) {
-        try {
-            const fields = [];
-            const values = [];
-            
-            for (const [key, value] of Object.entries(updates)) {
-                fields.push(`${key} = ?`);
-                values.push(value);
-            }
-            
-            fields.push("last_active = datetime('now')");
-            
-            await this.db.prepare(`
-                UPDATE users SET ${fields.join(', ')} WHERE user_id = ?
-            `).bind(...values, userId).run();
-            
-            return { success: true };
-        } catch (error) {
-            await this.logger.error('Update user failed', { error: error.message, userId, updates });
-            throw error;
-        }
-    }
-    
-    async getUserSettings(userId) {
-        const user = await this.getUser(userId);
-        
-        if (!user) {
-            return {
-                tier: 'FREE',
-                personality: 'friendly',
-                preferred_model: 'CF_AI',
-                preferred_vision_model: 'GEMINI_FLASH',
-                human_mode: true,
-                typo_mode: true,
-                language: 'fa'
-            };
-        }
-        
-        return {
-            tier: user.tier || 'FREE',
-            personality: user.personality || 'friendly',
-            preferred_model: user.preferred_model || 'CF_AI',
-            preferred_vision_model: user.preferred_vision_model || 'GEMINI_FLASH',
-            human_mode: user.human_mode !== 0,
-            typo_mode: user.typo_mode !== 0,
-            language: user.language || 'fa',
-            referral_code: user.referral_code,
-            referral_count: user.referral_count || 0,
-            bonus_messages: user.bonus_messages || 0
-        };
-    }
-    
-    // Message Management
-    async saveMessage(userId, role, content, model = null, tokens = 0, cost = 0, hasImage = false, responseTime = 0) {
-        try {
-            await this.db.prepare(`
-                INSERT INTO messages 
-                (user_id, role, content, model, tokens, cost, has_image, response_time_ms) 
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?)
-            `).bind(userId, role, content, model, tokens, cost, hasImage ? 1 : 0, responseTime).run();
-            
-            // Update user stats
-            await this.db.prepare(`
-                UPDATE users SET 
-                total_messages = total_messages + 1,
-                total_tokens = total_tokens + ?,
-                total_spent = total_spent + ?
-                WHERE user_id = ?
-            `).bind(tokens, cost, userId).run();
-            
-            return { success: true };
-        } catch (error) {
-            await this.logger.error('Save message failed', { error: error.message, userId });
-            throw error;
-        }
-    }
-    
-    async logUsage(userId, model, tokens, cost, success, errorMessage = null, ipAddress = null, userAgent = null) {
-        try {
-            await this.db.prepare(`
-                INSERT INTO usage_logs 
-                (user_id, model, tokens, cost, success, error_message, ip_address, user_agent) 
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?)
-            `).bind(userId, model, tokens, cost, success ? 1 : 0, errorMessage, ipAddress, userAgent).run();
-            
-            return { success: true };
-        } catch (error) {
-            await this.logger.error('Log usage failed', { error: error.message });
-            return { success: false };
-        }
-    }
-    
-    // Rate Limiting
-    async checkRateLimit(userId, tier) {
-        try {
-            const limits = MEGA_CONFIG.RATE_LIMITS[tier];
-            
-            // Check minute limit
-            const minuteCount = await this.db.prepare(`
-                SELECT COUNT(*) as count FROM usage_logs 
-                WHERE user_id = ? AND created_at > datetime('now', '-1 minute')
-            `).bind(userId).first();
-            
-            if (limits.messages_per_minute > 0 && minuteCount.count >= limits.messages_per_minute) {
-                return {
-                    allowed: false,
-                    reason: 'minute_limit',
-                    message: `حداکثر ${limits.messages_per_minute} پیام در دقیقه`
-                };
-            }
-            
-            // Check hour limit
-            const hourCount = await this.db.prepare(`
-                SELECT COUNT(*) as count FROM usage_logs 
-                WHERE user_id = ? AND created_at > datetime('now', '-1 hour')
-            `).bind(userId).first();
-            
-            if (limits.messages_per_hour > 0 && hourCount.count >= limits.messages_per_hour) {
-                return {
-                    allowed: false,
-                    reason: 'hour_limit',
-                    message: `حداکثر ${limits.messages_per_hour} پیام در ساعت`
-                };
-            }
-            
-            // Check day limit
-            const dayCount = await this.db.prepare(`
-                SELECT COUNT(*) as count FROM usage_logs 
-                WHERE user_id = ? AND DATE(created_at) = DATE('now')
-            `).bind(userId).first();
-            
-            const user = await this.getUser(userId);
-            const bonusMessages = user?.bonus_messages || 0;
-            const dailyLimit = limits.messages_per_day + bonusMessages;
-            
-            if (limits.messages_per_day > 0 && dayCount.count >= dailyLimit) {
-                return {
-                    allowed: false,
-                    reason: 'day_limit',
-                    message: `حداکثر ${dailyLimit} پیام در روز`
-                };
-            }
-            
-            // Check token limit
-            const dayTokens = await this.db.prepare(`
-                SELECT SUM(tokens) as total FROM usage_logs 
-                WHERE user_id = ? AND DATE(created_at) = DATE('now')
-            `).bind(userId).first();
-            
-            if (limits.tokens_per_day > 0 && (dayTokens.total || 0) >= limits.tokens_per_day) {
-                return {
-                    allowed: false,
-                    reason: 'token_limit',
-                    message: `حداکثر ${Utils.formatNumber(limits.tokens_per_day)} توکن در روز`
-                };
-            }
-            
-            return {
-                allowed: true,
-                remaining: {
-                    minute: limits.messages_per_minute - minuteCount.count,
-                    hour: limits.messages_per_hour - hourCount.count,
-                    day: dailyLimit - dayCount.count,
-                    tokens: limits.tokens_per_day - (dayTokens.total || 0)
-                }
-            };
-            
-        } catch (error) {
-            await this.logger.error('Rate limit check failed', { error: error.message, userId });
-            return { allowed: true };
-        }
-    }
-    
-    // Analytics
-    async trackEvent(eventType, userId = null, data = {}) {
-        if (!MEGA_CONFIG.ANALYTICS.enabled) return;
-        
-        try {
-            await this.db.prepare(`
-                INSERT INTO analytics (event_type, user_id, data) 
-                VALUES (?, ?, ?)
-            `).bind(eventType, userId, JSON.stringify(data)).run();
-        } catch (error) {
-            await this.logger.error('Track event failed', { error: error.message });
-        }
-    }
-    
-    async getStats() {
-        try {
-            const [totalUsers, activeToday, totalMessages, todayMessages, totalTokens, todayRevenue] = await Promise.all([
-                this.db.prepare("SELECT COUNT(*) as count FROM users").first(),
-                this.db.prepare("SELECT COUNT(*) as count FROM users WHERE DATE(last_active) = DATE('now')").first(),
-                this.db.prepare("SELECT COUNT(*) as count FROM messages").first(),
-                this.db.prepare("SELECT COUNT(*) as count FROM messages WHERE DATE(created_at) = DATE('now')").first(),
-                this.db.prepare("SELECT SUM(tokens) as total FROM messages").first(),
-                this.db.prepare("SELECT SUM(amount) as total FROM payments WHERE status = 'completed' AND DATE(completed_at) = DATE('now')").first()
-            ]);
-            
-            return {
-                totalUsers: totalUsers?.count || 0,
-                activeToday: activeToday?.count || 0,
-                totalMessages: totalMessages?.count || 0,
-                todayMessages: todayMessages?.count || 0,
-                totalTokens: totalTokens?.total || 0,
-                todayRevenue: todayRevenue?.total || 0
-            };
-        } catch (error) {
-            await this.logger.error('Get stats failed', { error: error.message });
-            return {
-                totalUsers: 0,
-                activeToday: 0,
-                totalMessages: 0,
-                todayMessages: 0,
-                totalTokens: 0,
-                todayRevenue: 0
-            };
-        }
-    }
-    
-    // Payment Management
-    async createPayment(userId, plan, amount) {
-        try {
-            const transactionId = Utils.generateId(16);
-            
-            await this.db.prepare(`
-                INSERT INTO payments (transaction_id, user_id, plan, amount) 
-                VALUES (?, ?, ?, ?)
-            `).bind(transactionId, userId, plan, amount).run();
-            
-            return { success: true, transactionId };
-        } catch (error) {
-            await this.logger.error('Create payment failed', { error: error.message });
-            throw error;
-        }
-    }
-    
-    async completePayment(transactionId, refId) {
-        try {
-            await this.db.prepare(`
-                UPDATE payments SET 
-                status = 'completed',
-                ref_id = ?,
-                completed_at = datetime('now')
-                WHERE transaction_id = ?
-            `).bind(refId, transactionId).run();
-            
-            // Get payment details
-            const payment = await this.db.prepare(
-                "SELECT * FROM payments WHERE transaction_id = ?"
-            ).bind(transactionId).first();
-            
-            if (payment) {
-                // Update user tier
-                const planConfig = MEGA_CONFIG.PAYMENT.plans[payment.plan];
-                const expiresAt = new Date();
-                expiresAt.setDate(expiresAt.getDate() + planConfig.duration);
-                
-                await this.db.prepare(`
-                    UPDATE users SET 
-                    tier = ?,
-                    tier_expires_at = ?
-                    WHERE user_id = ?
-                `).bind(planConfig.tier, expiresAt.toISOString(), payment.user_id).run();
-            }
-            
-            return { success: true };
-        } catch (error) {
-            await this.logger.error('Complete payment failed', { error: error.message });
-            throw error;
-        }
-    }
-    
-    // Referral System
-    async processReferral(referrerId, referredId) {
-        try {
-            await this.db.prepare(`
-                INSERT INTO referrals (referrer_id, referred_id) 
-                VALUES (?, ?)
-            `).bind(referrerId, referredId).run();
-            
-            // Update referrer count
-            await this.db.prepare(`
-                UPDATE users SET 
-                referral_count = referral_count + 1,
-                bonus_messages = bonus_messages + ?
-                WHERE user_id = ?
-            `).bind(MEGA_CONFIG.REFERRAL.referrer_reward, referrerId).run();
-            
-            // Give reward to referred user
-            await this.db.prepare(`
-                UPDATE users SET 
-                bonus_messages = bonus_messages + ?
-                WHERE user_id = ?
-            `).bind(MEGA_CONFIG.REFERRAL.reward_amount, referredId).run();
-            
-            return { success: true };
-        } catch (error) {
-            await this.logger.error('Process referral failed', { error: error.message });
-            return { success: false };
-        }
-    }
-    
-    async getUserByReferralCode(code) {
-        try {
-            const user = await this.db.prepare(
-                "SELECT user_id FROM users WHERE referral_code = ?"
-            ).bind(code).first();
-            
-            return user;
-        } catch (error) {
-            await this.logger.error('Get user by referral code failed', { error: error.message });
-            return null;
-        }
-    }
-    
-    // Blocked Users
-    async isUserBlocked(userId) {
-        try {
-            const blocked = await this.db.prepare(
-                "SELECT * FROM blocked_users WHERE user_id = ?"
-            ).bind(userId).first();
-            
-            return blocked;
-        } catch (error) {
-            await this.logger.error('Check blocked user failed', { error: error.message });
-            return null;
-        }
-    }
-    
-    async blockUser(userId, reason, blockedBy) {
-        try {
-            await this.db.prepare(`
-                INSERT OR REPLACE INTO blocked_users (user_id, reason, blocked_by) 
-                VALUES (?, ?, ?)
-            `).bind(userId, reason, blockedBy).run();
-            
-            await this.db.prepare(`
-                UPDATE users SET is_banned = 1, ban_reason = ? WHERE user_id = ?
-            `).bind(reason, userId).run();
-            
-            return { success: true };
-        } catch (error) {
-            await this.logger.error('Block user failed', { error: error.message });
-            throw error;
-        }
-    }
-    
-    async unblockUser(userId) {
-        try {
-            await this.db.prepare(
-                "DELETE FROM blocked_users WHERE user_id = ?"
-            ).bind(userId).run();
-            
-            await this.db.prepare(`
-                UPDATE users SET is_banned = 0, ban_reason = NULL WHERE user_id = ?
-            `).bind(userId).run();
-            
-            return { success: true };
-        } catch (error) {
-            await this.logger.error('Unblock user failed', { error: error.message });
-            throw error;
-        }
-    }
-}
+    // Handle commands first
+    if (text.startsWith('/')) {
+      const parts = text.split(' ');
+      const rawCommand = parts[0].toLowerCase(); // اول rawCommand تعریف کن
+      const command = rawCommand.split('@')[0];  // بعد @ رو جدا کن
+      const args = parts.slice(1);
 
-// ==================== HUMAN RESPONSE GENERATOR ====================
-class HumanResponseGenerator {
-    constructor(personalityConfig) {
-        this.config = personalityConfig;
-        
-        this.starters = [
-            'ببین', 'راستش', 'یعنی', 'خب', 'آها', 'اوکی',
-            'باشه', 'چشم', 'حالا', 'اممم', 'یه لحظه'
-        ];
-        
-        this.fillers = [
-            'یعنی', 'ببین', 'خب', 'راستش', 'واقعا',
-            'جدی', 'مطمئن', 'قطعا', 'حتما'
-        ];
-        
-        this.endings = [
-            '😊', '💪', '✨', '👍', '❤️',
-            'فهمیدی؟', 'اوکیه؟', 'باشه؟',
-            'سوال دیگه داری؟', 'کمک دیگه میخوای؟'
-        ];
-        
-        this.typos = {
-            'می‌کنم': ['میکنم', 'می کنم', 'میکمن'],
-            'می‌خواهم': ['میخام', 'میخوام'],
-            'هست': ['هستش', 'اس'],
-            'خیلی': ['خیلی', 'خییلی'],
-            'نمی‌دانم': ['نمیدونم', 'نمدونم'],
-            'می‌شود': ['میشه', 'می شه'],
-            'برایت': ['برات', 'واست'],
-            'توانم': ['تونم', 'توام']
-        };
-    }
-    
-    humanize(text) {
-        let result = text;
-        
-        // 1. Shorten words
-        result = this.shortenWords(result);
-        
-        // 2. Add starter
-        if (Math.random() < 0.4) {
-            const starter = this.starters[Math.floor(Math.random() * this.starters.length)];
-            result = `${starter}، ${result}`;
-        }
-        
-        // 3. Add fillers
-        if (Math.random() < this.config.filler_rate) {
-            result = this.addFillers(result);
-        }
-        
-        // 4. Add typos
-        if (Math.random() < this.config.typo_rate) {
-            result = this.addTypos(result);
-        }
-        
-        // 5. Add ending
-        if (Math.random() < this.config.emoji_rate) {
-            const ending = this.endings[Math.floor(Math.random() * this.endings.length)];
-            result = `${result}\n\n${ending}`;
-        }
-        
-        return result;
-    }
-    
-    shortenWords(text) {
-        const shortcuts = {
-            'خیلی خوب': 'خیلی خب',
-            'چطور است': 'چطوره',
-            'می‌خواهم': 'میخام',
-            'نمی‌دانم': 'نمیدونم',
-            'می‌شود': 'میشه',
-            'برای شما': 'برات',
-            'به شما': 'بهت'
-        };
-        
-        let result = text;
-        for (const [long, short] of Object.entries(shortcuts)) {
-            if (Math.random() < 0.6) {
-                result = result.replace(new RegExp(long, 'g'), short);
+      const mentionedBot = rawCommand.includes('@') ? rawCommand.split('@')[1] : null;
+      if (mentionedBot && BOT_INFO?.username && 
+          mentionedBot.toLowerCase() !== BOT_INFO.username.toLowerCase()) {
+        return;
+      }
+      if (isGroup && text.startsWith('/') && !shouldRespondInGroup(message, session)) {
+        return;
+      }
+      
+      switch (command) {
+        case '/start':
+          await handleStartCommand(message, env);
+          break;
+        case '/new':
+          if (isGroup) {
+            const isAdminUser = from.id === config.BOT_OWNER_ID || await isUserAdmin(from.id, chat.id);
+            if (!isAdminUser) {
+              await sendMessage(chat.id, "🚫 فقط ادمین‌های گروه می‌توانند حافظه مدل را پاک کنند.", {
+                reply_to_message_id: message.message_id
+              });
+              return;
             }
-        }
-        return result;
-    }
-    
-    addFillers(text) {
-        const sentences = text.split('.');
-        if (sentences.length < 2) return text;
-        
-        const filler = this.fillers[Math.floor(Math.random() * this.fillers.length)];
-        const pos = Math.floor(Math.random() * (sentences.length - 1)) + 1;
-        
-        sentences[pos] = ` ${filler} ${sentences[pos].trim()}`;
-        return sentences.join('.');
-    }
-    
-    addTypos(text) {
-        let result = text;
-        
-        for (const [correct, typos] of Object.entries(this.typos)) {
-            if (result.includes(correct) && Math.random() < 0.3) {
-                const typo = typos[Math.floor(Math.random() * typos.length)];
-                result = result.replace(correct, typo);
-                break;
+          }
+          await handleNewCommand(message, env);
+          break;
+        case '/model':
+          if (isGroup) {
+            const isAdminUser = from.id === config.BOT_OWNER_ID || await isUserAdmin(from.id, chat.id);
+            if (!isAdminUser) {
+              await sendMessage(chat.id, "🚫 فقط ادمین‌های گروه می‌توانند مدل را تغییر دهند.", {
+                reply_to_message_id: message.message_id
+              });
+              return;
             }
-        }
-        
-        return result;
-    }
-}
-
-// ==================== TIMING MANAGER ====================
-class TimingManager {
-    static calculateReadTime(text) {
-        const words = text.split(' ').length;
-        return (words / 200) * 60 * 1000;
-    }
-    
-    static calculateTypeTime(text) {
-        const words = text.split(' ').length;
-        return (words / 45) * 60 * 1000;
-    }
-    
-    static calculateThinkTime() {
-        return 1000 + Math.random() * 2000;
-    }
-    
-    static getTotalDelay(userMessage, responseText) {
-        const readTime = this.calculateReadTime(userMessage);
-        const thinkTime = this.calculateThinkTime();
-        const typeTime = this.calculateTypeTime(responseText) * 0.3;
-        
-        return Math.min(readTime + thinkTime + typeTime, 8000);
-    }
-    
-    static splitChunks(text) {
-        const parts = text.split(/[.\n]+/).filter(p => p.trim());
-        const chunks = [];
-        let current = '';
-        
-        for (const part of parts) {
-            if ((current + part).length < 200) {
-                current += (current ? '. ' : '') + part.trim();
-            } else {
-                if (current) chunks.push(current + '.');
-                current = part.trim();
-            }
-        }
-        
-        if (current) chunks.push(current + '.');
-        return chunks;
-    }
-}
-
-// ==================== AI ENGINE ====================
-class AIEngine {
-    constructor(env) {
-        this.env = env;
-        this.logger = new Logger(env);
-    }
-    
-    async generate(prompt, modelKey, personality) {
-        const model = MEGA_CONFIG.ENGINES[modelKey];
-        if (!model) {
-            throw new Error('Invalid model');
-        }
-        
-        const systemPrompt = MEGA_CONFIG.PERSONALITIES[personality].system_prompt;
-        
-        try {
-            // Cloudflare AI
-            if (modelKey.startsWith('CF_AI')) {
-                const response = await this.env.AI.run(model.model, {
-                    messages: [
-                        { role: 'system', content: systemPrompt },
-                        { role: 'user', content: prompt }
-                    ],
-                    max_tokens: model.max_tokens,
-                    temperature: model.temperature
-                });
-                return response.response || 'پاسخی دریافت نشد';
-            }
-            
-            // Google Gemini
-            if (modelKey.startsWith('GEMINI')) {
-                if (!this.env.GEMINI_KEY) {
-                    throw new Error('Gemini API key not configured');
-                }
-                
-                const res = await fetch(
-                    `https://generativelanguage.googleapis.com/v1beta/models/${model.model}:generateContent?key=${this.env.GEMINI_KEY}`,
-                    {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({
-                            contents: [{
-                                parts: [{ text: systemPrompt + '\n\n' + prompt }]
-                            }],
-                            generationConfig: {
-                                maxOutputTokens: model.max_tokens,
-                                temperature: model.temperature
-                            }
-                        })
-                    }
-                );
-                
-                if (!res.ok) throw new Error(`Gemini error: ${res.status}`);
-                const data = await res.json();
-                return data.candidates?.[0]?.content?.parts?.[0]?.text || 'پاسخی دریافت نشد';
-            }
-            
-            // OpenAI GPT
-            if (modelKey.startsWith('GPT')) {
-                if (!this.env.OPENAI_KEY) {
-                    throw new Error('OpenAI API key not configured');
-                }
-                
-                const res = await fetch('https://api.openai.com/v1/chat/completions', {
-                    method: 'POST',
-                    headers: {
-                        'Authorization': `Bearer ${this.env.OPENAI_KEY}`,
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        model: model.model,
-                        messages: [
-                            { role: 'system', content: systemPrompt },
-                            { role: 'user', content: prompt }
-                        ],
-                        max_tokens: model.max_tokens,
-                        temperature: model.temperature
-                    })
-                });
-                
-                if (!res.ok) throw new Error(`GPT error: ${res.status}`);
-                const data = await res.json();
-                return data.choices?.[0]?.message?.content || 'پاسخی دریافت نشد';
-            }
-            
-            // Anthropic Claude
-            if (modelKey.startsWith('CLAUDE')) {
-                if (!this.env.CLAUDE_KEY) {
-                    throw new Error('Claude API key not configured');
-                }
-                
-                const res = await fetch('https://api.anthropic.com/v1/messages', {
-                    method: 'POST',
-                    headers: {
-                        'x-api-key': this.env.CLAUDE_KEY,
-                        'anthropic-version': '2023-06-01',
-                        'content-type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        model: model.model,
-                        max_tokens: model.max_tokens,
-                        messages: [{
-                            role: 'user',
-                            content: systemPrompt + '\n\n' + prompt
-                        }]
-                    })
-                });
-                
-                if (!res.ok) throw new Error(`Claude error: ${res.status}`);
-                const data = await res.json();
-                return data.content?.[0]?.text || 'پاسخی دریافت نشد';
-            }
-            
-            // DeepSeek
-            if (modelKey === 'DEEPSEEK') {
-                if (!this.env.DEEPSEEK_KEY) {
-                    throw new Error('DeepSeek API key not configured');
-                }
-                
-                const res = await fetch('https://api.deepseek.com/chat/completions', {
-                    method: 'POST',
-                    headers: {
-                        'Authorization': `Bearer ${this.env.DEEPSEEK_KEY}`,
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        model: model.model,
-                        messages: [
-                            { role: 'system', content: systemPrompt },
-                            { role: 'user', content: prompt }
-                        ],
-                        max_tokens: model.max_tokens
-                    })
-                });
-                
-                if (!res.ok) throw new Error(`DeepSeek error: ${res.status}`);
-                const data = await res.json();
-                return data.choices?.[0]?.message?.content || 'پاسخی دریافت نشد';
-            }
-            
-            // Perplexity
-            if (modelKey === 'PERPLEXITY') {
-                if (!this.env.PERPLEXITY_KEY) {
-                    throw new Error('Perplexity API key not configured');
-                }
-                
-                const res = await fetch('https://api.perplexity.ai/chat/completions', {
-                    method: 'POST',
-                    headers: {
-                        'Authorization': `Bearer ${this.env.PERPLEXITY_KEY}`,
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        model: model.model,
-                        messages: [
-                            { role: 'system', content: systemPrompt },
-                            { role: 'user', content: prompt }
-                        ]
-                    })
-                });
-                
-                if (!res.ok) throw new Error(`Perplexity error: ${res.status}`);
-                const data = await res.json();
-                return data.choices?.[0]?.message?.content || 'پاسخی دریافت نشد';
-            }
-            
-            throw new Error('Model not implemented');
-            
-        } catch (error) {
-            await this.logger.error('AI generation failed', {
-                error: error.message,
-                model: modelKey,
-                promptLength: prompt.length
-            });
-            throw error;
-        }
-    }
-}
-
-// ==================== VISION AI ====================
-class VisionAI {
-    constructor(env) {
-        this.env = env;
-        this.logger = new Logger(env);
-    }
-    
-    async analyze(imageUrl, prompt, modelKey, personality) {
-        const model = MEGA_CONFIG.ENGINES[modelKey];
-        if (!model || !model.vision) {
-            throw new Error('Invalid vision model');
-        }
-        
-        const systemPrompt = MEGA_CONFIG.PERSONALITIES[personality].system_prompt;
-        
-        try {
-            // Download image
-            const imageRes = await fetch(imageUrl);
-            const imageBuffer = await imageRes.arrayBuffer();
-            const base64Image = this.arrayBufferToBase64(imageBuffer);
-            
-            // Gemini Vision
-            if (modelKey.startsWith('GEMINI')) {
-                if (!this.env.GEMINI_KEY) {
-                    throw new Error('Gemini API key not configured');
-                }
-                
-                const res = await fetch(
-                    `https://generativelanguage.googleapis.com/v1beta/models/${model.model}:generateContent?key=${this.env.GEMINI_KEY}`,
-                    {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({
-                            contents: [{
-                                parts: [
-                                    { text: systemPrompt + '\n\n' + prompt },
-                                    {
-                                        inline_data: {
-                                            mime_type: 'image/jpeg',
-                                            data: base64Image
-                                        }
-                                    }
-                                ]
-                            }],
-                            generationConfig: {
-                                maxOutputTokens: model.max_tokens,
-                                temperature: model.temperature
-                            }
-                        })
-                    }
-                );
-                
-                if (!res.ok) throw new Error(`Gemini Vision error: ${res.status}`);
-                const data = await res.json();
-                return data.candidates?.[0]?.content?.parts?.[0]?.text || 'تحلیل ناموفق بود';
-            }
-            
-            // GPT-4 Vision
-            if (modelKey === 'GPT_4O') {
-                if (!this.env.OPENAI_KEY) {
-                    throw new Error('OpenAI API key not configured');
-                }
-                
-                const res = await fetch('https://api.openai.com/v1/chat/completions', {
-                    method: 'POST',
-                    headers: {
-                        'Authorization': `Bearer ${this.env.OPENAI_KEY}`,
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        model: model.model,
-                        messages: [{
-                            role: 'user',
-                            content: [
-                                { type: 'text', text: systemPrompt + '\n\n' + prompt },
-                                {
-                                    type: 'image_url',
-                                    image_url: { url: `data:image/jpeg;base64,${base64Image}` }
-                                }
-                            ]
-                        }],
-                        max_tokens: model.max_tokens
-                    })
-                });
-                
-                if (!res.ok) throw new Error(`GPT Vision error: ${res.status}`);
-                const data = await res.json();
-                return data.choices?.[0]?.message?.content || 'تحلیل ناموفق بود';
-            }
-            
-            // Claude Vision
-            if (modelKey.startsWith('CLAUDE')) {
-                if (!this.env.CLAUDE_KEY) {
-                    throw new Error('Claude API key not configured');
-                }
-                
-                const res = await fetch('https://api.anthropic.com/v1/messages', {
-                    method: 'POST',
-                    headers: {
-                        'x-api-key': this.env.CLAUDE_KEY,
-                        'anthropic-version': '2023-06-01',
-                        'content-type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        model: model.model,
-                        max_tokens: model.max_tokens,
-                        messages: [{
-                            role: 'user',
-                            content: [
-                                { type: 'text', text: systemPrompt + '\n\n' + prompt },
-                                {
-                                    type: 'image',
-                                    source: {
-                                        type: 'base64',
-                                        media_type: 'image/jpeg',
-                                        data: base64Image
-                                    }
-                                }
-                            ]
-                        }]
-                    })
-                });
-                
-                if (!res.ok) throw new Error(`Claude Vision error: ${res.status}`);
-                const data = await res.json();
-                return data.content?.[0]?.text || 'تحلیل ناموفق بود';
-            }
-            
-            throw new Error('Vision model not implemented');
-            
-        } catch (error) {
-            await this.logger.error('Vision analysis failed', {
-                error: error.message,
-                model: modelKey
-            });
-            throw error;
-        }
-    }
-    
-    arrayBufferToBase64(buffer) {
-        let binary = '';
-        const bytes = new Uint8Array(buffer);
-        for (let i = 0; i < bytes.length; i++) {
-            binary += String.fromCharCode(bytes[i]);
-        }
-        return btoa(binary);
-    }
-}
-
-// ==================== TELEGRAM MANAGER ====================
-class TelegramManager {
-    constructor(env) {
-        this.env = env;
-        this.token = env.TELEGRAM_TOKEN;
-        this.logger = new Logger(env);
-    }
-    
-    async sendMessage(chatId, text, options = {}) {
-        try {
-            const body = {
-                chat_id: chatId,
-                text: text.substring(0, 4096),
-                parse_mode: options.parseMode || 'Markdown',
-                ...options
-            };
-            
-            const res = await fetch(`https://api.telegram.org/bot${this.token}/sendMessage`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(body)
-            });
-            
-            if (!res.ok) {
-                const error = await res.text();
-                throw new Error(`Telegram API error: ${error}`);
-            }
-            
-            return await res.json();
-        } catch (error) {
-            await this.logger.error('Send message failed', { error: error.message, chatId });
-            throw error;
-        }
-    }
-    
-    async sendTyping(chatId) {
-        try {
-            await fetch(`https://api.telegram.org/bot${this.token}/sendChatAction`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    chat_id: chatId,
-                    action: 'typing'
-                })
-            });
-        } catch (error) {
-            // Ignore typing errors
-        }
-    }
-    
-    async sendHumanLike(chatId, text, userMessage, settings) {
-        const personalityConfig = MEGA_CONFIG.PERSONALITIES[settings.personality];
-        const humanizer = new HumanResponseGenerator(personalityConfig);
-        
-        // Humanize text
-        const humanText = settings.human_mode ? humanizer.humanize(text) : text;
-        
-        if (!settings.human_mode || humanText.length < 50) {
-            await this.sendMessage(chatId, humanText);
+          }
+          await handleModelCommand(message, env);
+          break;
+        case '/img':
+          await handleImageGenerationCommand(message, args, env);
+          break;
+        case '/search':
+          if (args.length === 0) {
+            const usage = t(session, 'search_usage');
+            await sendMessage(chat.id, `${t(session, 'err_format')}\n\n${usage}`, { reply_to_message_id: message.message_id });
             return;
-        }
-        
-        // Send with chunks and delays
-        const chunks = TimingManager.splitChunks(humanText);
-        
-        for (let i = 0; i < chunks.length; i++) {
-            await this.sendTyping(chatId);
-            
-            const delay = i === 0
-                ? TimingManager.getTotalDelay(userMessage, chunks[i])
-                : TimingManager.calculateTypeTime(chunks[i]);
-            
-            await Utils.sleep(Math.min(delay, 5000));
-            await this.sendMessage(chatId, chunks[i]);
-            
-            if (i < chunks.length - 1) {
-                await Utils.sleep(400 + Math.random() * 600);
+          }
+
+          const imageQuery = args.join(' ').trim();
+          const searchTxt = TRANSLATIONS[session.language];
+          const searchLang = session.language;
+          if (imageQuery.length > 100) {
+            await sendMessage(chat.id, searchTxt.search_long_query, { reply_to_message_id: message.message_id });
+            return;
+          }
+
+          const searchMsg = await sendMessage(chat.id, 
+            t(session, 'search_searching', { query: imageQuery }), 
+            { reply_to_message_id: message.message_id }
+          );
+
+          try {
+            const images = await searchPixabayImages(imageQuery, 5);
+    
+            await deleteMessage(chat.id, searchMsg.message_id);
+            // ✅ ارسال txt به تابع برای استفاده در کپشن‌ها
+            await sendImageResults(chat.id, message.message_id, images, imageQuery, {
+              search_results: t(session, 'search_results'),
+              search_no_results: t(session, 'search_no_results'),
+              search_link_fallback: t(session, 'search_link_fallback'),
+              search_failed: t(session, 'search_failed'),
+              search_guide: t(session, 'search_guide')
+            });            
+            logger.info(`✅ Image search completed: ${images.length} images sent`);
+    
+          } catch (error) {
+              const errorMsg = getRawError(error);
+              let finalError;
+              if (from.id === config.BOT_OWNER_ID) {
+                  finalError = `Raw error: ${errorMsg}`;
+              } else {
+                  if (errorMsg === "NO_RESULTS") finalError = searchTxt.search_no_results;
+                  else if (errorMsg.includes('quota') || errorMsg.includes('محدودیت')) {
+                      finalError = searchLang === 'fa' ? 'محدودیت سرور جستجو.' : 'Search quota exceeded.';
+                  } else {
+                      finalError = errorMsg.substring(0, 100);
+                  }
+              }
+              await editMessageText(chat.id, searchMsg.message_id, 
+                  `${searchTxt.search_failed}\n\n${finalError}\n\n${searchTxt.search_guide}`
+              );
+          }
+          break;
+        case '/help':
+          await handleHelpCommand(message, env);
+          break;
+        case '/resetfactory':
+          if (from.id !== config.BOT_OWNER_ID) {
+            await sendMessage(chat.id, "🚫 دسترسی محدود", { reply_to_message_id: message.message_id });
+            return;
+          }
+          // ارسال پیام تأیید
+          const confirmKeyboard = {
+            inline_keyboard: [
+              [
+                { text: "✅ بله، همه چیز را پاک کن", callback_data: "resetfactory_confirm" },
+                { text: "❌ لغو", callback_data: "resetfactory_cancel" }
+              ]
+            ]
+          };
+          await sendMessage(chat.id, 
+            "⚠️ **هشدار: ریست فکتوری کامل**\n\n" +
+            "این عمل **تمام داده‌های ربات** (شامل سشن‌های کاربران، حافظه‌ها، تنظیمات VIP، کلیدهای مسدود، کش مدل‌ها و ...) را برای همیشه حذف می‌کند.\n\n" +
+            "آیا مطمئن هستید؟ این عمل غیرقابل بازگشت است!",
+            { reply_markup: JSON.stringify(confirmKeyboard), reply_to_message_id: message.message_id }
+          );
+          break;
+        case '/language':
+          if (isGroup) {
+            const isAdminUser = from.id === config.BOT_OWNER_ID || await isUserAdmin(from.id, chat.id);
+            if (!isAdminUser) {
+              await sendMessage(chat.id, "🚫 فقط ادمین‌های گروه می‌توانند زبان مدل را تغییر دهند.", {
+                reply_to_message_id: message.message_id
+              });
+              return;
             }
+          }
+          await handleLanguageCommand(message, env);
+          break;
+        case '/prompt':
+           const pTitle = t(session, 'prompt_title');
+           const pManage = t(session, 'prompt_manage');
+
+           await sendMessage(chat.id, pTitle, { 
+             reply_to_message_id: message.message_id,
+             reply_markup: JSON.stringify({
+               inline_keyboard: [[
+                 { text: pManage, callback_data: "custom_prompt_menu" }
+               ]]
+             })
+           });
+          break;
+        case '/setprompt':
+          await handleSetPromptCommand(message, args, env);
+          break;
+          
+        case '/admin':
+          if (from.id === config.BOT_OWNER_ID) {
+            await handleAdminCommand(message, env);
+          } else {
+            await sendMessage(chat.id, "🚫 **دسترسی محدود**\n\nاین دستور فقط برای مالک ربات است.", {
+              reply_to_message_id: message.message_id
+            });
+          }
+          break;
+
+        case '/blocked':
+          if (from.id !== config.BOT_OWNER_ID) {
+            await sendMessage(chat.id, "🚫 دسترسی محدود", {
+              reply_to_message_id: message.message_id
+            });
+            return;
+          }
+  
+          await handleBlockedUsersCommand(message, env);
+          break;
+
+        case '/rebuild':
+          if (from.id !== config.BOT_OWNER_ID) {
+             await sendMessage(chat.id, "🚫 دسترسی محدود", {
+               reply_to_message_id: message.message_id
+            });
+            return;
+          }
+  
+          await handleRebuildDatabaseCommand(message, env);
+          break;
+          
+        case '/log':
+          if (from.id !== config.BOT_OWNER_ID) {
+            await sendMessage(chat.id, "🚫 دسترسی محدود", {
+              reply_to_message_id: message.message_id
+            });
+            return;
+          }
+  
+          await handleLogCommand(message, env);
+          break;
+          
+        case '/keys':
+          if (from.id !== config.BOT_OWNER_ID) {
+            await sendMessage(chat.id, "🚫 **دسترسی محدود**", { reply_to_message_id: message.message_id });
+            return;
+          }
+          await handleKeysCommand(chat.id, message.message_id, env, false);
+          break;
+          
+        case '/setvip':
+          if (from.id !== config.BOT_OWNER_ID) {
+            await sendMessage(chat.id, "🚫 **دسترسی محدود**\n\nاین دستور فقط برای مالک ربات است.", {
+              reply_to_message_id: message.message_id
+            });
+            return;
+          }
+  
+          if (chat.type === "group" || chat.type === "supergroup") {
+            const groupSession = await getOrCreateSession(chat, from, env);
+            groupSession.vipStatus = true;
+            await saveSessionWithLock(groupSession, env, true);
+            
+            await setGroupVIP(chat.id, true, env);
+            await sendMessage(chat.id, "✅ این گروه VIP شد! 👑", {
+              reply_to_message_id: message.message_id
+            });
+          } else {
+            await sendMessage(chat.id, "⚠️ **فقط برای گروه‌ها**\n\nاین دستور تنها در گروه‌ها برای فعال‌سازی VIP گروه کاربرد دارد.", {
+              reply_to_message_id: message.message_id
+            });
+          }
+          break;
+          
+        case '/unsetvip':
+          if (from.id !== config.BOT_OWNER_ID) {
+            await sendMessage(chat.id, "🚫 **دسترسی محدود**\n\nاین دستور فقط برای مالک ربات است.", {
+              reply_to_message_id: message.message_id
+            });
+            return;
+          }
+  
+          if (chat.type === "group" || chat.type === "supergroup") {
+            // 1. آپدیت سشن اصلی گروه
+            const groupSession = await getOrCreateSession(chat, from, env);
+            groupSession.vipStatus = false;
+            await saveSessionWithLock(groupSession, env, true); 
+
+            // 2. آپدیت کلید مجزا 
+            await setGroupVIP(chat.id, false, env);
+
+            await sendMessage(chat.id, "❌ این گروه از حالت VIP خارج شد!", {
+              reply_to_message_id: message.message_id
+            });
+          } else {
+            await sendMessage(chat.id, "⚠️ **فقط برای گروه‌ها**\n\nاین دستور تنها در گروه‌ها برای غیرفعال‌سازی VIP گروه کاربرد دارد.", {
+              reply_to_message_id: message.message_id
+            });
+          }
+          break;
+
+        case '/del': {
+          // فقط BOT_OWNER
+          if (from.id !== config.BOT_OWNER_ID) return;
+  
+          // باید ریپلای باشه
+          if (!message.reply_to_message) {
+            const warnMsg = await sendMessage(chat.id, 
+              '⚠️ روی پیامی که میخوای حذف کنی ریپلای بزن.', 
+              { reply_to_message_id: message.message_id }
+            );
+            // پیام خودمون رو هم بعد ۳ ثانیه پاک کن
+            setTimeout(() => {
+              deleteMessage(chat.id, message.message_id).catch(() => {});
+              deleteMessage(chat.id, warnMsg.message_id).catch(() => {});
+            }, 3000);
+            return;
+          }
+  
+          try {
+            await deleteMessage(chat.id, message.reply_to_message.message_id);
+            await deleteMessage(chat.id, message.message_id);
+           } catch (error) {
+            const errMsg = await sendMessage(chat.id,
+              '❌ نتونستم حذف کنم. مطمئن شو ربات ادمین گروهه.',
+              { reply_to_message_id: message.message_id }
+            );
+            setTimeout(() => {
+              deleteMessage(chat.id, message.message_id).catch(() => {});
+              deleteMessage(chat.id, errMsg.message_id).catch(() => {});
+            }, 3000);
+          }
+          break;
         }
+
+        case '/remove': {
+          // فقط BOT_OWNER
+          if (from.id !== config.BOT_OWNER_ID) return;
+  
+          if (!message.reply_to_message?.from) {
+            const warnMsg = await sendMessage(chat.id, 
+              '⚠️ روی پیام کسی که میخوای حذف کنی ریپلای بزن.', 
+              { reply_to_message_id: message.message_id }
+            );
+            setTimeout(() => {
+              deleteMessage(chat.id, message.message_id).catch(() => {});
+              deleteMessage(chat.id, warnMsg.message_id).catch(() => {});
+            }, 3000);
+            return;
+          }
+  
+          const targetUser = message.reply_to_message.from;
+  
+          // نمیشه خودت رو یا ادمین رو حذف کنی
+          if (targetUser.id === config.BOT_OWNER_ID || targetUser.is_bot) {
+            await deleteMessage(chat.id, message.message_id);
+            return;
+          }
+  
+          try {
+            // کیک کردن از گروه
+            await callTelegramAPI('banChatMember', {
+              chat_id: chat.id,
+              user_id: targetUser.id
+            });
+            // ✅ آنبن فوری = کیک (میتونه برگرده ولی از گروه خارج شده)
+            await callTelegramAPI('unbanChatMember', {
+              chat_id: chat.id,
+              user_id: targetUser.id,
+              only_if_banned: true
+            });
+    
+            const removeMsg = await sendMessage(chat.id, 
+              `✅ **${targetUser.first_name}** از گروه حذف شد.`
+            );
+    
+            // دستور و پیام ریپلای رو پاک کن
+            await deleteMessage(chat.id, message.message_id);
+            await deleteMessage(chat.id, message.reply_to_message.message_id).catch(() => {});
+    
+            setTimeout(() => {
+              deleteMessage(chat.id, removeMsg.message_id).catch(() => {});
+            }, 4000);
+    
+          } catch (error) {
+            const errMsg = await sendMessage(chat.id, 
+              '❌ نتونستم حذف کنم. مطمئن شو ربات ادمین گروهه.',
+              { reply_to_message_id: message.message_id }
+            );
+            setTimeout(() => {
+              deleteMessage(chat.id, message.message_id).catch(() => {});
+              deleteMessage(chat.id, errMsg.message_id).catch(() => {});
+            }, 4000);
+          }
+          break;
+        }
+
+        case '/ban': {
+          // فقط BOT_OWNER
+          if (from.id !== config.BOT_OWNER_ID) return;
+  
+          if (!message.reply_to_message?.from) {
+            const warnMsg = await sendMessage(chat.id, 
+              '⚠️ روی پیام کسی که میخوای بن کنی ریپلای بزن.\n\nفرمت: `/ban [ثانیه]`\nمثال: `/ban 3600` (یک ساعت)', 
+              { reply_to_message_id: message.message_id }
+            );
+            setTimeout(() => {
+              deleteMessage(chat.id, message.message_id).catch(() => {});
+              deleteMessage(chat.id, warnMsg.message_id).catch(() => {});
+            }, 5000);
+            return;
+          }
+  
+          const banTarget = message.reply_to_message.from;
+  
+          if (banTarget.id === config.BOT_OWNER_ID || banTarget.is_bot) {
+            await deleteMessage(chat.id, message.message_id);
+            return;
+          }
+  
+          // مدت بن (پیش‌فرض ۱ ساعت)
+          const banSeconds = args[0] ? parseInt(args[0]) : 3600;
+          const validSeconds = isNaN(banSeconds) || banSeconds < 30 ? 3600 : banSeconds;
+          const untilDate = Math.floor(Date.now() / 1000) + validSeconds;
+  
+          // فرمت زیبای زمان
+          const formatDuration = (secs: number): string => {
+            if (secs < 60) return `${secs} ثانیه`;
+            if (secs < 3600) return `${Math.floor(secs / 60)} دقیقه`;
+            if (secs < 86400) return `${Math.floor(secs / 3600)} ساعت`;
+            return `${Math.floor(secs / 86400)} روز`;
+          };
+  
+          try {
+            // ثبت در KV که این یوزر بن هست (برای پاک کردن پیامها)
+            await env.SESSIONS.put(
+              `banned:${chat.id}:${banTarget.id}`, 
+              JSON.stringify({ 
+                until: untilDate * 1000, 
+                chatId: chat.id,
+                reason: 'banned by admin'
+              })
+            );
+    
+            // بن در بله
+            await callTelegramAPI('banChatMember', {
+              chat_id: chat.id,
+              user_id: banTarget.id,
+              until_date: untilDate
+            });
+    
+            const banMsg = await sendMessage(chat.id, 
+              `🔨 **${banTarget.first_name}** بن شد!\n⏱ مدت: **${formatDuration(validSeconds)}**`
+            );
+    
+            // پاک کردن دستور و پیام ریپلای
+            await deleteMessage(chat.id, message.message_id);
+            await deleteMessage(chat.id, message.reply_to_message.message_id).catch(() => {});
+    
+            setTimeout(() => {
+              deleteMessage(chat.id, banMsg.message_id).catch(() => {});
+            }, 5000);
+    
+          } catch (error) {
+            const errMsg = await sendMessage(chat.id, 
+              '❌ نتونستم بن کنم. مطمئن شو ربات ادمین گروهه.',
+              { reply_to_message_id: message.message_id }
+            );
+            setTimeout(() => {
+              deleteMessage(chat.id, message.message_id).catch(() => {});
+              deleteMessage(chat.id, errMsg.message_id).catch(() => {});
+            }, 4000);
+          }
+          break;
+        }
+          
+        case '/dbclean':
+          if (from.id !== config.BOT_OWNER_ID) {
+            await sendMessage(chat.id, "🚫 دسترسی محدود", {
+              reply_to_message_id: message.message_id
+            });
+            return;
+          }
+  
+          const cleanMsg = await sendMessage(chat.id, "🧹 در حال پاکسازی دیتابیس...", {
+            reply_to_message_id: message.message_id
+          });
+  
+          try {
+            await cleanupSessions(env);
+            await editMessageText(chat.id, cleanMsg.message_id, 
+              "✅ پاکسازی انجام شد!\n\n📊 برای جزئیات /dbstats بزنید"
+            );
+          } catch (error) {
+            await editMessageText(chat.id, cleanMsg.message_id, 
+              "❌ خطا در پاکسازی"
+            );
+          }
+          break;
+
+        case '/dbstats':
+          if (from.id !== config.BOT_OWNER_ID) {
+            await sendMessage(chat.id, "🚫 دسترسی محدود", {
+              reply_to_message_id: message.message_id
+            });
+            return;
+          }
+  
+          await sendDatabaseStats(chat.id, message.message_id, env);
+          break;
+
+        case '/dbdelete':
+          if (from.id !== config.BOT_OWNER_ID) {
+            await sendMessage(chat.id, "🚫 دسترسی محدود", {
+              reply_to_message_id: message.message_id
+            });
+            return;
+          }
+  
+          if (args.length === 0) {
+            await sendMessage(chat.id, 
+              "❌ فرمت: `/dbdelete [user_id]`\n\nمثال: `/dbdelete 123456789`",
+              { reply_to_message_id: message.message_id }
+            );
+            return;
+          }
+  
+          const targetId = parseInt(args[0]);
+          if (isNaN(targetId)) {
+            await sendMessage(chat.id, "❌ آیدی نامعتبر", {
+              reply_to_message_id: message.message_id
+            });
+            return;
+          }
+  
+          await deleteUserSession(chat.id, message.message_id, targetId, env);
+          break;
+          
+        default:
+          if (chat.type === "private") {
+            await sendMessage(chat.id, "❓ **دستور ناشناخته**\n\nاز /help برای دیدن لیست دستورات استفاده کنید.", { 
+              reply_to_message_id: message.message_id 
+            });
+          }
+      }
+      return;
     }
     
-    async getFile(fileId) {
-        try {
-            const res = await fetch(`https://api.telegram.org/bot${this.token}/getFile?file_id=${fileId}`);
-            const data = await res.json();
-            
-            if (!data.ok) {
-                throw new Error('Get file failed');
-            }
-            
-            return `https://api.telegram.org/file/bot${this.token}/${data.result.file_path}`;
-        } catch (error) {
-            await this.logger.error('Get file failed', { error: error.message, fileId });
-            throw error;
-        }
+    if (isGroup) {
+      const isBlocked = await isUserBlocked(from.id, env);
+      if (isBlocked && from.id !== config.BOT_OWNER_ID) {
+        await sendMessage(chat.id, 
+          "🚫 **دسترسی مسدود**\n\nحساب شما مسدود است.",
+          { reply_to_message_id: message.message_id }
+        );
+        return;
+      }
     }
+    
+    const bucket = getUserBucket(from.id, session.vipStatus);
+    if (!bucket.tryConsume()) {
+      const available = bucket.availableTokens();
+      await sendMessage(chat.id, 
+        `⏳ **لطفاً کمی صبر کنید**\n\nدرخواست‌های شما: ${available} باقیمانده`, 
+        { reply_to_message_id: message.message_id }
+      );
+      return;
+    }
+    
+    recordRequest(session);
+    const limitCheck = checkDailyLimit(session, 'message');
+    if (!limitCheck.allowed) {
+      await sendMessage(chat.id, limitCheck.message!, {
+        reply_to_message_id: message.message_id,
+        reply_markup: JSON.stringify(getVIPUpgradeKeyboard())
+      });
+      return;
+    }
+    
+    // افزایش شمارنده
+    incrementDailyUsage(session, 'message');
+    
+    // Process as AI request
+    await processAIRequest(session, from, [{ text: sanitizeInput(text) }], message, env, requestId);    
+  } finally {
+    releaseRequest(chat.id, requestId);
+  }
 }
 
-// ==================== MESSAGE HANDLER ====================
-async function handleMessage(update, env) {
-    const db = new DatabaseManager(env);
-    const telegram = new TelegramManager(env);
-    const ai = new AIEngine(env);
-    const vision = new VisionAI(env);
-    const logger = new Logger(env);
-    const cache = new CacheManager();
+async function sendDatabaseStats(chatId: number, replyTo: number, env: Env): Promise<void> {
+  const processingMsg = await sendMessage(chatId, "📊 در حال محاسبه...", {
+    reply_to_message_id: replyTo
+  });
+  
+  try {
+    let totalSessions = 0; let activeSessions = 0; let vipCount = 0;
+    let totalMessages = 0; let totalVoices = 0;
+    let oldestSession = Date.now(); let newestSession = 0;
     
-    if (!update.message) return;
+    const now = Date.now();
+    const sevenDaysAgo = now - (7 * 24 * 60 * 60 * 1000);
     
-    const chatId = update.message.chat.id;
-    const userId = update.message.from.id.toString();
-    const text = update.message.text || update.message.caption || '';
-    const photo = update.message.photo;
-    const reply = update.message.reply_to_message;
+    // ✅ سیستم Pagination جدید
+    let allKeys: any[] = [];
+    let listResult = await env.SESSIONS.list({ prefix: "session:" });
+    allKeys.push(...listResult.keys);
+    while (!listResult.list_complete && listResult.cursor) {
+      listResult = await env.SESSIONS.list({ prefix: "session:", cursor: listResult.cursor });
+      allKeys.push(...listResult.keys);
+    }
     
-    const startTime = Date.now();
+    for (const item of allKeys) {
+      try {
+        const stored = await env.SESSIONS.get(item.name, "json");
+        if (!stored) continue;
+        
+        const session = stored as ChatSession;
+        totalSessions++;
+        
+        if (session.lastSeen > sevenDaysAgo) activeSessions++;
+        if (session.vipStatus) vipCount++;
+        
+        totalMessages += session.statistics?.totalMessages || 0;
+        totalVoices += session.statistics?.voicesReceived || 0;
+        
+        if (session.statistics?.firstUsed && session.statistics.firstUsed < oldestSession) oldestSession = session.statistics.firstUsed;
+        if (session.lastSeen > newestSession) newestSession = session.lastSeen;
+      } catch (error) {}
+    }
+    
+    const modelCacheCount = await countKeys("model_cache:", env);
+    const groupVIPCount = await countKeys("group_vip:", env);
+    
+    const oldestDate = new Date(oldestSession).toLocaleDateString('fa-IR');
+    const newestDate = new Date(newestSession).toLocaleDateString('fa-IR');
+    
+    let text = `📊 **آمار دیتابیس**\n\n👥 کل سشن‌ها: ${totalSessions}\n🔥 فعال (7 روز): ${activeSessions}\n👑 VIP: ${vipCount}\n💤 غیرفعال: ${totalSessions - activeSessions}\n\n📈 **آمار کلی:**\n💬 کل پیام‌ها: ${totalMessages}\n🎤 کل ویس‌ها: ${totalVoices}\n\n🗄️ **ذخیره‌سازی:**\n📦 کش مدل‌ها: ${modelCacheCount}\n👥 گروه‌های VIP: ${groupVIPCount}\n\n📅 قدیمی‌ترین: ${oldestDate}\n📅 جدیدترین: ${newestDate}`;
+    
+    const keyboard = {
+      inline_keyboard: [
+        [{ text: "🧹 پاکسازی", callback_data: "db_auto_clean" }],
+        [{ text: "🗑️ حذف قدیمی‌ها (30+)", callback_data: "db_delete_old" }],
+        [{ text: "🔄 بروزرسانی", callback_data: "db_refresh_stats" }]
+      ]
+    };
+    
+    await editMessageText(chatId, processingMsg.message_id, text, { reply_markup: JSON.stringify(validateKeyboard(keyboard)) });
+  } catch (error) {
+    await editMessageText(chatId, processingMsg.message_id, "❌ خطا در محاسبه");
+  }
+}
+
+async function countKeys(prefix: string, env: Env): Promise<number> {
+  try {
+    let count = 0;
+    let listResult = await env.SESSIONS.list({ prefix });
+    count += listResult.keys.length;
+    
+    while (!listResult.list_complete && listResult.cursor) {
+      listResult = await env.SESSIONS.list({ prefix, cursor: listResult.cursor });
+      count += listResult.keys.length;
+    }
+    return count;
+  } catch (error) {
+    logger.error(`Failed to count keys with prefix ${prefix}`, error);
+    return 0;
+  }
+}
+
+async function deleteUserSession(chatId: number, replyTo: number, userId: number, env: Env): Promise<void> {
+  const confirmMsg = await sendMessage(chatId, 
+    `⚠️ **تایید حذف**\n\nآیا مطمئنید می‌خواهید سشن کاربر \`${userId}\` حذف شود؟\n\n⚠️ این عمل غیرقابل بازگشت است!`,
+    {
+      reply_to_message_id: replyTo,
+      reply_markup: JSON.stringify({
+        inline_keyboard: [
+          [
+            { text: "✅ بله، حذف شود", callback_data: `db_confirm_delete_${userId}` },
+            { text: "❌ لغو", callback_data: "db_cancel_delete" }
+          ]
+        ]
+      })
+    }
+  );
+}
+
+// ✅ مدیریت اصلاح شده حافظه گروهی
+async function processAIRequest(
+  session: ChatSession, 
+  user: User, 
+  userParts: Part[], 
+  originalMessage: Message, 
+  env: Env, 
+  requestId?: string, 
+  sendAsVoice: boolean = false
+) {
+  const GLOBAL_TIMEOUT = 50000;
+  const controller = new AbortController();
+  
+  const timeoutId = setTimeout(() => {
+    controller.abort();
+  }, GLOBAL_TIMEOUT);
+  
+  try {
+    // ✅ فقط فراخوانی تابع داخلی
+    await _processAIRequestInternal(
+      session, user, userParts, originalMessage, env, requestId, sendAsVoice
+    );
+  } catch (error) {
+    logger.error("AI processing failed or timed out", error);
+    
+    const errorMsg = error instanceof Error && 
+      (error.name === 'AbortError' || error.message.includes('timeout'))
+      ? "⏱️ زمان پردازش تمام شد. سرور شلوغ است، لطفاً دوباره تلاش کنید."
+      : "❌ خطا در پردازش درخواست.";
+    
+    await sendMessage(originalMessage.chat.id, errorMsg, {
+      reply_to_message_id: originalMessage.message_id
+    });
+  } finally {
+  }
+}
+
+async function _processAIRequestInternal(
+  session: ChatSession, 
+  user: User, 
+  userParts: Part[], 
+  originalMessage: Message, 
+  env: Env, 
+  requestId?: string, 
+  sendAsVoice: boolean = false
+) {
+  const isGroup = originalMessage.chat.type === "group" || originalMessage.chat.type === "supergroup";
+  const textPrompt = userParts.find(p => p.text)?.text || '';
+  let loadingTimer: ReturnType<typeof setTimeout> | null = null;
+  const engine = session.engines[session.activeEngine];
+  let userHistory: HistoryItem[] | undefined;
+  
+  if (isGroup) {
+    if (!engine.userHistories) engine.userHistories = new Map();
+    if (!engine.userHistories.has(user.id)) engine.userHistories.set(user.id, []);
+    userHistory = engine.userHistories.get(user.id)!;
+    
+    if (userHistory.length === 0) {
+      const currentPrompt = getActivePrompt(session, user.first_name, true);
+      userHistory.push({
+        role: session.activeEngine === 'gemini' ? 'user' : 'assistant',
+        parts: [{ text: currentPrompt }],
+        timestamp: Date.now(),
+        userId: user.id,
+        userName: user.first_name
+      });
+    }
+  }
+
+  await sendTypingAction(originalMessage.chat.id).catch(() => {});
+
+  let loadingMsgId: number | null = null;
+  
+  // 🌟 ارسال آنی و بدون تاخیر پیام لودینگ (فقط در چت شخصی برای جلوگیری از شلوغی گروه)
+  if (!isGroup) {
+    const lang = session.language || 'fa';
+    // انتخاب تصادفی یک ایموجی جذاب برای حس زنده بودن بیشتر
+    const emoji =['💭', '🤔', '✨', '⚡', '⏳'][Math.floor(Math.random() * 5)];
+    const loadingText = lang === 'fa' ? `${emoji} اممم...` : `${emoji} Hmmm...`;
+    
+    // ارسال فوری (Instant)
+    const msg = await sendMessage(originalMessage.chat.id, loadingText, {
+      reply_to_message_id: originalMessage.message_id
+    }).catch(() => null);
+    
+    if (msg) loadingMsgId = msg.message_id;
+  }
+
+  let responseText = "";
+  let success = false;
+  let isImageResponse = false;
+
+  try {
+    let result: any;
+
+    if (session.activeEngine === "gemini") {
+      result = await handleGeminiRequest(session, user, userParts, isGroup, userHistory, env);
+    } else if (session.activeEngine === "sambanova") {
+      result = await handleSambanovaRequest(session, user, textPrompt, isGroup, userHistory, env);
+    } else if (session.activeEngine === "pollinations") {
+      result = await handlePollinationsRequest(session, user, textPrompt, isGroup, userHistory, env);
+    }
+
+    if (result && typeof result === 'object' && result.photo) {
+      isImageResponse = true;
+      success = true;
+      if (loadingMsgId) await deleteMessage(originalMessage.chat.id, loadingMsgId).catch(() => {});
+      
+      await sendPhoto(
+        originalMessage.chat.id, 
+        result.photo, 
+        `🖼️ **تصویر تولید شده**\n🎨 \`${textPrompt.substring(0, 50)}...\``, 
+        { reply_to_message_id: originalMessage.message_id }
+      );
+    } else {
+      responseText = sanitizeMarkdown(String(result));
+      success = true;
+    }
+    
+  } catch (error) {
+    const err = error instanceof Error ? error : new Error(String(error));
+    if (user.id === config.BOT_OWNER_ID) {
+      responseText = `❌ **خطا (اصلی):**\n\`\`\`\n${getRawError(err)}\n\`\`\``;
+    } else {
+      const errorInfo = formatUserFriendlyErrorNew(err, session.language);
+      responseText = createErrorMessage(errorInfo, false);
+    }
+  } finally {
+    if (loadingTimer) {
+      clearTimeout(loadingTimer);
+      loadingTimer = null;
+    }
+  }
+
+  if (success && !isImageResponse) {
+    const timestamp = Date.now();
+    
+    addToHistory(engine.history, "user", userParts, timestamp);
+    const responseRole = session.activeEngine === "gemini" ? "model" : "assistant";
+    addToHistory(engine.history, responseRole, [{ text: responseText }], timestamp);
+    
+    if (isGroup && userHistory) {
+      addToHistory(userHistory, "user", userParts, timestamp);
+      addToHistory(userHistory, responseRole, [{ text: responseText }], timestamp);
+      engine.userHistories.set(user.id, userHistory);
+    }
+    
+    session.messageCount++;
+    session.statistics.totalMessages++;
+    const statKey = `${session.activeEngine}Messages` as keyof typeof session.statistics;
+    (session.statistics[statKey] as number)++;
+
+    saveSessionWithLock(session, env, false).catch(e => 
+      logger.error(`Failed to save session ${session.id}`, e)
+    );
+    
+    await sendStreamingResponse(
+      originalMessage.chat.id,
+      originalMessage.message_id,
+      responseText,
+      loadingMsgId ?? undefined
+    );
+  } else if (!success) {
+    if (loadingMsgId) {
+      try {
+        await editMessageText(originalMessage.chat.id, loadingMsgId, responseText);
+      } catch {
+        // اگه edit نشد (مثلاً پیام خیلی قدیمیه)، یه پیام جدید بفرست
+        await sendMessage(originalMessage.chat.id, responseText, { 
+          reply_to_message_id: originalMessage.message_id 
+        }).catch(() => {});
+      }    
+    } else {
+      await sendMessage(originalMessage.chat.id, responseText, { 
+        reply_to_message_id: originalMessage.message_id 
+      }).catch(() => {});
+    }
+  }
+}
+
+// ═══════════════════════════════════════════════════
+// ⚡ ULTRA-FAST RESPONSE (Optimized for Cloudflare)
+// ═══════════════════════════════════════════════════
+const TYPING_EMOJIS = ['💭', '🤔', '✨', '⚡', '🌟'];
+
+function getRandomTypingEmoji() {
+  return TYPING_EMOJIS[Math.floor(Math.random() * TYPING_EMOJIS.length)];
+}
+
+async function sendStreamingResponse(
+  chatId: number,
+  replyToMsgId: number,
+  fullText: string,
+  existingMsgId?: number
+): Promise<void> {
+  let msgId = existingMsgId;
+
+  await sendTypingAction(chatId).catch(() => {});
+
+  if (!msgId) {
+    const emoji = getRandomTypingEmoji();
+    const initMsg = await sendMessage(chatId, `${emoji} بزار بگم...`, {
+      reply_to_message_id: replyToMsgId,
+    }).catch(() => null);
+
+    if (!initMsg) {
+      await sendMessage(chatId, fullText, { reply_to_message_id: replyToMsgId }).catch(() => {});
+      return;
+    }
+    msgId = initMsg.message_id;
+  }
+
+  const chunks = splitMessage(fullText, 4000);
+  const firstChunk = chunks[0];
+
+  // 🌟 سیستم چاپ متن مشابه ریل‌تایم (Fake Streaming) 🌟
+  // فقط برای متن‌های نسبتا طولانی که ارزش تایپ شدن دارند
+  if (firstChunk.length > 200) {
+    // برای سرعت بالا و جلوگیری از لیمیت بله، متن را در ۲ مرحله سریع پیش‌چاپ می‌کنیم
+    const step1 = firstChunk.substring(0, Math.floor(firstChunk.length * 0.40));
+    const step2 = firstChunk.substring(0, Math.floor(firstChunk.length * 0.75));
+
+    // تابع کمکی برای حذف موقت مارک‌داون تا در زمان چاپ، ارور بله نگیریم
+    // علامت ▒ نشانگر در حال تایپ بودن است
+    const cleanTyping = (text: string) => text.replace(/[*_`\[\]]/g, '') + " ▒";
+
+    // مرحله اول چاپ (40%) - بدون فرمت مارک‌داون برای جلوگیری از ارور
+    await editMessageText(chatId, msgId, cleanTyping(step1), { parse_mode: undefined }).catch(() => {});
+    await new Promise(r => setTimeout(r, 250)); // تاخیر بسیار کوتاه برای حفظ سرعت
+
+    // مرحله دوم چاپ (75%)
+    await editMessageText(chatId, msgId, cleanTyping(step2), { parse_mode: undefined }).catch(() => {});
+    await new Promise(r => setTimeout(r, 250));
+  }
+
+  // ⚡ چاپ نهایی (100%) با فرمت کامل و زیبای مارک‌داون
+  await editMessageText(chatId, msgId, sanitizeMarkdown(firstChunk), {
+    parse_mode: 'Markdown'
+  }).catch(async () => {
+    // فال‌بک در صورت خرابی مارک‌داون
+    await editMessageText(chatId, msgId!, sanitizePlainText(firstChunk), { parse_mode: undefined }).catch(() => {});
+  });
+
+  // ارسال بقیه پیام (اگر طولانی‌تر از ۴۰۰۰ کاراکتر بود)
+  for (let i = 1; i < chunks.length; i++) {
+    await new Promise(r => setTimeout(r, 300)); // تاخیر کوتاه برای ارسال پیام‌های چندتیکه
+    await sendMessage(chatId, sanitizeMarkdown(chunks[i]), { parse_mode: 'Markdown' }).catch(() => {});
+  }
+}
+
+function sanitizePlainText(text: string): string {
+  return text.replace(/>]/g, '');
+}
+
+async function handleGeminiRequest(
+  session: ChatSession, 
+  user: User, 
+  parts: Part[], 
+  isGroup: boolean = false,
+  userHistory?: HistoryItem[],
+  env: Env
+): Promise<string> {
+  
+  if (config.GEMINI_KEYS.length === 0) {
+    throw new Error("❌ کلیدهای API نوا تنظیم نشده است");
+  }
+  
+  const engine = session.engines.gemini;
+  const model = config.GEMINI_MODEL;
+  
+  const currentPrompt = getActivePrompt(session, user.first_name, isGroup);
+  engine.history[0] = { 
+    role: "user", 
+    parts: [{ text: currentPrompt }],
+    timestamp: Date.now(),
+    userId: user.id,
+    userName: user.first_name
+  };
+  
+  const historyToUse = (isGroup && userHistory) ? 
+    [engine.history[0], ...userHistory] : 
+    engine.history;
+
+  const totalKeys = config.GEMINI_KEYS.length;
+  let lastError: Error | null = null;
+  const errors = { quota: 0, blocked: 0, timeout: 0, other: 0 };
+
+  for (let attempt = 0; attempt < totalKeys; attempt++) {
+    const keyIndex = (engine.apiKeyIndex + attempt) % totalKeys;
+    const apiKey = config.GEMINI_KEYS[keyIndex];
+    
+    logger.info(`🚀 Gemini: Try ${attempt + 1}/${totalKeys} with Key ${keyIndex + 1}`);
     
     try {
-        // Register user
-        await db.registerUser({
-            user_id: userId,
-            username: update.message.from.username,
-            first_name: update.message.from.first_name,
-            last_name: update.message.from.last_name
-        });
-        
-        // Check if blocked
-        const blocked = await db.isUserBlocked(userId);
-        if (blocked) {
-            await telegram.sendMessage(chatId,
-                `🚫 دسترسی شما مسدود شده است\n\n📌 دلیل: ${blocked.reason}\n⏰ زمان: ${Utils.formatDate(blocked.created_at)}`
-            );
-            return;
-        }
-        
-        // Get user settings
-        const settings = await db.getUserSettings(userId);
-        
-        // Track analytics
-        await db.trackEvent('message', userId, {
-            hasPhoto: !!photo,
-            textLength: text.length
-        });
-        
-        // Check rate limits
-        const rateCheck = await db.checkRateLimit(userId, settings.tier);
-        if (!rateCheck.allowed) {
-            await telegram.sendMessage(chatId,
-                `⏱️ ${rateCheck.message}\n\n` +
-                `💎 برای حد بالاتر: /upgrade\n` +
-                `📊 باقیمانده: ${rateCheck.remaining?.day || 0} پیام`
-            );
-            return;
-        }
-        
-        // Handle commands
-        const isCommand = text.startsWith('/');
-        const isReply = reply && reply.from && reply.from.is_bot;
-        
-        if (!isCommand && !isReply && !photo) {
-            // Ignore non-reply messages
-            return;
-        }
-        
-        // Command handling
-        if (text === '/start') {
-            const referralMatch = text.match(/\/start\s+([A-Z0-9]+)/);
-            if (referralMatch && !settings.referred_by) {
-                const referralCode = referralMatch[1];
-                const referrer = await db.getUserByReferralCode(referralCode);
-                
-                if (referrer && referrer.user_id !== userId) {
-                    await db.updateUser(userId, { referred_by: referrer.user_id });
-                    await db.processReferral(referrer.user_id, userId);
-                }
-            }
-            
-            const welcomeText = `🌸 **سلام ${update.message.from.first_name}!**\n\n` +
-                               `من **حوشا** هستم - سیستم هوش مصنوعی پیشرفته با ${Object.keys(MEGA_CONFIG.ENGINES).length} موتور!\n\n` +
-                               `🎯 **چطور کار کنم؟**\nروی این پیام Reply کن و سوالتو بپرس\n\n` +
-                               `💎 **سطح شما:** ${MEGA_CONFIG.TIERS[settings.tier].emoji} ${MEGA_CONFIG.TIERS[settings.tier].name}\n` +
-                               `📊 **کووتای روزانه:** ${rateCheck.remaining.day} پیام\n\n` +
-                               `**دستورات:**\n` +
-                               `/models - لیست موتورها\n` +
-                               `/settings - تنظیمات\n` +
-                               `/upgrade - ارتقا حساب\n` +
-                               `/help - راهنما`;
-            
-            await telegram.sendMessage(chatId, welcomeText);
-            return;
-        }
-        
-        if (text === '/models') {
-            const tierConfig = MEGA_CONFIG.TIERS[settings.tier];
-            let modelsText = `🤖 **لیست موتورهای AI**\n\n`;
-            
-            modelsText += `سطح شما: ${tierConfig.emoji} ${tierConfig.name}\n\n`;
-            
-            modelsText += `**💬 موتورهای متنی:**\n`;
-            Object.entries(MEGA_CONFIG.ENGINES).forEach(([key, model]) => {
-                if (!model.vision) {
-                    const available = !model.vip || 
-                                    tierConfig.premium_models.includes('all') || 
-                                    tierConfig.premium_models.includes(key);
-                    
-                    modelsText += `${model.emoji} ${model.name} ${available ? '✅' : '🔒'}\n`;
-                }
-            });
-            
-            modelsText += `\n**📸 موتورهای Vision:**\n`;
-            Object.entries(MEGA_CONFIG.ENGINES).forEach(([key, model]) => {
-                if (model.vision) {
-                    const available = tierConfig.vision_access && (
-                        !model.vip || 
-                        tierConfig.premium_models.includes('all') || 
-                        tierConfig.premium_models.includes(key)
-                    );
-                    
-                    modelsText += `${model.emoji} ${model.name} ${available ? '✅' : '🔒'}\n`;
-                }
-            });
-            
-            modelsText += `\n/setmodel - تغییر موتور`;
-            
-            await telegram.sendMessage(chatId, modelsText);
-            return;
-        }
-        
-        if (text === '/help') {
-            const helpText = `📖 **راهنمای کامل HOSHA**\n\n` +
-                            `**🗣️ چطور چت کنم؟**\nروی پیام‌های من Reply کن\n\n` +
-                            `**📸 تحلیل عکس:**\nعکس + توضیح بفرست\n\n` +
-                            `**⚙️ تنظیمات:**\n` +
-                            `/personality - شخصیت\n` +
-                            `/human - حالت انسانی\n` +
-                            `/setmodel - موتور\n\n` +
-                            `**💎 VIP:**\n` +
-                            `/upgrade - ارتقا\n` +
-                            `/myplan - وضعیت اشتراک\n` +
-                            `/referral - دعوت دوستان\n\n` +
-                            `**📊 آمار:**\n` +
-                            `/stats - آمار من\n` +
-                            `/usage - مصرف امروز`;
-            
-            await telegram.sendMessage(chatId, helpText);
-            return;
-        }
-        
-        if (text === '/stats') {
-            const user = await db.getUser(userId);
-            const statsText = `📊 **آمار شما**\n\n` +
-                             `💬 کل پیام‌ها: ${Utils.formatNumber(user.total_messages)}\n` +
-                             `🧠 کل توکن‌ها: ${Utils.formatNumber(user.total_tokens)}\n` +
-                             `💰 هزینه کل: ${Utils.formatNumber(Math.round(user.total_spent))} تومان\n` +
-                             `👥 دعوت‌ها: ${user.referral_count}\n` +
-                             `🎁 پیام هدیه: ${user.bonus_messages}\n` +
-                             `📅 عضو از: ${Utils.formatDate(user.created_at)}`;
-            
-            await telegram.sendMessage(chatId, statsText);
-            return;
-        }
-        
-        // Handle photo
-        if (photo) {
-            const fileId = photo[photo.length - 1].file_id;
-            const imageUrl = await telegram.getFile(fileId);
-            
-            const visionModel = settings.preferred_vision_model;
-            const modelConfig = MEGA_CONFIG.ENGINES[visionModel];
-            
-            // Check access
-            const tierConfig = MEGA_CONFIG.TIERS[settings.tier];
-            if (!tierConfig.vision_access) {
-                await telegram.sendMessage(chatId,
-                    `🔒 تحلیل عکس فقط برای اعضای ویژه\n\n💎 /upgrade`
-                );
-                return;
-            }
-            
-            await telegram.sendTyping(chatId);
-            await telegram.sendMessage(chatId,
-                `${modelConfig.emoji} در حال تحلیل با ${modelConfig.name}...\n⏳ لطفاً صبر کنید`
-            );
-            
-            const prompt = `این عکس رو کامل تحلیل کن:\n\n${text || 'توضیحی ندادن، خودت کامل بگو چی توش هست'}`;
-            
-            const analysis = await vision.analyze(imageUrl, prompt, visionModel, settings.personality);
-            const tokens = Utils.calculateTokens(analysis);
-            const cost = tokens * modelConfig.cost_per_token * 42000; // تومان
-            
-            await db.saveMessage(userId, 'user', text || '[عکس]', visionModel, 0, 0, true, 0);
-            await db.saveMessage(userId, 'assistant', analysis, visionModel, tokens, cost, false, Date.now() - startTime);
-            await db.logUsage(userId, visionModel, tokens, cost, true);
-            
-            await telegram.sendHumanLike(chatId, analysis, text, settings);
-            return;
-        }
-        
-        // Handle text reply
-        if (isReply && text && !isCommand) {
-            const model = settings.preferred_model;
-            const modelConfig = MEGA_CONFIG.ENGINES[model];
-            
-            // Check cache
-            const cacheKey = `${userId}:${Utils.hashString(text)}`;
-            const cached = cache.get(cacheKey);
-            
-            if (cached) {
-                await telegram.sendHumanLike(chatId, cached, text, settings);
-                await logger.info('Cache hit', { userId, model });
-                return;
-            }
-            
-            const response = await ai.generate(text, model, settings.personality);
-            const tokens = Utils.calculateTokens(text + response);
-            const cost = tokens * modelConfig.cost_per_token * 42000;
-            
-            // Cache response
-            cache.set(cacheKey, response);
-            
-            await db.saveMessage(userId, 'user', text, model, Utils.calculateTokens(text), 0, false, 0);
-            await db.saveMessage(userId, 'assistant', response, model, tokens, cost, false, Date.now() - startTime);
-            await db.logUsage(userId, model, tokens, cost, true);
-            
-            await telegram.sendHumanLike(chatId, response, text, settings);
-        }
-        
+      const response = await withTimeout(
+        callGeminiAPI(parts, model, apiKey, historyToUse),
+        20000,
+        "⏱️ زمان پردازش تمام شد"
+      );
+      
+      engine.apiKeyIndex = keyIndex;
+      engine.consecutiveErrors = 0;
+      logger.info(`✅ Gemini success with Key ${keyIndex + 1}`);
+      return response;
+
     } catch (error) {
-        await logger.error('Message handling failed', {
-            error: error.message,
-            userId,
-            textLength: text.length
-        });
-        
-        await telegram.sendMessage(chatId,
-            `❌ متاسفانه یه مشکلی پیش اومد!\n\n` +
-            `لطفاً دوباره تلاش کنید یا با /help راهنما رو ببینید`
-        );
+      lastError = error instanceof Error ? error : new Error(String(error));
+      const errorMsg = lastError.message.toLowerCase();
+      
+      if (errorMsg.includes('quota') || errorMsg.includes('429') || errorMsg.includes('rate limit')) {
+        errors.quota++;
+        logger.warn(`❌ Key ${keyIndex + 1} hit quota/rate limit (testing, not disabling)`);
+        // disableApiKey(apiKey, env);  // کاملاً غیرفعال برای تست
+      } 
+      else if (errorMsg.includes('blocked') || errorMsg.includes('safety')) {
+        errors.blocked++;
+        logger.warn(`⚠️ Safety block on Key ${keyIndex + 1}`);
+        // برای تست، اجازه بده بقیه کلیدها هم امتحان شوند
+        continue;
+      } 
+      else if (errorMsg.includes('timeout')) {
+        errors.timeout++;
+        logger.warn(`⏱️ Timeout on Key ${keyIndex + 1}`);
+      } 
+      else {
+        errors.other++;
+        logger.error(`Unknown error on Key ${keyIndex + 1}: ${errorMsg.substring(0, 100)}`);
+      }
     }
+  }
+
+  engine.consecutiveErrors++;
+  
+  // پیام خطای ساده برای تست
+  if (errors.quota === totalKeys) {
+    throw new Error("⏳ همه کلیدها محدودیت مصرف دارند. لطفاً مدل را تغییر دهید.");
+  }
+  if (errors.blocked > 0) {
+    throw new Error("🛡️ محتوای درخواست مسدود شد. متن را تغییر دهید.");
+  }
+  throw new Error(`❌ خطا در نوا: هر ${totalKeys} کلید ناموفق بودند. لطفاً /model بزنید.`);
 }
 
-// ==================== MAIN WORKER ====================
-let initialized = false;
-let globalCache = new CacheManager();
+// ✅ تابع پیام خطای ساده و کاربرپسند
+function formatSimpleError(errors: { [key: string]: number }, engineName: string, maxAttempts: number): string {
+  // اگه همه محدودیت بودن
+  if (errors.quota >= maxAttempts * 0.7) {
+    return `⏳ **${engineName} موقتاً در دسترس نیست**\n\n` +
+           `📊 سهمیه API تمام شده.\n` +
+           `💡 مدل رو با /model عوض کن.`;
+  }
+  
+  // اگه timeout بود
+  if (errors.timeout >= maxAttempts * 0.5) {
+    return `⏱️ **${engineName} دیر جواب داد**\n\n` +
+           `🔄 دوباره امتحان کن.`;
+  }
+  
+  // اگه محتوا مسدود شد
+  if (errors.blocked > 0) {
+    return `🛡️ **محتوا مسدود شد**\n\n` +
+           `متن رو تغییر بده و دوباره بفرست.`;
+  }
+  
+  // اگه مشکل احراز هویت بود
+  if (errors.auth > 0) {
+    return `🔑 **مشکل API Key**\n\n` +
+           `با @Hacker1382 تماس بگیر.`;
+  }
+  
+  // اگه مشکل شبکه بود
+  if (errors.network > 0) {
+    return `🌐 **مشکل اتصال**\n\n` +
+           `اینترنت رو چک کن و دوباره امتحان کن.`;
+  }
+  
+  // خطای عمومی
+  return `❌ **خطا در ${engineName}**\n\n` +
+         `🔄 دوباره امتحان کن یا مدل رو عوض کن.`;
+}
+
+async function handleSambanovaRequest(
+  session: ChatSession, 
+  user: User, 
+  text: string, 
+  isGroup: boolean = false, 
+  userHistory?: HistoryItem[], 
+  env: Env
+): Promise<string> {
+  
+  if (config.SAMBANOVA_KEYS.length === 0) {
+    throw new Error("❌ کلیدهای API لونا تنظیم نشده است");
+  }
+
+  if (config.SAMBANOVA_MODELS.length === 0) {
+    const cache = await getModelsWithCache("sambanova", env, true);
+    if (cache.models.length === 0) {
+      throw new Error("❌ هیچ مدلی برای لونا یافت نشد");
+    }
+  }
+  
+  const engine = session.engines.sambanova;
+  
+  // ✅ آماده‌سازی تاریخچه
+  const currentPrompt = getActivePrompt(session, user.first_name, isGroup);
+  engine.history[0] = { 
+    role: "assistant", 
+    parts: [{ text: currentPrompt }],
+    timestamp: Date.now(),
+    userId: user.id,
+    userName: user.first_name
+  };
+  
+  const historyToUse = (isGroup && userHistory) ? 
+    [engine.history[0], ...userHistory] : 
+    engine.history;
+
+  // ✅ 2 تلاش برای هر کلید
+  const maxAttemptsPerKey = 2;
+  const totalAttempts = config.SAMBANOVA_KEYS.length * maxAttemptsPerKey;
+  
+  let lastError: Error | null = null;
+  const errors: { [key: string]: number } = {
+    quota: 0, blocked: 0, timeout: 0, network: 0, auth: 0, unknown: 0
+  };
+
+  for (let attempt = 0; attempt < totalAttempts; attempt++) {
+    const keyIndex = Math.floor(attempt / maxAttemptsPerKey) % config.SAMBANOVA_KEYS.length;
+    const apiKey = config.SAMBANOVA_KEYS[keyIndex];
+
+    if (await isKeyDisabled(apiKey, env)) {
+      errors.quota++;
+      continue; // پرش با سرعت نور!
+    }
+    
+    // ✅ چرخش مدل‌ها
+    const modelIndex = (engine.modelIndex + Math.floor(attempt / config.SAMBANOVA_KEYS.length)) % config.SAMBANOVA_MODELS.length;
+    const model = config.SAMBANOVA_MODELS[modelIndex];
+
+    logger.info(`🚀 SambaNova: Try ${attempt + 1}/${totalAttempts}, Key ${keyIndex + 1}/${config.SAMBANOVA_KEYS.length}, Model: ${model}`);
+
+    try {
+      const response = await withTimeout(
+        callSambanovaAPI(text, historyToUse, model, apiKey),
+        20000,
+        "⏱️ زمان پردازش تمام شد"
+      );
+      
+      // ✅ موفقیت
+      engine.apiKeyIndex = keyIndex;
+      engine.modelIndex = modelIndex;
+      engine.consecutiveErrors = 0;
+      logger.info(`✅ Success with Key ${keyIndex + 1}, Model ${model}`);
+      
+      return response;
+
+    } catch (error) {
+      lastError = error instanceof Error ? error : new Error(String(error));
+      const errorMsg = lastError.message.toLowerCase();
+      
+      // ✅ دسته‌بندی خطاها (مشابه Gemini)
+      if (errorMsg.includes('محدودیت') || errorMsg.includes('quota') || errorMsg.includes('429')) {
+        errors.quota++;
+        disableApiKey(apiKey, env);
+      } else if (errorMsg.includes('مسدود') || errorMsg.includes('safety') || errorMsg.includes('blocked')) {
+        errors.blocked++;
+        throw lastError; // ❌ قابل retry نیست
+      } else if (errorMsg.includes('timeout') || errorMsg.includes('زمان')) {
+        errors.timeout++;
+      } else if (errorMsg.includes('network') || errorMsg.includes('fetch')) {
+        errors.network++;
+      } else if (errorMsg.includes('unauthorized') || errorMsg.includes('401') || errorMsg.includes('403')) {
+        errors.auth++;
+        continue; // ❌ کلید نامعتبر - skip
+      } else {
+        errors.unknown++;
+      }
+
+      logger.warn(`❌ Attempt ${attempt + 1} failed: ${errorMsg.substring(0, 80)}`);
+      
+      // ✅ delay بین تلاش‌ها
+      if (attempt < totalAttempts - 1) {
+        await new Promise(resolve => setTimeout(resolve, 1000 * (Math.floor(attempt / maxAttemptsPerKey) + 1)));
+      }
+    }
+  }
+  
+  engine.consecutiveErrors++;
+  throw new Error(formatSimpleError(errors, "لونا", totalAttempts));
+}
+
+function addToHistory(
+  history: HistoryItem[], 
+  role: MessageRole, 
+  parts: Part[], 
+  timestamp?: number
+): void {
+  const validParts = parts.filter(part => part.text || part.inline_data);
+  
+  history.push({ 
+    role, 
+    parts: validParts,
+    timestamp: timestamp || Date.now()
+  });
+
+  // پاکسازی قطعی و سریع
+  // اگر طول تاریخچه از HISTORY_LIMIT بیشتر شد، قدیمی ترین پیام ها (بعد از پرامپت سیستم) را حذف کن
+  if (history.length > config.HISTORY_LIMIT) {
+    // از ایندکس 1 (برای حفظ دستور سیستم در ایندکس 0) به تعداد اضافه پاک کن
+    const excess = history.length - config.HISTORY_LIMIT;
+    history.splice(1, excess);
+  }
+}
+
+async function checkMaintenanceMode(env: Env, userId: number): Promise<{ blocked: boolean; message?: string }> {
+  // مالک همیشه میتونه استفاده کنه
+  if (userId === config.BOT_OWNER_ID) {
+    return { blocked: false };
+  }
+  
+  const maintenanceMode = await isMaintenanceMode(env);
+  
+  if (maintenanceMode) {
+    return {
+      blocked: true,
+      message: "🛠️ **در حال بروزرسانی و تعمیرات**\n\nربات در حال به‌روزرسانی است. لطفاً کمی بعد مجدداً تلاش کنید.\n\n⏰ زمان تقریبی: 10-30 دقیقه"
+    };
+  }
+  
+  return { blocked: false };
+}
+
+function cleanupHistory(history: HistoryItem[]): void {
+  const MAX_TOKENS_ESTIMATE = 15000;
+  let currentSize = history.reduce((acc, item) => acc + (item.parts[0]?.text?.length || 0), 0);
+
+  if (history.length <= config.HISTORY_LIMIT && currentSize < MAX_TOKENS_ESTIMATE) return;
+
+  const systemMessage = history[0];
+  
+  while ((history.length > config.HISTORY_LIMIT || currentSize > MAX_TOKENS_ESTIMATE) && history.length > 3) {
+    const removed1 = history.splice(1, 1)[0]; 
+    const removed2 = history.splice(1, 1)[0];
+    
+    currentSize -= (removed1.parts[0]?.text?.length || 0);
+    currentSize -= (removed2.parts[0]?.text?.length || 0);
+  }
+}
+
+function getStartKeyboard(isGroup: boolean, lang: 'fa' | 'en') {
+  if (isGroup) {
+    return {
+      inline_keyboard: [[
+        createInlineButton(
+          lang === 'fa' ? '⚙️ تنظیمات گروه' : '⚙️ Group Settings',
+          'group_settings'
+        )
+      ]]
+    };
+  }
+  return {
+    inline_keyboard: [
+      [
+        createInlineButton(lang === 'fa' ? '🤖 انتخاب مدل' : '🤖 Select Model', 'model_settings'),
+        createInlineButton(lang === 'fa' ? '❓ راهنما'      : '❓ Help',          'open_help'     ),
+      ]
+    ]
+  };
+}
+
+// --- Handle Model Switch ---
+async function handleModelSwitch(session: ChatSession, engine: AIEngine, cb: CallbackQuery, env: Env): Promise<void> {
+  const engineInfo = ENGINE_CONFIG[engine];
+  const engName = getEngineName(engine, session.language || 'fa');
+  
+  if (!engineInfo.available()) {
+    await answerCallbackQuery(cb.id, `مدل ${engName} در دسترس نیست`, true);
+    return;
+  }
+
+  if (session.activeEngine === engine) {
+    await answerCallbackQuery(cb.id, `✅ ${engName} از قبل فعال است`, false);
+    return;
+  }
+  
+  session.activeEngine = engine;
+  
+  try {
+    await saveSessionWithLock(session, env, true);
+    // پس از ذخیره، کش را دستی به‌روز می‌کنیم
+    sessionCache.set(`session:${session.id}`, session, 3 * 60 * 1000);
+  } catch (err) {
+    logger.error(`Failed to save session after engine switch: ${err}`);
+    await answerCallbackQuery(cb.id, "❌ خطا در ذخیره تنظیمات، دوباره تلاش کنید", true);
+    return;
+  }
+  
+  await answerCallbackQuery(cb.id, `✅ تغییر به ${getEngineName(engine, session.language)}`, false);
+  await updateModelSelection(cb.message!.chat.id, cb.message!.message_id, session);
+  logger.info(`✅ Engine switched to ${engine} and cache updated for session ${session.id}`);
+}
+
+async function handleGroupModeSwitch(session: ChatSession, mode: string, cb: CallbackQuery, env: Env): Promise<void> {
+  const modes = {
+    'always': { mode: 'always' as const, label: 'همیشه پاسخ بده' },
+    'mention': { mode: 'mention_only' as const, label: 'فقط منشن' },
+    'smart': { mode: 'smart' as const, label: 'هوشمند' }
+  };
+  
+  const modeInfo = modes[mode];
+  session.settings.groupResponseMode = modeInfo.mode;
+  await saveSessionWithLock(session, env, true);
+  await answerCallbackQuery(cb.id, `✅ حالت: ${modeInfo.label}`, false);
+  await updateGroupSettings(cb.message!.chat.id, cb.message!.message_id, session);
+}
+
+// --- SECTION: ENHANCED CALLBACK QUERY HANDLING ---
+async function handleCallbackQuery(cb: CallbackQuery, env: Env, config: ReturnType<typeof createConfig>): Promise<void> {
+  try {
+    answerCallbackQuery(cb.id).catch(() => {});
+  } catch (e) {
+    // خطای احتمالی را نادیده می‌گیریم
+  }
+  try {
+    // ✅ Rate limiting برای callbacks
+    const userId = cb.from.id;
+    const now = Date.now();
+    
+    if (!callbackRateLimits.has(userId)) {
+      callbackRateLimits.set(userId, []);
+    }
+    
+    const userCallbacks = callbackRateLimits.get(userId)!;
+    const recent = userCallbacks.filter(t => now - t < 10000);
+    
+    if (recent.length >= 15 && userId !== config.BOT_OWNER_ID) {
+      await answerCallbackQuery(cb.id, "⏳ خیلی سریع! یکم صبر کن", true);
+      return;
+    }
+    
+    recent.push(now);
+    callbackRateLimits.set(userId, recent);
+    
+    if (!cb.message || !cb.data) {
+      await answerCallbackQuery(cb.id, "داده‌ای یافت نشد", true);
+      return;
+    }
+    
+    const chat = cb.message.chat;
+    const user = cb.from;
+    const data = cb.data;
+
+    if (!data.startsWith('model_unavailable')) { 
+      await answerCallbackQuery(cb.id).catch(() => {}); 
+    }
+
+    if (data.startsWith('set_lang_')) {
+      const lang = data.replace('set_lang_', '') as 'fa' | 'en';
+  
+      const session = await getOrCreateSession(chat, user, env);
+      session.language = lang;
+      session.settings.languageSet = true;
+
+      const engines: AIEngine[] = ['gemini', 'sambanova', 'pollinations'];
+      const timestamp = Date.now();
+
+      engines.forEach(e => {
+        const hist = session.engines[e].history;
+        if (hist.length > 0) {
+          const newPrompt = buildDefaultPrompt(
+            e, 
+            user.first_name, 
+            chat.type !== 'private', 
+            session.userMemories.get(user.id), 
+            undefined, 
+            lang
+          );
+          hist[0].parts[0].text = newPrompt;
+          hist[0].timestamp = timestamp;
+        }
+      });
+
+      await saveSessionWithLock(session, env, true);
+  
+      // ✅ اضافه کردن این بخش
+      if (chat.type === "private") {
+        await refreshUserCommands(chat.id, session);
+      }
+  
+      const successMsg = lang === 'fa' ? 
+        '✅ زبان به **فارسی** تغییر یافت.\n\nتمام پرامپت‌ها بروز شدند.' : 
+        '✅ Language changed to **English**.\n\nAll prompts have been updated.';
+
+      await answerCallbackQuery(cb.id, successMsg.substring(0, 200), false);
+
+      const isGroup = chat.type === "group" || chat.type === "supergroup";
+      const welcomeText = t(session, isGroup ? 'welcome_group' : 'welcome_private', { name: user.first_name });
+
+      const txt = lang === 'fa' ? TRANSLATIONS.fa : TRANSLATIONS.en;
+      const keyboard = { 
+        inline_keyboard: [ 
+          isGroup 
+            ? [{ text: txt.btn_settings, callback_data: "group_settings" }]
+            : [{ text: txt.btn_select_model, callback_data: "model_settings" }],
+          [{ text: txt.btn_help, callback_data: "open_help" }] 
+        ]
+      };
+
+      await editMessageText(chat.id, cb.message.message_id, welcomeText, {
+        reply_markup: JSON.stringify(validateKeyboard(keyboard))
+      });
+  
+      return;
+    }
+
+    if (data.startsWith('admin_view_memory_')) {
+      if (user.id !== config.BOT_OWNER_ID) {
+        await answerCallbackQuery(cb.id, "🚫 دسترسی محدود", true);
+        return;
+      }
+  
+      const targetUserId = parseInt(data.replace('admin_view_memory_', ''));
+      await answerCallbackQuery(cb.id, "⏳ در حال بارگذاری...", false);
+      await showUserMemory(chat.id, cb.message!.message_id, targetUserId, env);
+      return;
+    }
+    
+    if (data.startsWith('admin_download_memory_')) {
+      if (user.id !== config.BOT_OWNER_ID) {
+        await answerCallbackQuery(cb.id, "🚫 دسترسی محدود", true);
+        return;
+      }
+
+      const targetUserId = parseInt(data.replace('admin_download_memory_', ''));
+      await answerCallbackQuery(cb.id, "📥 در حال آماده‌سازی...", false);
+
+      try {
+        const sessionKey = `session:${targetUserId}`;
+        const stored = await env.SESSIONS.get(sessionKey, "json");
+    
+        if (!stored) {
+          await answerCallbackQuery(cb.id, "❌ سشن یافت نشد", true);
+          return;
+        }
+
+        const userSession = stored as ChatSession;
+        const allUsers = await getAllUserStatistics(env);
+        const targetUser = allUsers.find(u => u.userId === targetUserId);
+        const userName = targetUser?.firstName || 'Unknown';
+
+        // ✅ ساخت فایل متنی کامل
+        let memoryText = `🧠 حافظه کامل کاربر: ${userName}\n`;
+        memoryText += `🆔 User ID: ${targetUserId}\n`;
+        memoryText += `📅 تاریخ: ${new Date().toLocaleString('fa-IR')}\n`;
+        memoryText += `${'='.repeat(60)}\n\n`;
+    
+        // ✅ اطلاعات کلی
+        memoryText += `📊 آمار کلی:\n`;
+        memoryText += `• کل پیام‌ها: ${userSession.messageCount}\n`;
+        memoryText += `• موتور فعال: ${getEngineName(userSession.activeEngine, 'fa')}\n`;
+        memoryText += `• آخرین فعالیت: ${formatSafeDate(userSession.lastSeen, 'full')}\n`;
+        memoryText += `• زبان: ${userSession.language === 'fa' ? 'فارسی' : 'انگلیسی'}\n\n`;
+
+        // ✅ تاریخچه هر موتور
+        const engines: AIEngine[] = ['gemini', 'sambanova', 'pollinations'];
+    
+        for (const engineName of engines) {
+          const engine = userSession.engines[engineName];
+          const history = engine.history || [];
+      
+          if (history.length === 0) continue;
+
+          memoryText += `\n${'='.repeat(60)}\n`;
+          memoryText += `🤖 موتور: ${getEngineName(engineName, 'fa')} (${history.length} پیام)\n`;
+          memoryText += `${'='.repeat(60)}\n\n`;
+
+          history.forEach((item, index) => {
+            const roleLabel = item.role === 'user' ? 'کاربر' : 
+                             item.role === 'model' ? 'نوا' : 
+                             item.role === 'assistant' ? 'هوش مصنوعی' : 'سیستم';
+        
+            const timestamp = item.timestamp ? 
+              new Date(item.timestamp).toLocaleString('fa-IR') : 'نامشخص';
+        
+            const messageText = item.parts[0]?.text || '[رسانه یا محتوای خاص]';
+
+            memoryText += `[${index + 1}] ${roleLabel} - ${timestamp}\n`;
+            memoryText += `${'-'.repeat(40)}\n`;
+            memoryText += `${messageText}\n\n`;
+          });
+        }
+
+        memoryText += `\n${'='.repeat(60)}\n`;
+        memoryText += `✏️ پرامپت‌های شخصی\n`;
+        memoryText += `${'='.repeat(60)}\n\n`;
+    
+        if (userSession.customPrompts.gemini) {
+          memoryText += `نوا: ${userSession.customPrompts.gemini}\n\n`;
+        }
+        if (userSession.customPrompts.sambanova) {
+          memoryText += `لونا: ${userSession.customPrompts.sambanova}\n\n`;
+        }
+        if (userSession.customPrompts.pollinations) {
+          memoryText += `زارا: ${userSession.customPrompts.pollinations}\n\n`;
+        }
+
+        // ✅ ارسال فایل
+        const blob = new Blob([memoryText], { type: "text/plain; charset=utf-8" });
+        const formData = new FormData();
+        formData.append("chat_id", chat.id.toString());
+        formData.append("document", blob, `memory_${userName}_${targetUserId}_${Date.now()}.txt`);
+        formData.append("caption", `🧠 حافظه کامل ${userName}\n🆔 ${targetUserId}`);
+
+        await fetchWithTimeout(`${API_URL}/sendDocument`, {
+          method: "POST",
+          body: formData
+        });
+
+        await answerCallbackQuery(cb.id, "✅ فایل ارسال شد", false);
+
+      } catch (error) {
+        logger.error(`Failed to download memory for ${targetUserId}`, error);
+        await answerCallbackQuery(cb.id, "❌ خطا در دانلود", true);
+      }
+      return;
+    }
+
+    if (data.startsWith('admin_confirm_reset_memory_')) {
+      if (user.id !== config.BOT_OWNER_ID) {
+        await answerCallbackQuery(cb.id, "🚫 دسترسی محدود", true);
+        return;
+      }
+  
+      const targetUserId = parseInt(data.replace('admin_confirm_reset_memory_', ''));
+  
+      await answerCallbackQuery(cb.id);
+      await editMessageText(chat.id, cb.message!.message_id, 
+        `⚠️ **تایید ریست حافظه**\n\nآیا مطمئنید می‌خواهید تمام حافظه کاربر \`${targetUserId}\` را پاک کنید؟\n\n⚠️ این عمل غیرقابل بازگشت است!`,
+        {
+          reply_markup: JSON.stringify({
+            inline_keyboard: [
+              [
+                { text: "✅ بله، ریست شود", callback_data: `admin_do_reset_memory_${targetUserId}` },
+                { text: "❌ لغو", callback_data: `admin_view_memory_${targetUserId}` }
+              ]
+            ]
+          })
+        }
+      );
+      return;
+    }
+
+    if (data.startsWith('admin_do_reset_memory_')) {
+      if (user.id !== config.BOT_OWNER_ID) {
+        await answerCallbackQuery(cb.id, "🚫 دسترسی محدود", true);
+        return;
+      }
+  
+      const targetUserId = parseInt(data.replace('admin_do_reset_memory_', ''));
+      await answerCallbackQuery(cb.id, "🗑️ در حال ریست...", false);
+      await resetUserMemory(chat.id, cb.message!.message_id, targetUserId, env);
+      return;
+    }
+
+    if (!data.startsWith('admin_') && !data.startsWith('log_') && !data.startsWith('db_')) {
+      const maintenanceCheck = await checkMaintenanceMode(env, user.id);
+      if (maintenanceCheck.blocked) {
+        await answerCallbackQuery(cb.id, "🛠️ ربات در حال تعمیرات است", true);
+        return;
+      }
+    }
+
+    // ✅ حالا session رو برای بقیه موارد بگیر
+    let session: ChatSession | undefined;
+    
+    // فقط برای callback هایی که نیاز به session دارن
+    const needsSession = [
+      'set_model_', 'model_settings', 'active_model_settings', 'custom_prompt_menu',
+      'reset_prompt_', 'group_settings', 'group_mode_', 'toggle_typing', 'show_prompts',
+      'bot_status', 'open_help', 'close_help', 'show_model_list_', 'select_model_',
+      'model_page_', 'refresh_models_', 'sambanova_model_', 'pollinations_model_'
+    ];
+    
+    if (needsSession.some(prefix => data.startsWith(prefix)) || 
+        ['bot_status', 'open_help', 'close_help', 'show_prompts', 'toggle_typing'].includes(data)) {
+      session = await getOrCreateSession(chat, user, env);
+    }
+    
+    if (data.length > 100) {
+      logger.warn(`Suspicious callback data length: ${data.length} from user ${user.id}`);
+      await answerCallbackQuery(cb.id, "❌ درخواست نامعتبر", true);
+      return;
+    }
+
+    if (data === 'admin_refresh_keys') {
+      if (user.id !== config.BOT_OWNER_ID) {
+        await answerCallbackQuery(cb.id, "🚫 دسترسی محدود", true);
+        return;
+      }
+      // این خط به بله میگوید دکمه فشرده شد و لودینگ بالای پیام را برمیدارد
+      await answerCallbackQuery(cb.id, "🔄 در حال شروع تست جامع...", false); 
+      
+      // فراخوانی تابع جدید برای تست مجدد (isEdit را true می‌فرستیم تا همان پیام آپدیت شود)
+      await handleKeysCommand(chat.id, cb.message!.message_id, env, true);
+      return;
+    }
+
+    if (data.startsWith('log_')) {
+      if (user.id !== config.BOT_OWNER_ID) {
+        await answerCallbackQuery(cb.id, "🚫 دسترسی محدود", true);
+        return;
+      }
+
+      if (data === 'log_clear') {
+        recentLogs.length = 0;
+        await answerCallbackQuery(cb.id, "✅ لاگ‌ها پاک شدند", false);
+        await deleteMessage(chat.id, cb.message!.message_id);
+        return;
+      }
+
+      if (data === 'log_download') {
+        if (recentLogs.length === 0) {
+          await answerCallbackQuery(cb.id, "📭 لاگی برای دانلود وجود ندارد.", true);
+          return;
+        }
+        await answerCallbackQuery(cb.id, "📥 در حال آماده‌سازی فایل...", false);
+        
+        const logText = recentLogs.map(l => 
+          `[${new Date(l.timestamp).toISOString()}] [${l.level.toUpperCase()}] ${l.message}\n${l.context ? JSON.stringify(l.context, null, 2) : ''}\n`
+        ).join('\n');
+    
+        const blob = new Blob([logText], { type: "text/plain; charset=utf-8" });
+        const formData = new FormData();
+        formData.append("chat_id", chat.id.toString());
+        formData.append("document", blob, `nova_logs_${Date.now()}.txt`);
+    
+        await fetchWithTimeout(`${API_URL}/sendDocument`, { method: "POST", body: formData });
+        return;
+      }
+
+      if (data === 'log_refresh' || data === 'log_errors' || data === 'log_warnings') {
+        if (recentLogs.length === 0) {
+          await answerCallbackQuery(cb.id, "📭 در نشست فعلی سرور هیچ لاگی ثبت نشده است.", true);
+          return;
+        }
+
+        let text = `📊 **لاگ‌های زنده سرور**\n\n`;
+        let targetLogs = recentLogs;
+
+        if (data === 'log_errors') targetLogs = recentLogs.filter(l => l.level === 'error');
+        if (data === 'log_warnings') targetLogs = recentLogs.filter(l => l.level === 'warn');
+
+        if (targetLogs.length === 0) {
+          await answerCallbackQuery(cb.id, `در این دسته‌بندی لاگی وجود ندارد.`, true);
+          return;
+        }
+
+        // نمایش 15 لاگ آخر
+        targetLogs.slice(-15).forEach(log => {
+          const time = new Date(log.timestamp).toLocaleTimeString('fa-IR');
+          const icon = log.level === 'error' ? '🔴' : log.level === 'warn' ? '🟡' : '🟢';
+          text += `${icon} \`${time}\`\n${log.message.substring(0, 100)}\n\n`;
+        });
+
+        const keyboard = {
+          inline_keyboard:[[
+              { text: "🔴 خطاها", callback_data: "log_errors" },
+              { text: "🟡 هشدارها", callback_data: "log_warnings" },
+              { text: "🟢 همه", callback_data: "log_refresh" }
+            ],[
+              { text: "📥 دانلود فایل", callback_data: "log_download" },
+              { text: "🗑️ پاکسازی", callback_data: "log_clear" }
+            ],[
+              { text: "❌ بستن", callback_data: "admin_close" }
+            ]
+          ]
+        };
+
+        await answerCallbackQuery(cb.id, "✅ لاگ‌ها بروز شدند", false);
+        await editMessageText(chat.id, cb.message!.message_id, text, {
+          reply_markup: JSON.stringify(validateKeyboard(keyboard))
+        });
+        return;
+      }
+    }
+
+    if (data.startsWith('admin_block_')) {
+      if (user.id !== config.BOT_OWNER_ID) {
+        await answerCallbackQuery(cb.id, "🚫 دسترسی محدود", true);
+        return;
+      }
+
+      const targetUserId = parseInt(data.replace('admin_block_', ''));
+  
+      // چک کردن وضعیت فعلی
+      const isCurrentlyBlocked = await isUserBlocked(targetUserId, env);
+  
+      if (isCurrentlyBlocked) {
+        // Unblock
+        await setUserBlocked(targetUserId, false, env);
+        await answerCallbackQuery(cb.id, "✅ مسدودیت برداشته شد", false);
+    
+        try {
+          await sendMessage(targetUserId, 
+            `✅ **رفع مسدودیت**\n\nحساب شما آزاد شد! می‌تونید دوباره از ربات استفاده کنید. 🎉`
+          );
+        } catch (e) {
+          logger.warn(`Could not notify user ${targetUserId} about unblock`);
+        }
+      } else {
+        // Block
+        await setUserBlocked(targetUserId, true, env);
+        await answerCallbackQuery(cb.id, "🚫 کاربر مسدود شد", false);
+    
+        try {
+          await sendMessage(targetUserId, 
+            `🚫 **مسدودیت**\n\nحساب شما توسط مدیر مسدود شد.\n\n📞 برای رفع مسدودیت با @Hacker1382 تماس بگیرید.`
+          );
+        } catch (e) {
+          logger.warn(`Could not notify user ${targetUserId} about block`);
+        }
+      }
+  
+      await showUserDetail(chat.id, cb.message.message_id, targetUserId, env);
+      return;
+    }
+    
+    if (!session) {
+      session = await getOrCreateSession(chat, user, env);
+    }
+    
+    // بررسی دسترسی برای تنظیمات در گروه
+    const isGroup = chat.type === "group" || chat.type === "supergroup";
+    const isSettingsAction = [
+      'set_model_', 'model_settings', 'active_model_settings', 'custom_prompt_menu',
+      'reset_prompt_', 'group_settings', 'group_mode_', 'toggle_typing', 'show_prompts',
+      'bot_status', 'open_help', 'close_help', 'show_model_list_', 'select_model_',
+      'model_page_', 'refresh_models_', 'sambanova_model_', 'pollinations_model_' 
+    ].some(prefix => data.startsWith(prefix));
+
+    if (isGroup && isSettingsAction) {
+      const isOwnerOrAdmin = user.id === config.BOT_OWNER_ID || await isUserAdmin(user.id, chat.id);
+  
+      if (!isOwnerOrAdmin) {
+        await answerCallbackQuery(cb.id, "🚫 فقط مالک گروه و ادمین‌ها می‌توانند تنظیمات را تغییر دهند", true);
+        return;
+      }
+    }
+
+    // Handle different callback types
+    switch (data) {
+      case 'set_model_gemini':
+        await handleModelSwitch(session, 'gemini', cb, env);
+        break;
+      case 'set_model_sambanova':
+        await handleModelSwitch(session, 'sambanova', cb, env);
+        break;
+      case 'set_model_pollinations':
+        await handleModelSwitch(session, 'pollinations', cb, env);
+        break;
+      
+      case 'model_settings':
+        await answerCallbackQuery(cb.id);
+        await updateModelSelection(chat.id, cb.message.message_id, session);
+        break;
+
+      case 'resetfactory_confirm':
+        if (user.id !== config.BOT_OWNER_ID) {
+          await answerCallbackQuery(cb.id, "🚫 دسترسی محدود", true);
+          return;
+        }
+        await answerCallbackQuery(cb.id, "🔄 در حال ریست کامل دیتابیس...", false);
+  
+        try {
+          // 1. حذف تمام سشن‌ها
+          let cursor: string | undefined;
+          do {
+            const list = await env.SESSIONS.list({ prefix: "session:", cursor });
+            for (const key of list.keys) {
+              await env.SESSIONS.delete(key.name);
+            }
+            cursor = list.cursor;
+          } while (cursor);
+    
+          // 2. حذف کش مدل‌ها
+          cursor = undefined;
+          do {
+            const list = await env.SESSIONS.list({ prefix: "model_cache:", cursor });
+            for (const key of list.keys) {
+              await env.SESSIONS.delete(key.name);
+            }
+            cursor = list.cursor;
+          } while (cursor);
+    
+          // 3. حذف گروه‌های VIP
+          cursor = undefined;
+          do {
+            const list = await env.SESSIONS.list({ prefix: "group_vip:", cursor });
+            for (const key of list.keys) {
+              await env.SESSIONS.delete(key.name);
+            }
+            cursor = list.cursor;
+          } while (cursor);
+    
+          // 4. حذف کاربران مسدود شده توسط ادمین
+          cursor = undefined;
+          do {
+            const list = await env.SESSIONS.list({ prefix: "user_blocked:", cursor });
+            for (const key of list.keys) {
+              await env.SESSIONS.delete(key.name);
+            }
+            cursor = list.cursor;
+          } while (cursor);
+    
+          // 5. حذف بن‌های گروهی
+          cursor = undefined;
+          do {
+            const list = await env.SESSIONS.list({ prefix: "banned:", cursor });
+            for (const key of list.keys) {
+              await env.SESSIONS.delete(key.name);
+            }
+            cursor = list.cursor;
+          } while (cursor);
+    
+          // 6. حذف کلیدهای ویژه
+          await env.SESSIONS.delete("disabled_api_keys");
+          await env.SESSIONS.delete("broadcast_job:current");
+          await env.SESSIONS.delete("maintenance_mode");
+          await env.SESSIONS.delete("bot_start_time");
+    
+          // 7. پاکسازی کش‌های حافظه‌ای
+          sessionCache.clear();
+          userCache.clear();
+          modelCache.clear();
+          groupContextCache.clear();
+          activeRequests.clear();
+          callbackRateLimits.clear();
+          adminPanelStates.clear();
+          modelListStates.clear();
+          broadcastStates.clear();
+          sessionLoadLocks.clear();
+          userBuckets.clear();
+    
+          // 8. تنظیم مجدد متغیرهای سراسری
+          globalDisabledKeys = {};
+          lastDisabledKeysFetch = 0;
+          pollinationsModelsInitialized = false;
+    
+          // 9. ریستارت implicit (با بیلد مجدد config)
+          logger.info("Factory reset completed. Bot will reinitialize on next request.");
+    
+          await editMessageText(chat.id, cb.message!.message_id,
+            "✅ **ریست فکتوری با موفقیت انجام شد!**\n\n" +
+            "ربات به حالت اولیه بازگشت. لطفاً برای فعال‌سازی مجدد، دستور /start را ارسال کنید."
+          );
+    
+        } catch (error) {
+          logger.error("Factory reset failed", error);
+          await editMessageText(chat.id, cb.message!.message_id,
+            "❌ **خطا در ریست فکتوری**\n\n" + (error instanceof Error ? error.message : "خطای ناشناخته")
+          );
+        }
+        break;
+
+      case 'resetfactory_cancel':
+        if (user.id !== config.BOT_OWNER_ID) {
+          await answerCallbackQuery(cb.id, "🚫 دسترسی محدود", true);
+          return;
+        }
+        await answerCallbackQuery(cb.id, "عملیات لغو شد", false);
+        await deleteMessage(chat.id, cb.message!.message_id);
+        break;
+        
+      case 'active_model_settings':
+        await answerCallbackQuery(cb.id);
+        await sendActiveModelSettings(chat.id, cb.message.message_id, session, env);
+        break;
+
+      case 'admin_show_blocked':
+        if (user.id !== config.BOT_OWNER_ID) {
+          await answerCallbackQuery(cb.id, "🚫 دسترسی محدود", true);
+          return;
+        }
+  
+        await answerCallbackQuery(cb.id);
+  
+        const blockedUsers = await getBlockedUsers(env);
+  
+        let blockedText = `🚫 **کاربران مسدود (${blockedUsers.length})**\n\n`;
+  
+        if (blockedUsers.length === 0) {
+          blockedText += `هیچ کاربری مسدود نشده است.`;
+        } else {
+          for (const blocked of blockedUsers.slice(0, 20)) {
+            const sinceDate = new Date(blocked.since).toLocaleDateString('fa-IR', {
+              month: 'short',
+              day: 'numeric'
+            });
+      
+            blockedText += `🆔 \`${blocked.userId}\`\n`;
+            blockedText += `📅 از: ${sinceDate}\n`;
+            blockedText += `📝 دلیل: ${blocked.reason}\n\n`;
+          }
+    
+          if (blockedUsers.length > 20) {
+            blockedText += `➕ ... و ${blockedUsers.length - 20} کاربر دیگر`;
+          }
+        }
+  
+        await editMessageText(chat.id, cb.message.message_id, blockedText, {
+          reply_markup: JSON.stringify({
+            inline_keyboard: [
+              [{ text: "🔙 بازگشت", callback_data: "admin_back_to_main" }]
+            ]
+          })
+        });
+        break;
+        
+      case 'admin_broadcast':
+        await handleBroadcastCallback(cb, env);
+        break;
+        
+      case 'broadcast_all':
+      case 'broadcast_vip':
+      case 'broadcast_free':
+        if (user.id !== config.BOT_OWNER_ID) {
+          await answerCallbackQuery(cb.id, "🚫 دسترسی محدود", true);
+          return;
+        }
+  
+        const mode = data.replace('broadcast_', '') as 'all' | 'vip' | 'free';
+        broadcastStates.set(chat.id, { mode });
+  
+        await answerCallbackQuery(cb.id);
+        await editMessageText(chat.id, cb.message.message_id, 
+          `📝 **ارسال پیام به ${mode === 'all' ? 'همه' : mode === 'vip' ? 'VIP ها' : 'رایگان‌ها'}**\n\nپیام خود را بفرستید:\n\n⚠️ برای لغو \`/cancel\` بفرستید.`
+        );
+        break;
+        
+      case 'admin_toggle_maintenance':
+          if (user.id !== config.BOT_OWNER_ID) {
+            await answerCallbackQuery(cb.id, "🚫 دسترسی محدود", true);
+            return;
+          }
+  
+          // 1. وضعیت جدید را تعیین کنید (بر اساس وضعیت فعلی در KV - برای اطمینان از همگام‌سازی)
+          const currentKvMode = await env.SESSIONS.get("maintenance_mode", "text");
+          const isCurrentlyInMaintenance = currentKvMode === "true";
+          const newMode = !isCurrentlyInMaintenance;
+    
+          // 2. وضعیت جدید را در KV ذخیره کنید
+          await env.SESSIONS.put("maintenance_mode", String(newMode));
+    
+          // 3. متغیر سراسری config را در این Worker و درخواست‌های بعدی به‌روز کنید
+          config.MAINTENANCE_MODE = newMode;
+          maintenanceModeCache = { value: newMode, timestamp: Date.now() };
+
+          const statusMsg = newMode ? '🛠️ حالت تعمیرات **فعال** شد' : '✅ حالت تعمیرات **غیرفعال** شد';
+          await answerCallbackQuery(cb.id, statusMsg, false);
+        
+          await updateAdminPanel(chat.id, cb.message.message_id, env);
+          break;
+        
+      case 'group_settings':
+        await answerCallbackQuery(cb.id);
+        await updateGroupSettings(chat.id, cb.message.message_id, session);
+        break;
+
+      case 'custom_prompt_menu':
+        await answerCallbackQuery(cb.id);
+        await updatePromptMenu(chat.id, cb.message.message_id, session);
+        break;
+
+      case 'toggle_typing':
+        session.settings.typingIndicator = !session.settings.typingIndicator;
+        await saveSessionWithLock(session, env);
+        await answerCallbackQuery(cb.id, `نشانگر تایپ: ${session.settings.typingIndicator ? 'فعال' : 'غیرفعال'}`, false);
+        await updateGroupSettings(chat.id, cb.message.message_id, session);
+        break;
+
+      case 'admin_refresh':
+        if (user.id !== config.BOT_OWNER_ID) {
+          await answerCallbackQuery(cb.id, "🚫 دسترسی محدود", true);
+          return;
+        }
+        await answerCallbackQuery(cb.id, "🔄 در حال بروزرسانی...", false);
+        try {
+          // ✅ مجبور به refresh کش
+          sessionCache.clear();
+    
+          // ✅ بارگذاری مجدد
+          await updateAdminPanel(chat.id, cb.message.message_id, env);
+    
+        } catch (error) {
+          logger.error("Admin refresh failed", error);
+          await answerCallbackQuery(cb.id, "❌ خطا در بروزرسانی", true);
+        }
+        break;
+
+      case 'admin_back_to_main':
+        if (user.id !== config.BOT_OWNER_ID) {
+        await answerCallbackQuery(cb.id, "🚫 دسترسی محدود", true);
+        return;
+       }
+  
+       await answerCallbackQuery(cb.id);
+       await updateAdminPanel(chat.id, cb.message!.message_id, env);
+       break;
+
+      case 'open_admin':
+        if (user.id !== config.BOT_OWNER_ID) {
+          await answerCallbackQuery(cb.id, "🚫 دسترسی محدود", true);
+          return;
+        }
+  
+        await answerCallbackQuery(cb.id, "⏳ در حال بارگذاری...", false);
+  
+        adminPanelStates.set(chat.id, {
+          page: 0,
+          perPage: 5,
+          sortBy: 'new'
+        });
+  
+        await updateAdminPanel(chat.id, cb.message!.message_id, env);
+        break;
+      
+      case 'admin_export_csv':
+        if (user.id !== config.BOT_OWNER_ID) {
+          await answerCallbackQuery(cb.id, "🚫 دسترسی محدود", true);
+          return;
+        }
+        
+        await answerCallbackQuery(cb.id, "📊 در حال آماده‌سازی CSV...", false);
+        try {
+          const users = await getAllUserStatistics(env);
+          
+          let csv = "User ID,First Name,Username,VIP Status,Total Messages,Gemini,SambaNova,Pollinations,Voices,Voices Sent,Daily Messages,Daily Voices,First Used,Last Seen\n";
+          
+          users.forEach(u => {
+            // Helper function برای تبدیل timestamp به ISO string
+            const toISOStringSafe = (timestamp: number | undefined): string => {
+              if (!timestamp || isNaN(timestamp) || timestamp === 0) {
+                return 'N/A';
+              }
+              try {
+                return new Date(timestamp).toISOString();
+              } catch {
+                return 'N/A';
+              }
+            };
+            
+            csv += `${u.userId},`;
+            csv += `"${u.firstName.replace(/"/g, '""')}",`; // Escape double quotes
+            csv += `"${(u.userName || 'N/A').replace(/"/g, '""')}",`;
+            csv += `${u.vipStatus ? 'VIP' : 'Free'},`;
+            csv += `${u.statistics.totalMessages || 0},`;
+            csv += `${u.statistics.geminiMessages || 0},`;
+            csv += `${u.statistics.sambanovaMessages || 0},`;
+            csv += `${u.statistics.pollinationsMessages || 0},`;
+            csv += `${u.statistics.voicesReceived || 0},`;
+            csv += `${u.dailyLimits.voicesSent || 0},`;
+            csv += `${u.dailyLimits.messages || 0},`;
+            csv += `${u.dailyLimits.voicesSent || 0},`;
+            csv += `"${toISOStringSafe(u.statistics.firstUsed)}",`;
+            csv += `"${toISOStringSafe(u.statistics.lastSeen)}"\n`;
+          });
+          
+          // ارسال فایل CSV
+          const blob = new Blob([csv], { type: "text/csv; charset=utf-8" });
+          const formData = new FormData();
+          formData.append("chat_id", chat.id.toString());
+          formData.append("document", blob, "nova_bot_statistics.csv");
+          formData.append("caption", "📊 آمار کامل کاربران");
+          
+          await fetchWithTimeout(`${API_URL}/sendDocument`, {
+            method: "POST",
+            body: formData
+          });
+          
+          await answerCallbackQuery(cb.id, "✅ فایل CSV ارسال شد", false);
+          
+        } catch (error) {
+          logger.error("CSV export failed", error);
+          await answerCallbackQuery(cb.id, "❌ خطا در صادرات", true);
+        }
+        break;
+
+      case 'db_auto_clean':
+        if (user.id !== config.BOT_OWNER_ID) {
+          await answerCallbackQuery(cb.id, "🚫 دسترسی محدود", true);
+          return;
+        }
+  
+        await answerCallbackQuery(cb.id, "🧹 در حال پاکسازی...", false);
+        await cleanupSessions(env);
+        await sendDatabaseStats(chat.id, cb.message!.message_id, env);
+        break;
+
+      case 'db_delete_old':
+        if (user.id !== config.BOT_OWNER_ID) {
+          await answerCallbackQuery(cb.id, "🚫 دسترسی محدود", true);
+          return;
+        }
+  
+        await answerCallbackQuery(cb.id);
+        await editMessageText(chat.id, cb.message!.message_id,
+          `⚠️ **حذف سشن‌های قدیمی**\n\nآیا می‌خواهید تمام سشن‌های غیرفعال بیش از 30 روز حذف شوند؟\n\n⚠️ این عمل غیرقابل بازگشت است!`,
+          {
+            reply_markup: JSON.stringify({
+              inline_keyboard: [
+                [
+                  { text: "✅ بله، حذف شوند", callback_data: "db_confirm_delete_old" },
+                  { text: "❌ لغو", callback_data: "db_refresh_stats" }
+                ]
+              ]
+            })
+          }
+        );
+        break;
+
+      case 'db_confirm_delete_old':
+        if (user.id !== config.BOT_OWNER_ID) {
+          await answerCallbackQuery(cb.id, "🚫 دسترسی محدود", true);
+          return;
+        }
+  
+        await answerCallbackQuery(cb.id, "🗑️ در حال حذف...", false);
+  
+        try {
+          const now = Date.now();
+          const thirtyDaysAgo = now - (30 * 24 * 60 * 60 * 1000);
+          let deleted = 0;
+    
+          // ✅ سیستم Pagination جدید
+          let allKeys: any[] = [];
+          let listResult = await env.SESSIONS.list({ prefix: "session:" });
+          allKeys.push(...listResult.keys);
+          while (!listResult.list_complete && listResult.cursor) {
+            listResult = await env.SESSIONS.list({ prefix: "session:", cursor: listResult.cursor });
+            allKeys.push(...listResult.keys);
+          }
+
+          for (const item of allKeys) {
+            try {
+              const stored = await env.SESSIONS.get(item.name, "json");
+              if (!stored) continue;
+    
+              const session = stored as ChatSession;
+              if (session.lastSeen < thirtyDaysAgo) {
+                await env.SESSIONS.delete(item.name);
+                deleted++;
+              }
+            } catch (error) {}
+          }
+    
+          await editMessageText(chat.id, cb.message!.message_id,
+            `✅ حذف انجام شد!\n\n🗑️ ${deleted} سشن حذف شد.\n\n📊 برای مشاهده آمار جدید /dbstats بزنید`
+          );
+        } catch (error) {
+          await editMessageText(chat.id, cb.message!.message_id, "❌ خطا در حذف");
+        }
+        break;
+
+      case 'db_refresh_stats':
+        if (user.id !== config.BOT_OWNER_ID) {
+          await answerCallbackQuery(cb.id, "🚫 دسترسی محدود", true);
+          return;
+        }
+  
+        await answerCallbackQuery(cb.id, "🔄 در حال بروزرسانی...", false);
+        await sendDatabaseStats(chat.id, cb.message!.message_id, env);
+        break;
+
+      case 'db_cancel_delete':
+        await answerCallbackQuery(cb.id, "لغو شد", false);
+        await deleteMessage(chat.id, cb.message!.message_id);
+        break;
+      case 'admin_page_prev':
+        if (user.id !== config.BOT_OWNER_ID) {
+          await answerCallbackQuery(cb.id, "🚫 دسترسی محدود", true);
+          return;
+        }
+        const prevState = adminPanelStates.get(chat.id) || { page: 0, perPage: 5, sortBy: 'new' as const };
+        prevState.page = Math.max(0, prevState.page - 1);
+        adminPanelStates.set(chat.id, prevState);
+        await answerCallbackQuery(cb.id);
+        await updateAdminPanel(chat.id, cb.message.message_id, env);
+        break;
+
+      case 'admin_page_next':
+          if (user.id !== config.BOT_OWNER_ID) {
+            await answerCallbackQuery(cb.id, "🚫 دسترسی محدود", true);
+            return;
+          }
+          const nextState = adminPanelStates.get(chat.id) || { page: 0, perPage: 5, sortBy: 'new' as const };
+          const allUsers2 = await getAllUserStatistics(env);
+          const maxPage = Math.ceil(allUsers2.length / nextState.perPage) - 1;
+          nextState.page = Math.min(maxPage, nextState.page + 1);
+          adminPanelStates.set(chat.id, nextState);
+          await answerCallbackQuery(cb.id);
+          await updateAdminPanel(chat.id, cb.message.message_id, env);
+          break;
+
+      case 'admin_sort_new':
+      case 'admin_sort_active':
+      case 'admin_sort_messages':
+          if (user.id !== config.BOT_OWNER_ID) {
+            await answerCallbackQuery(cb.id, "🚫 دسترسی محدود", true);
+            return;
+          }
+          const sortState = adminPanelStates.get(chat.id) || { page: 0, perPage: 5, sortBy: 'new' as const };
+          sortState.sortBy = data.replace('admin_sort_', '') as 'new' | 'active' | 'messages';
+          sortState.page = 0; // Reset to first page
+          adminPanelStates.set(chat.id, sortState);
+          await answerCallbackQuery(cb.id, `✅ مرتب‌سازی تغییر کرد`, false);
+          await updateAdminPanel(chat.id, cb.message.message_id, env);
+          break;
+
+      case 'admin_noop':
+          await answerCallbackQuery(cb.id);
+          break;
+      case 'admin_close':
+        if (user.id !== config.BOT_OWNER_ID) {
+          await answerCallbackQuery(cb.id, "🚫 دسترسی محدود", true);
+          return;
+        }
+        
+        await answerCallbackQuery(cb.id);
+        await deleteMessage(chat.id, cb.message.message_id);
+        break;
+      case 'admin_group_vip':
+        if (user.id !== config.BOT_OWNER_ID) {
+          await answerCallbackQuery(cb.id, "🚫 دسترسی محدود", true);
+          return;
+        }
+        
+        await answerCallbackQuery(cb.id);
+        await showGroupVIPPanel(chat.id, cb.message.message_id, env);
+        break;
+        
+      case 'model_already_selected':
+        await answerCallbackQuery(cb.id, "✅ این مدل الان فعاله", false);
+        break;
+        
+      case 'help_chat':
+        await showHelpChat(cb, env);
+        break;
+      case 'help_images':
+        await showHelpImages(cb, env);
+        break;
+      case 'help_models':
+        await showHelpModels(cb, env);
+        break;
+      case 'help_customize':
+        await showHelpCustomize(cb, env);
+        break;
+      case 'help_commands':
+        await showHelpCommands(cb, env);
+        break;
+      case 'help_settings':
+        await showHelpSettings(cb, env);
+        break;
+      case 'help_back':
+        await handleHelpCommand(cb.message!, env, cb.message!.message_id);
+        break;
+      case 'broadcast_status': {
+        if (user.id !== config.BOT_OWNER_ID) {
+          await answerCallbackQuery(cb.id, "🚫 دسترسی محدود", true);
+          return;
+        }
+        const jobData = await env.SESSIONS.get('broadcast_job:current', 'json') as BroadcastJob | null;
+        if (!jobData) {
+          await answerCallbackQuery(cb.id, "❌ هیچ job فعالی وجود ندارد", true);
+          return;
+        }
+        const pct = Math.round((jobData.processedIndex / jobData.totalUsers) * 100);
+        const stMap: Record<string, string> = { pending: '⏳ در صف', running: '🔄 در حال اجرا', done: '✅ تکمیل', error: '❌ خطا' };
+        await answerCallbackQuery(cb.id, `${stMap[jobData.status]} | ${jobData.processedIndex}/${jobData.totalUsers} (${pct}%)`, false);
+        break;
+      }
+
+      case 'broadcast_cancel': {
+        if (user.id !== config.BOT_OWNER_ID) {
+          await answerCallbackQuery(cb.id, "🚫 دسترسی محدود", true);
+          return;
+        }
+        await env.SESSIONS.delete('broadcast_job:current').catch(() => {});
+        await answerCallbackQuery(cb.id, "🛑 ارسال لغو شد", false);
+        await editMessageText(chat.id, cb.message!.message_id,
+          "🛑 **ارسال پیام لغو شد**\n\nبرای ارسال مجدد از /admin استفاده کن."
+        ).catch(() => {});
+        break;
+      }
+
+      case 'broadcast_close': {
+        if (user.id !== config.BOT_OWNER_ID) {
+          await answerCallbackQuery(cb.id, "🚫 دسترسی محدود", true);
+          return;
+        }
+        await answerCallbackQuery(cb.id);
+        await deleteMessage(chat.id, cb.message!.message_id).catch(() => {});
+        break;
+      }
+      default:
+        if (data.startsWith('admin_user_')) {
+          if (user.id !== config.BOT_OWNER_ID) {
+            await answerCallbackQuery(cb.id, "🚫 دسترسی محدود", true);
+            return;
+          }
+        
+          // ✅ Validation
+          const rawId = data.replace('admin_user_', '');
+          if (!/^\d+$/.test(rawId)) {
+            await answerCallbackQuery(cb.id, "❌ شناسه نامعتبر", true);
+            return;
+          }
+        
+          const targetUserId = parseInt(rawId);
+          await answerCallbackQuery(cb.id);
+          await showUserDetail(chat.id, cb.message.message_id, targetUserId, env);
+          break;
+        }
+        
+       if (data.startsWith('admin_toggle_vip_')) {
+         if (user.id !== config.BOT_OWNER_ID) {
+           await answerCallbackQuery(cb.id, "🚫 دسترسی محدود", true);
+           return;
+         }
+
+         const targetUserId = parseInt(data.replace('admin_toggle_vip_', ''));
+         const sessionKey = `session:${targetUserId}`;
+         const stored = await env.SESSIONS.get(sessionKey, "json");
+
+         if (!stored) {
+           await answerCallbackQuery(cb.id, "❌ کاربر یافت نشد", true);
+           return;
+         }
+
+         const userSession = stored as ChatSession;
+         userSession.vipStatus = !userSession.vipStatus;
+         await env.SESSIONS.put(sessionKey, JSON.stringify(userSession));
+
+         await answerCallbackQuery(cb.id, userSession.vipStatus ? "✅ VIP فعال شد" : "❌ VIP حذف شد", false);
+
+         try {
+           if (userSession.vipStatus) {
+             await sendMessage(targetUserId, 
+               `🎉 **تبریک!**\n\nاکانت شما به VIP ارتقا یافت! 👑\n\nاز تمام امکانات بدون محدودیت استفاده کنید! 🚀`
+             );
+           } else {
+             await sendMessage(targetUserId, 
+               `📢 **اطلاعیه**\n\nVIP شما غیرفعال شد.\n\n👑 برای تمدید با @Hacker1382 تماس بگیرید.`
+             );
+           }
+         } catch (e) {
+           logger.warn(`Could not notify user ${targetUserId}`);
+         }
+   
+         await showUserDetail(chat.id, cb.message.message_id, targetUserId, env);
+         break;
+       }
+       if (data.startsWith('admin_msg_')) {
+         if (user.id !== config.BOT_OWNER_ID) {
+           await answerCallbackQuery(cb.id, "🚫 دسترسی محدود", true);
+           return;
+         }
+  
+         const targetUserId = parseInt(data.replace('admin_msg_', ''));
+         const allUsers = await getAllUserStatistics(env);
+         const targetUser = allUsers.find(u => u.userId === targetUserId);
+  
+         if (!targetUser) {
+           await answerCallbackQuery(cb.id, "❌ کاربر یافت نشد", true);
+           return;
+         }
+  
+         broadcastStates.set(chat.id, { mode: 'specific', userId: targetUserId });
+  
+         await answerCallbackQuery(cb.id);
+         await editMessageText(chat.id, cb.message.message_id, 
+           `📨 **ارسال پیام خصوصی**\n\n🎯 گیرنده: ${targetUser.firstName} (@${targetUser.userName})\n🆔 آیدی: \`${targetUserId}\`\n\nپیام خود را بفرستید:\n\n⚠️ برای لغو \`/cancel\` بفرستید.`
+         );
+         break;
+       }
+        
+       if (data.startsWith('db_confirm_delete_')) {
+         if (user.id !== config.BOT_OWNER_ID) {
+           await answerCallbackQuery(cb.id, "🚫 دسترسی محدود", true);
+           return;
+         }
+  
+         const targetUserId = parseInt(data.replace('db_confirm_delete_', ''));
+  
+         try {
+           await env.SESSIONS.delete(`session:${targetUserId}`); // String key ✅
+           await answerCallbackQuery(cb.id, "✅ سشن حذف شد", false);
+           await editMessageText(chat.id, cb.message!.message_id,
+             `✅ **حذف موفق**\n\nسشن کاربر \`${targetUserId}\` حذف شد.`
+           );
+         } catch (error) {
+           await answerCallbackQuery(cb.id, "❌ خطا در حذف", true);
+         }
+         break;
+       }
+        
+        if (data.startsWith('sambanova_model_')) {
+          const modelIndex = parseInt(data.replace('sambanova_model_', ''));
+          session.engines.sambanova.modelIndex = modelIndex;
+          await saveSessionWithLock(session, env,true);
+          await answerCallbackQuery(cb.id, `✅ مدل لونا تغییر کرد`, false);
+          await sendActiveModelSettings(chat.id, cb.message.message_id, session, env); // ✅ اصلاح فراخوانی
+        } else if (data.startsWith('pollinations_model_')) {
+          const modelIndex = parseInt(data.replace('pollinations_model_', ''));
+          session.engines.pollinations.modelIndex = modelIndex;
+          await saveSessionWithLock(session, env,true);
+          await answerCallbackQuery(cb.id, `✅ مدل زارا تغییر کرد`, false);
+          await sendActiveModelSettings(chat.id, cb.message.message_id, session, env); // ✅ اصلاح فراخوانی
+        } else if (data.startsWith('show_model_list_')) {
+          const engine = data.replace('show_model_list_', '') as AIEngine;
+          await answerCallbackQuery(cb.id);
+          setModelListState(chat.id, engine, { page: 0, perPage: 8, totalPages: 0 });
+          await showModelSelection(chat.id, cb.message.message_id, engine, false, env);
+          break;
+        } else if (data.startsWith('refresh_models_')) {
+          const engine = data.replace('refresh_models_', '') as AIEngine;
+          await answerCallbackQuery(cb.id, '🔄 در حال بروزرسانی...', false);
+          const cacheKey = `model_cache:${engine}`;
+          await env.SESSIONS.delete(cacheKey);
+          logger.info(`🗑️ Deleted old cache for ${engine}`);
+          setModelListState(chat.id, engine, { page: 0, perPage: 8, totalPages: 0 });
+          await showModelSelection(chat.id, cb.message.message_id, engine, true, env);
+          break;
+        } else if (data.startsWith('model_page_prev_')) {
+          const engine = data.replace('model_page_prev_', '') as AIEngine;
+          const state = getModelListState(chat.id, engine);
+          state.page = Math.max(0, state.page - 1);
+          setModelListState(chat.id, engine, state);
+          await answerCallbackQuery(cb.id);
+          await showModelSelection(chat.id, cb.message.message_id, engine, false, env);
+          break;
+        } else if (data.startsWith('model_page_next_')) {
+          const engine = data.replace('model_page_next_', '') as AIEngine;
+          const state = getModelListState(chat.id, engine);
+          state.page++;
+          setModelListState(chat.id, engine, state);
+          await answerCallbackQuery(cb.id);
+          await showModelSelection(chat.id, cb.message.message_id, engine, false, env);
+          break;
+        } else if (data === 'model_page_noop') {
+          await answerCallbackQuery(cb.id);
+          break;
+        } else if (data.startsWith('select_model_')) {
+          const parts = data.replace('select_model_', '').split('_');
+          const engine = parts[0] as AIEngine;
+          const modelIndex = parseInt(parts[1]);
+          if (isNaN(modelIndex)) {
+            await answerCallbackQuery(cb.id, "❌ خطا در انتخاب", true);
+            return;
+          }
+          if (session.engines[engine].modelIndex === modelIndex) {
+            await answerCallbackQuery(cb.id, "✅ این مدل الان فعاله", false);
+            return;
+          }
+          session.engines[engine].modelIndex = modelIndex;
+          await saveSessionWithLock(session, env, true);
+          const modelCache = await getModelsWithCache(engine, env, false);
+          const selectedModel = modelCache.models[modelIndex];
+          await answerCallbackQuery(cb.id, `✅ ${selectedModel?.name || 'مدل'} فعال شد`, false);
+          await showModelSelection(chat.id, cb.message.message_id, engine, false, env);
+          break;
+        } else {
+          await handleExistingCallbacks(cb, session, env, config);
+        }
+    }
+    
+  } catch (error) {
+    logger.error("Callback query handling failed", error);
+    await answerCallbackQuery(cb.id, "خطای داخلی", true);
+  }
+}
+
+async function showGroupVIPPanel(chatId: number, messageId: number, env: Env): Promise<void> {
+  try {
+    const list = await env.SESSIONS.list({ prefix: "group_vip:" });
+    
+    let text = `👥 **گروه‌های VIP**\n\n`;
+    text += `تعداد: ${list.keys.length}\n\n`;
+    
+    if (list.keys.length === 0) {
+      text += `هنوز گروهی VIP نشده است.`;
+    } else {
+      for (const item of list.keys) {
+        const groupId = item.name.replace('group_vip:', '');
+        const data = await env.SESSIONS.get(item.name, "json") as any;
+        const since = data?.since ? new Date(data.since).toLocaleDateString('fa-IR') : 'نامشخص';
+        
+        text += `🆔 \`${groupId}\`\n`;
+        text += `📅 از: ${since}\n\n`;
+      }
+    }
+    
+    const keyboard = {
+      inline_keyboard: [
+        [{ text: "🔙 بازگشت", callback_data: "admin_back_to_main" }]
+      ]
+    };
+    
+    await editMessageText(chatId, messageId, text, {
+      reply_markup: JSON.stringify(validateKeyboard(keyboard))
+    });
+    
+  } catch (error) {
+    logger.error("Failed to show group VIP panel", error);
+    await editMessageText(chatId, messageId, "❌ خطا در نمایش گروه‌ها");
+  }
+}
+
+async function handleLogCommand(message: Message, env: Env): Promise<void> {
+  const { chat } = message;
+  
+  if (recentLogs.length === 0) {
+    await sendMessage(chat.id, "📭 هیچ لاگی ثبت نشده", {
+      reply_to_message_id: message.message_id
+    });
+    return;
+  }
+  
+  // گروه‌بندی بر اساس سطح
+  const errors = recentLogs.filter(l => l.level === 'error').slice(-10);
+  const warnings = recentLogs.filter(l => l.level === 'warn').slice(-10);
+  const infos = recentLogs.filter(l => l.level === 'info').slice(-5);
+  
+  let text = `📊 **لاگ‌های اخیر ربات**\n\n`;
+  text += `کل: ${recentLogs.length}/${MAX_LOGS}\n\n`;
+  
+  // خطاها
+  if (errors.length > 0) {
+    text += `🔴 **خطاها (${errors.length}):**\n`;
+    errors.forEach(log => {
+      const time = new Date(log.timestamp).toLocaleTimeString('fa-IR');
+      text += `\`${time}\` - ${log.message.substring(0, 50)}\n`;
+    });
+    text += `\n`;
+  }
+  
+  // هشدارها
+  if (warnings.length > 0) {
+    text += `🟡 **هشدارها (${warnings.length}):**\n`;
+    warnings.forEach(log => {
+      const time = new Date(log.timestamp).toLocaleTimeString('fa-IR');
+      text += `\`${time}\` - ${log.message.substring(0, 50)}\n`;
+    });
+    text += `\n`;
+  }
+  
+  // اطلاعات
+  if (infos.length > 0) {
+    text += `🟢 **اطلاعات (${infos.length}):**\n`;
+    infos.forEach(log => {
+      const time = new Date(log.timestamp).toLocaleTimeString('fa-IR');
+      text += `\`${time}\` - ${log.message.substring(0, 50)}\n`;
+    });
+  }
+  
+  const keyboard = {
+    inline_keyboard: [
+      [
+        { text: "🔴 فقط خطاها", callback_data: "log_errors" },
+        { text: "🟡 فقط هشدارها", callback_data: "log_warnings" }
+      ],
+      [
+        { text: "🗑️ پاکسازی لاگ", callback_data: "log_clear" },
+        { text: "🔄 بروزرسانی", callback_data: "log_refresh" }
+      ],
+      [
+        { text: "📥 دانلود کامل", callback_data: "log_download" }
+      ]
+    ]
+  };
+  
+  await sendMessage(chat.id, text, {
+    reply_to_message_id: message.message_id,
+    reply_markup: JSON.stringify(validateKeyboard(keyboard))
+  });
+}
+
+async function handleExistingCallbacks(cb: CallbackQuery, session: ChatSession, env: Env, config: ReturnType<typeof createConfig>) {
+  const { data } = cb;
+  const chat = cb.message!.chat;
+  
+  switch (data) {
+    case 'model_unavailable':
+      await answerCallbackQuery(cb.id, 'این مدل در حال حاضر در دسترس نیست', true);
+      break;
+      
+  case 'open_help':
+    await answerCallbackQuery(cb.id);
+    await handleHelpCommand(cb.message!, env, cb.message!.message_id); 
+    break;
+      
+    case 'custom_prompt_menu':
+      await answerCallbackQuery(cb.id);
+      await updatePromptMenu(chat.id, cb.message.message_id, session);
+      break;
+
+    case 'reset_prompt_gemini':
+    case 'reset_prompt_sambanova':
+      const engine = data.split('_')[2] as AIEngine;
+      session.customPrompts[engine] = null;
+  
+      const timestamp = Date.now();
+      const currentPrompt = getActivePrompt(session, cb.from.first_name, cb.message!.chat.type === "group" || cb.message!.chat.type === "supergroup");
+  
+      if (engine === 'gemini') {
+        session.engines.gemini.history[0] = {
+          role: "user",
+          parts: [{ text: currentPrompt }],
+          timestamp
+        };
+      } else if (engine === 'sambanova') {
+        session.engines.sambanova.history[0] = {
+          role: "assistant",
+          parts: [{ text: currentPrompt }],
+          timestamp
+        };
+      }
+  
+      await saveSessionWithLock(session, env);
+      await answerCallbackQuery(cb.id, `پرامپت ${getEngineName(engine, session.language)} ریست شد`, false);
+      await updatePromptMenu(chat.id, cb.message!.message_id, session);
+      break;
+
+        case 'reset_prompt_pollinations':
+      session.customPrompts.pollinations = null;
+  
+      const timestamp2 = Date.now();
+      const currentPrompt2 = getActivePrompt(session, cb.from.first_name, cb.message!.chat.type === "group" || cb.message!.chat.type === "supergroup");
+  
+      session.engines.pollinations.history[0] = {
+        role: "assistant",
+        parts: [{ text: currentPrompt2 }],
+        timestamp: timestamp2
+      };
+  
+      await saveSessionWithLock(session, env);
+      await answerCallbackQuery(cb.id, `پرامپت ${getEngineName(engine, session.language)} ریست شد`, false);
+      await updatePromptMenu(chat.id, cb.message!.message_id, session);
+      break;
+      
+    case 'show_prompts':
+      const lang = session.language || 'fa';
+      const txt = TRANSLATIONS[lang];
+      const user = cb.from;
+      
+      const geminiP = session.customPrompts.gemini || txt.prompt_default;
+      const sambaP = session.customPrompts.sambanova || txt.prompt_default;
+      const pollP = session.customPrompts.pollinations || txt.prompt_default;
+
+      let promptMsg = lang === 'fa' ? `📋 **پرامپت‌های تنظیم شده شما:**\n\n` : `📋 **Your Current Prompts:**\n\n`;
+      
+      promptMsg += `🤖 **${getEngineName('gemini', lang)}:**\n\`${geminiP}\`\n\n`;
+      promptMsg += `🎨 **${getEngineName('sambanova', lang)}:**\n\`${sambaP}\`\n\n`;
+      promptMsg += `🔬 **${getEngineName('pollinations', lang)}:**\n\`${pollP}\``;
+
+      await answerCallbackQuery(cb.id);
+      await editMessageText(chat.id, cb.message!.message_id, promptMsg, {
+        reply_markup: JSON.stringify({
+          inline_keyboard: [[
+            { text: txt.btn_back, callback_data: 'custom_prompt_menu' }
+          ]]
+        })
+      });
+      break;
+      
+    case 'close_help':
+      await answerCallbackQuery(cb.id);
+      await deleteMessage(chat.id, cb.message!.message_id);
+      break;
+      
+    default:
+      await answerCallbackQuery(cb.id, "دکمه ناشناخته", true);
+      logger.warn(`Unknown callback data: ${data}`);
+  }
+}
+
+async function updateGroupSettings(chatId: number, messageId: number, session: ChatSession) {
+  const lang = session.language || 'fa';
+  const text = lang === 'fa'
+    ? `👥 **تنظیمات گروه**\n\nربات فقط زمانی پاسخ می‌دهد که:\n• شما او را منشن کنید (@${BOT_INFO?.username} یا کلمه "نوا")\n• یا روی پیامش ریپلای بزنید.\n\n✅ حالت همیشه پاسخ و هوشمند حذف شدند.`
+    : `👥 **Group Settings**\n\nThe bot only replies when:\n• You mention it (@${BOT_INFO?.username} or the word "nova")\n• Or reply to its message.\n\n✅ Always and smart modes removed.`;
+    
+  const keyboard = {
+    inline_keyboard: [
+      [ createInlineButton(lang === 'fa' ? '🔙 بازگشت' : '🔙 Back', 'open_help') ]
+    ]
+  };
+  
+  await editMessageText(chatId, messageId, text, {
+    reply_markup: JSON.stringify(validateKeyboard(keyboard))
+  });
+}
+
+async function sendActiveModelSettings(chatId: number, messageId: number, session: ChatSession, env: Env): Promise<void> {
+  const activeEngine = session.activeEngine;
+  const lang = session.language || 'fa';
+  // @ts-ignore
+  const txt = TRANSLATIONS[lang];
+  const engineName = getEngineName(activeEngine, lang);
+
+  if (activeEngine === 'gemini') {
+    const keysCount = config.GEMINI_KEYS.length;
+
+    const text = `${txt.active_model_title.replace('{name}', engineName)}\n\n` +
+      `${txt.active_model_keys.replace('{count}', String(keysCount))}\n\n` +
+      `${txt.active_model_static_desc.replace('{name}', engineName)}`;
+    
+    const keyboard = {
+      inline_keyboard: [
+        [{ text: txt.btn_back, callback_data: 'model_settings' }]
+      ]
+    };
+    
+    await editMessageText(chatId, messageId, text, {
+      reply_markup: JSON.stringify(validateKeyboard(keyboard))
+    });
+    return;
+  }
+  
+  const engine = session.engines[activeEngine];
+  
+  // ⚡ Skeleton Loader
+  const skeletonText = `${txt.active_model_title.replace('{name}', engineName)}\n\n${txt.loading}`;
+  const skeletonKeyboard = {
+    inline_keyboard: [
+      [{ text: txt.btn_back, callback_data: 'model_settings' }]
+    ]
+  };
+  
+  await editMessageText(chatId, messageId, skeletonText, {
+    reply_markup: JSON.stringify(skeletonKeyboard)
+  });
+  
+  // ⚡ Load Data
+  try {
+    const modelCache = await getModelsWithCache(activeEngine, env, false);
+    const currentModel = modelCache.models[engine.modelIndex];
+    const apiKeyCount = activeEngine === 'sambanova' ? config.SAMBANOVA_KEYS.length :
+                        activeEngine === 'pollinations' ? 1 :
+                        config.GEMINI_KEYS.length;
+    
+    const text = `${txt.active_model_title.replace('{name}', engineName)}\n\n` +
+      `${txt.active_model_current.replace('{name}', currentModel?.name || 'Unknown')}\n` +
+      `${txt.active_model_key_idx.replace('{index}', String(engine.apiKeyIndex + 1)).replace('{total}', String(apiKeyCount))}\n` +
+      `${txt.active_model_count.replace('{count}', String(modelCache.models.length))}\n` +
+      `${txt.active_model_guide}`;
+    
+    const keyboard = {
+      inline_keyboard: [
+        [{ text: txt.btn_select_model, callback_data: `show_model_list_${activeEngine}` }],
+        [{ text: txt.btn_back, callback_data: 'model_settings' }]
+      ]
+    };
+    
+    await editMessageText(chatId, messageId, text, {
+      reply_markup: JSON.stringify(validateKeyboard(keyboard))
+    });
+  } catch (error) {
+    logger.error("Failed to load model settings", error);
+    // استفاده از txt برای خطا
+    await editMessageText(chatId, messageId, 
+      `${txt.err_unknown}\n\n${txt.btn_retry}?`,
+      {
+        reply_markup: JSON.stringify({
+          inline_keyboard: [[
+            { text: txt.btn_retry, callback_data: 'active_model_settings' },
+            { text: txt.btn_back, callback_data: 'model_settings' }
+          ]]
+        })
+      }
+    );
+  }
+}
+
+// --- SECTION: DYNAMIC MODEL SELECTION UI ---
+async function showModelSelection(chatId: number, messageId: number, engine: AIEngine, forceRefresh: boolean = false, env: Env): Promise<void> {
+  try {
+    // 👇 این خط رو اضافه کن (بارگذاری session برای زبان)
+    const sessionKey = `session:${chatId}`;
+    const storedSession = await env.SESSIONS.get(sessionKey, "json") as ChatSession | null;
+    const lang = storedSession?.language || 'fa';
+    const txt = TRANSLATIONS[lang];
+    
+    const state = getModelListState(chatId, engine);
+    const modelCache = await getModelsWithCache(engine, env, forceRefresh);
+    
+    let { models, lastUpdated } = modelCache;
+    
+    if (models.length === 0) {
+      logger.warn(`No models for ${engine}, forcing fallback in UI`);
+      
+      if (engine === 'pollinations') {
+        models = getFallbackPollinationsModels();
+      } else {
+        models = [];
+      }
+      
+      lastUpdated = Date.now();
+      
+      if (models.length === 0) {
+        // 👇 اینجا رو تغییر بده:
+        const engineName = getEngineName(engine, lang);
+        await editMessageText(chatId, messageId, 
+          txt.model_not_found.replace('{name}', engineName),
+          {
+            reply_markup: JSON.stringify({
+              inline_keyboard: [[
+                { text: txt.btn_back, callback_data: 'active_model_settings' }
+              ]]
+            })
+          }
+        );
+        return;
+      }
+    }
+    
+    const sortedModels = models;
+    state.totalPages = Math.ceil(sortedModels.length / state.perPage);
+    const startIdx = state.page * state.perPage;
+    const endIdx = startIdx + state.perPage;
+    const pageModels = sortedModels.slice(startIdx, endIdx);
+    
+    const currentEngineSettings = storedSession?.engines[engine];
+    const currentModelIndex = currentEngineSettings?.modelIndex || 0;
+    const currentModelId = sortedModels[currentModelIndex]?.id || ''; 
+    
+    // 👇 اینجا رو تغییر بده:
+    const lastUpdateTime = new Date(lastUpdated).toLocaleTimeString(lang === 'fa' ? 'fa-IR' : 'en-US', {
+      hour: '2-digit',
+      minute: '2-digit'
+    });
+    
+    const engineName = getEngineName(engine, lang);
+    
+    let text = txt.model_select_title.replace('{name}', engineName) + '\n\n';
+    text += txt.model_total_count.replace('{count}', String(sortedModels.length)) + '\n';
+    text += txt.model_last_update.replace('{time}', lastUpdateTime) + '\n';
+    text += txt.model_page_info
+      .replace('{page}', String(state.page + 1))
+      .replace('{total}', String(state.totalPages)) + '\n\n';
+    
+    // Build keyboard
+    const keyboard: any[] = [];
+    
+    // Model buttons (2 per row)
+    for (let i = 0; i < pageModels.length; i += 2) {
+      const row: any[] = [];
+  
+      for (let j = 0; j < 2 && (i + j) < pageModels.length; j++) {
+        const model = pageModels[i + j];
+    
+        // ✅ Validation
+        if (!model || !model.name || !model.id) {
+          logger.warn(`Invalid model at index ${i + j}, skipping`);
+          continue;
+        }
+    
+        const isCurrent = model.id === currentModelId;
+
+        let label = String(model.name || 'Unknown Model');
+        label = label.length > 20 ? label.substring(0, 17) + '...' : label;
+
+        if (isCurrent) label = `✅ ${label}`;
+
+        const modelIndexInUnsortedList = sortedModels.findIndex(m => m.id === model.id);
+    
+        if (modelIndexInUnsortedList === -1) {
+          logger.warn(`Model ${model.id} not found in sorted list`);
+          continue;
+        }
+    
+        const callbackData = isCurrent ? 
+          'model_already_selected' : 
+          `select_model_${engine}_${modelIndexInUnsortedList}`;
+    
+        row.push(createInlineButton(label, callbackData));
+      }
+  
+      if (row.length > 0) {
+        keyboard.push(row);
+      }
+    }
+    
+    // Navigation row
+    if (state.totalPages > 1) {
+      const navRow: any[] = [];
+      
+      if (state.page > 0) {
+        navRow.push(createInlineButton(txt.btn_prev, `model_page_prev_${engine}`));
+      }
+      
+      navRow.push(createInlineButton(
+        `${state.page + 1}/${state.totalPages}`, 
+        'model_page_noop'
+      ));
+      
+      if (state.page < state.totalPages - 1) {
+        navRow.push(createInlineButton(txt.btn_next, `model_page_next_${engine}`));
+      }
+      
+      keyboard.push(navRow);
+    }
+    
+    // Action buttons - 👇 اینجا رو تغییر بده:
+    keyboard.push([
+      createInlineButton(txt.btn_refresh, `refresh_models_${engine}`)
+    ]);
+    
+    keyboard.push([
+      createInlineButton(txt.btn_back, 'active_model_settings')
+    ]);
+    
+    setModelListState(chatId, engine, state);
+    
+    await editMessageText(chatId, messageId, text, {
+      reply_markup: JSON.stringify({ inline_keyboard: keyboard })
+    });
+    
+  } catch (error) {
+    logger.error("Failed to show model selection", error);
+    // 👇 اینجا هم بارگذاری session
+    const sessionKey = `session:${chatId}`;
+    const storedSession = await env.SESSIONS.get(sessionKey, "json") as ChatSession | null;
+    const lang = storedSession?.language || 'fa';
+    const txt = TRANSLATIONS[lang];
+    
+    await editMessageText(chatId, messageId, 
+      txt.err_unknown,
+      {
+        reply_markup: JSON.stringify({
+          inline_keyboard: [[
+            { text: txt.btn_back, callback_data: 'active_model_settings' }
+          ]]
+        })
+      }
+    );
+  }
+}
+
+// ✅ Helper function برای اطمینان از وجود text در دکمه‌ها
+function createInlineButton(text: string | undefined | null, callback_data: string): { text: string; callback_data: string } {
+  const safeText = String(text || 'Unknown').trim();
+  return {
+    text: safeText || 'Button', // اگر بعد از trim خالی شد
+    callback_data: callback_data
+  };
+}
+
+function validateKeyboard(keyboard: any): any {
+  if (!keyboard || !keyboard.inline_keyboard) return keyboard;
+  
+  keyboard.inline_keyboard = keyboard.inline_keyboard.map((row: any[]) => {
+    return row.filter(btn => {
+      if (!btn || typeof btn !== 'object') return false;
+      if (!btn.text || typeof btn.text !== 'string' || btn.text.trim() === '') {
+        if (btn.callback_data) {
+          logger.warn(`Invalid button detected: text="${btn.text}", callback="${btn.callback_data}"`);
+        }
+        return false;
+      }
+      return true;
+    });
+  }).filter((row: any[]) => row.length > 0);
+  
+  return keyboard;
+}
+
+// --- SECTION: VOICE HANDLING ---
+async function getFileUrl(fileId: string): Promise<string> {
+  const res = await callTelegramAPI("getFile", { file_id: fileId });
+  if (!res.file_path) {
+    throw new Error("file_path not found in response");
+  }
+  return `https://tapi.bale.ai/file/bot${config.TOKEN}/${res.file_path}`;
+}
+
+async function transcribeVoiceWithGemini(audioUrl: string, config: any): Promise<string> {
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), 30000);
+  
+  let lastError: Error | null = null;
+
+  // چرخیدن روی تمام کلیدهای موجود در کانفیگ
+  for (let i = 0; i < config.GEMINI_KEYS.length; i++) {
+    const apiKey = config.GEMINI_KEYS[i];
+    try {
+      const audioResponse = await fetchWithTimeout(audioUrl, {}, 25000);
+      const audioBuffer = await audioResponse.arrayBuffer();
+      const base64Audio = arrayBufferToBase64(audioBuffer);
+      
+      const url = `https://generativelanguage.googleapis.com/v1beta/models/${config.GEMINI_MODEL}:generateContent?key=${apiKey}`;
+      
+      const body = {
+        contents: [{
+          parts: [
+            { text: "Please transcribe this audio to Persian text accurately:" },
+            { inline_data: { mime_type: "audio/ogg", data: base64Audio } }
+          ]
+        }]
+      };
+
+      const res = await fetch(url, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body),
+        signal: controller.signal
+      });
+
+      const data = await res.json();
+
+      if (res.ok && data.candidates?.[0]?.content?.parts?.[0]?.text) {
+        clearTimeout(timeoutId);
+        return data.candidates[0].content.parts[0].text.trim();
+      }
+      
+      if (data.error?.code === 429) {
+        console.warn(`Key ${i + 1} hit quota, trying next key...`);
+        continue; // رفتن به کلید بعدی
+      }
+
+      throw new Error(data.error?.message || "Unknown API error");
+    } catch (error) {
+      lastError = error as Error;
+      if (i === config.GEMINI_KEYS.length - 1) break; // اگر آخرین کلید بود، خارج شو
+    }
+  }
+
+  clearTimeout(timeoutId);
+  throw lastError || new Error("All Gemini keys failed");
+}
+
+// 👇 جایگزین تابع handleUpdate فعلی کنید
+async function handleUpdate(update: Update, env: Env, config: ReturnType<typeof createConfig>): Promise<void> {
+  try {
+    if (Math.random() < 0.01) {
+      const now = Date.now();
+      for (const [chatId, context] of groupContextCache.entries()) {
+        if (now - context.lastCleanup > 60 * 60 * 1000) {
+          groupContextCache.delete(chatId);
+        }
+      }
+    }
+    
+    if (update.callback_query) {
+      await handleCallbackQuery(update.callback_query, env, config);
+    } else if (update.message) {
+      const message = update.message;
+      if (!message.from || message.from.is_bot) return;
+      if (!config.ALLOWED_CHAT_TYPES.includes(message.chat.type)) return;
+
+      if (message.voice) {
+        await handleVoiceMessage(message, env, config);
+        return;
+      }
+      
+      if (message.photo || message.document || message.animation || message.video || message.sticker) {
+          await handleMediaMessage(message, env, config);
+      } else if (message.text) {
+        await handleTextMessage(message, env, config);
+      }
+    }
+  } catch (error) {
+    logger.error("Unhandled error in update processing", error);
+  }
+}
+
+async function getBotUptime(env: Env): Promise<number> {
+  const startTimeStr = await env.SESSIONS.get("bot_start_time", "text");
+  if (!startTimeStr) return 0;
+  
+  const startTime = parseInt(startTimeStr);
+  return Math.floor((Date.now() - startTime) / 1000);
+}
+
+async function preloadModels(env: Env): Promise<void> {
+  const engines: AIEngine[] = ['sambanova', 'pollinations'];
+  
+  await Promise.all(
+    engines.map(async engine => {
+      try {
+        const cache = await getModelsWithCache(engine, env, false);
+        modelCache.set(`models:${engine}`, cache.models, 30 * 60 * 1000);
+        logger.info(`✅ Preloaded ${cache.models.length} models for ${engine}`);
+      } catch (e) {
+        logger.warn(`⚠️ Failed to preload ${engine} models`);
+      }
+    })
+  );
+}
+
+// --- SECTION: INITIALIZATION & ERROR HANDLING ---
+async function initializeBot(env: Env, config: ReturnType<typeof createConfig>): Promise<void> {
+  try {
+    preloadModels(env).catch(e => logger.warn("Preload failed", e));
+
+    let startTime = await env.SESSIONS.get("bot_start_time", "text");
+    
+    if (!startTime) {
+      startTime = String(Date.now());
+      await env.SESSIONS.put("bot_start_time", startTime);
+      logger.info("Bot start time initialized");
+    }
+    
+    // بررسی maintenance mode از KV
+    const maintenanceMode = await env.SESSIONS.get("maintenance_mode", "text");
+    config.MAINTENANCE_MODE = maintenanceMode === "true";
+
+    // Get bot information
+    const [botInfo, sambanovaCache, pollinationsCacheResult] = await Promise.all([
+      callTelegramAPI("getMe", {}),
+      getModelsWithCache("sambanova", env, false).catch(() => ({ 
+        models: [], 
+        engine: 'sambanova' as const, 
+        lastUpdated: Date.now() 
+      })),
+      getModelsWithCache("pollinations", env, false).catch(() => ({ 
+        models: [], 
+        engine: 'pollinations' as const, 
+        lastUpdated: Date.now() 
+      }))
+    ]);
+
+    BOT_INFO = botInfo;
+    
+    logger.info(`✅ Bot: ${BOT_INFO?.first_name} (@${BOT_INFO?.username})`);
+    logger.info(`✅ Models: SambaNova(${sambanovaCache.models.length}), Pollinations(${pollinationsCacheResult.models.length})`);
+        
+    if (pollinationsCacheResult.models.length === 0) {
+      logger.warn("Force using fallback for Pollinations");
+      const fallback = getFallbackPollinationsModels();
+      config.POLLINATIONS_MODELS = fallback.map(m => m.id);
+      logger.info(`Fallback models: ${config.POLLINATIONS_MODELS.join(', ')}`);
+    } else {
+      config.POLLINATIONS_MODELS = pollinationsCacheResult.models.map(m => m.id);
+    }
+    
+    logger.info("Dynamic models fetched successfully.");
+
+    // 🚀 Pre-warm cache همزمان (non-blocking)
+    logger.info("⚡ Warming up model caches...");
+    
+    const warmupPromises = [
+      getModelsWithCache("sambanova", env, false).catch(e => logger.warn("Sambanova cache warmup failed")),
+      getModelsWithCache("pollinations", env, false).catch(e => logger.warn("Pollinations cache warmup failed"))
+    ];
+    
+    logger.info("Skipping setMyCommands (not supported by Bale API)");
+
+    logger.info(`🚀 Nova AI Bot V${BOT_VERSION} is ready!`, {
+      engines: {
+        gemini: { available: config.GEMINI_KEYS.length > 0, keys: config.GEMINI_KEYS.length },
+        sambanova: { available: config.SAMBANOVA_KEYS.length > 0, keys: config.SAMBANOVA_KEYS.length },
+        pollinations: { available: true, models: config.POLLINATIONS_MODELS.length }
+      }
+    });
+    
+  } catch (error) {
+    logger.error("CRITICAL: Bot initialization failed", error);
+    throw error;
+  }
+}
+
+async function createHealthCheckResponse(env: Env): Promise<Response> {
+  const totalActiveRequests = Array.from(activeRequests.values()).reduce((sum, set) => sum + set.size, 0);
+  const uptimeSeconds = await getBotUptime(env); // ✅ تغییر
+  
+  const health = {
+    status: "healthy",
+    timestamp: new Date().toISOString(),
+    version: BOT_VERSION,
+    bot: {
+      name: BOT_INFO?.first_name || "Nova",
+      username: BOT_INFO?.username || "unknown"
+    },
+    uptime: {
+      seconds: uptimeSeconds,
+      human: `${Math.floor(uptimeSeconds / 3600)}h ${Math.floor((uptimeSeconds % 3600) / 60)}m`
+    },
+    performance: {
+      active_requests: totalActiveRequests,
+      max_concurrent: config.MAX_CONCURRENT_REQUESTS,
+      load_percentage: Math.round((totalActiveRequests / config.MAX_CONCURRENT_REQUESTS) * 100)
+    },
+    engines: {
+      gemini: {
+        available: config.GEMINI_KEYS.length > 0,
+        api_keys: config.GEMINI_KEYS.length,
+        models: config.GEMINI_MODELS.length
+      },
+      sambanova: {
+        available: config.SAMBANOVA_KEYS.length > 0,
+        models: config.SAMBANOVA_MODELS.length
+      },
+      pollinations: {
+        available: true,
+        models: config.POLLINATIONS_MODELS.length,
+        persona: "Zara (زارا) - Diverse model capabilities",
+        api_keys: "hardcoded",
+        endpoint: "https://text.pollinations.ai/chat/completions"
+      }
+    },
+    features: {
+      multimodal: true,
+      image_generation: config.GEMINI_KEYS.length > 0,
+      group_intelligence: true,
+      enhanced_memory: true,
+      personalized_responses: true,
+      context_awareness: true,
+      clean_ui: true,
+      custom_prompts: true,
+      pollinations_integration: 1 > 0,
+    },
+    storage: "cloudflare_kv_enhanced"
+  };
+  
+  return new Response(JSON.stringify(health, null, 2), {
+    headers: { "Content-Type": "application/json" },
+    status: totalActiveRequests > config.MAX_CONCURRENT_REQUESTS ? 503 : 200
+  });
+}
+
+// ✅ تابع ست کردن VIP گروه
+async function setGroupVIP(chatId: number, isVip: boolean, env: Env): Promise<void> {
+  const key = `group_vip:${chatId}`;
+  const data = {
+    vipStatus: isVip,
+    since: Date.now()
+  };
+  
+  try {
+    await env.SESSIONS.put(key, JSON.stringify(data));
+    logger.info(`Group ${chatId} VIP status: ${isVip}`);
+  } catch (error) {
+    logger.error(`Failed to set group VIP for ${chatId}`, error);
+  }
+}
+
+// ✅ تابع چک کردن VIP گروه
+async function isGroupVIP(chatId: number, env: Env): Promise<boolean> {
+  const key = `group_vip:${chatId}`;
+  
+  try {
+    const stored = await env.SESSIONS.get(key, "json");
+    
+    if (!stored) return false;
+    
+    const data = stored as { vipStatus: boolean; since: number };
+    return data.vipStatus || false;
+    
+  } catch (error) {
+    logger.warn(`Failed to check group VIP for ${chatId}`, error);
+    return false;
+  }
+}
+
+async function processBroadcastBatch(env: Env): Promise<void> {
+  const BATCH_SIZE = 20;
+  const DELAY_MS = 200;
+
+  try {
+    const stored = await env.SESSIONS.get('broadcast_job:current', 'json');
+    if (!stored) return;
+
+    const job = stored as BroadcastJob;
+    if (job.status === 'done' || job.status === 'error') return;
+
+    job.status = 'running';
+
+    const startIndex = job.processedIndex;
+    const endIndex = Math.min(startIndex + BATCH_SIZE, job.userIds.length);
+    const batchUsers = job.userIds.slice(startIndex, endIndex);
+
+    logger.info(`📤 Broadcast batch: ${startIndex + 1}-${endIndex} / ${job.totalUsers}`);
+
+    for (const userId of batchUsers) {
+      try {
+        await callTelegramAPI("sendMessage", {
+          chat_id: userId,
+          text: `📢 **پیام از مدیر ربات:**\n\n${job.message}\n\n━━━━━━━━━━━━━━\n_این پیام از طرف مدیریت ارسال شده است_`,
+          parse_mode: "Markdown",
+          disable_notification: false
+        });
+        job.sent++;
+      } catch (error) {
+        job.failed++;
+        const errMsg = error instanceof Error ? error.message.toLowerCase() : '';
+        // فقط خطاهای غیر-block رو لاگ کن
+        if (!errMsg.includes('blocked') && !errMsg.includes('deactivated') && !errMsg.includes('not found') && !errMsg.includes('forbidden')) {
+          logger.warn(`Broadcast unexpected fail to ${userId}: ${errMsg.substring(0, 60)}`);
+        }
+      }
+
+      job.processedIndex++;
+      await new Promise(r => setTimeout(r, DELAY_MS));
+    }
+
+    const isDone = job.processedIndex >= job.totalUsers;
+    job.status = isDone ? 'done' : 'pending';
+    await env.SESSIONS.put('broadcast_job:current', JSON.stringify(job));
+
+    const progressPercent = Math.round((job.processedIndex / job.totalUsers) * 100);
+
+    if (isDone) {
+      await editMessageText(job.adminChatId, job.adminMessageId,
+        `✅ **ارسال پیام تکمیل شد!**\n\n` +
+        `📊 **گزارش نهایی:**\n` +
+        `• ✅ موفق: ${job.sent}\n` +
+        `• ❌ ناموفق: ${job.failed}\n` +
+        `• 👥 کل: ${job.totalUsers}`,
+        {
+          reply_markup: JSON.stringify({
+            inline_keyboard: [[{ text: "🗑️ بستن", callback_data: "broadcast_close" }]]
+          })
+        }
+      ).catch(() => {});
+      
+      logger.info(`✅ Broadcast done: ${job.sent} sent, ${job.failed} failed`);
+    } else {
+      await editMessageText(job.adminChatId, job.adminMessageId,
+        `🔄 **در حال ارسال...**\n\n` +
+        `📊 پیشرفت: ${job.processedIndex}/${job.totalUsers} (${progressPercent}%)\n` +
+        `✅ موفق: ${job.sent} | ❌ ناموفق: ${job.failed}\n` +
+        `⏳ ادامه در ۳۰ ثانیه دیگر...`,
+        {
+          reply_markup: JSON.stringify({
+            inline_keyboard: [[
+              { text: "📊 وضعیت", callback_data: "broadcast_status" },
+              { text: "🛑 لغو", callback_data: "broadcast_cancel" }
+            ]]
+          })
+        }
+      ).catch(() => {});
+    }
+
+  } catch (error) {
+    logger.error("Broadcast batch failed", error);
+    try {
+      const stored = await env.SESSIONS.get('broadcast_job:current', 'json');
+      if (stored) {
+        const job = stored as BroadcastJob;
+        job.status = 'error';
+        await env.SESSIONS.put('broadcast_job:current', JSON.stringify(job));
+        await editMessageText(job.adminChatId, job.adminMessageId,
+          `❌ **خطا در batch ارسال**\n\nارسال شده: ${job.sent}/${job.totalUsers}\nبرای ادامه دوباره از /admin اقدام کن.`
+        ).catch(() => {});
+      }
+    } catch (e) {}
+  }
+}
 
 export default {
-    async fetch(request, env, ctx) {
-        const url = new URL(request.url);
-        const logger = new Logger(env);
-        
-        // Initialize database
-        if (!initialized) {
-            const db = new DatabaseManager(env);
-            await db.initialize();
-            initialized = true;
-            await logger.info('Worker initialized', { version: MEGA_CONFIG.VERSION });
-        }
-        
-        // Webhook endpoint
-        if (url.pathname === '/webhook' && request.method === 'POST') {
-            const update = await request.json();
-            ctx.waitUntil(handleMessage(update, env));
-            return new Response('OK', { status: 200 });
-        }
-        
-        // Status page
-        if (url.pathname === '/' || url.pathname === '/status') {
-            const db = new DatabaseManager(env);
-            const stats = await db.getStats();
-            const cacheStats = globalCache.getStats();
-            
-            return new Response(`
-                <!DOCTYPE html>
-                <html lang="fa" dir="rtl">
-                <head>
-                    <meta charset="UTF-8">
-                    <title>${MEGA_CONFIG.BOT_NAME} - Status</title>
-                    <style>
-                        * { margin: 0; padding: 0; box-sizing: border-box; }
-                        body {
-                            font-family: Arial, sans-serif;
-                            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-                            min-height: 100vh;
-                            display: flex;
-                            align-items: center;
-                            justify-content: center;
-                            padding: 20px;
-                        }
-                        .container {
-                            background: white;
-                            padding: 50px;
-                            border-radius: 30px;
-                            box-shadow: 0 30px 80px rgba(0,0,0,0.3);
-                            max-width: 800px;
-                            width: 100%;
-                        }
-                        h1 {
-                            color: #667eea;
-                            font-size: 3em;
-                            margin-bottom: 10px;
-                            text-align: center;
-                        }
-                        .version {
-                            text-align: center;
-                            color: #764ba2;
-                            font-size: 1.2em;
-                            margin-bottom: 40px;
-                        }
-                        .stats {
-                            display: grid;
-                            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-                            gap: 20px;
-                            margin-bottom: 30px;
-                        }
-                        .stat {
-                            background: #f8f9fa;
-                            padding: 20px;
-                            border-radius: 15px;
-                            text-align: center;
-                            border-right: 4px solid #667eea;
-                        }
-                        .stat-value {
-                            font-size: 2em;
-                            font-weight: bold;
-                            color: #667eea;
-                            margin-bottom: 5px;
-                        }
-                        .stat-label {
-                            color: #666;
-                            font-size: 0.9em;
-                        }
-                        .features {
-                            background: #f8f9fa;
-                            padding: 20px;
-                            border-radius: 15px;
-                            margin-top: 20px;
-                        }
-                        .feature {
-                            padding: 10px;
-                            margin: 5px 0;
-                            background: white;
-                            border-radius: 10px;
-                        }
-                        .feature:before { content: "✨ "; }
-                        .status {
-                            text-align: center;
-                            margin-top: 30px;
-                            padding: 15px;
-                            background: #d4edda;
-                            border-radius: 10px;
-                            color: #155724;
-                            font-weight: bold;
-                        }
-                    </style>
-                </head>
-                <body>
-                    <div class="container">
-                        <h1>🌸 ${MEGA_CONFIG.BOT_NAME}</h1>
-                        <div class="version">v${MEGA_CONFIG.VERSION} - ${MEGA_CONFIG.RELEASE_DATE}</div>
-                        
-                        <div class="stats">
-                            <div class="stat">
-                                <div class="stat-value">${Utils.formatNumber(stats.totalUsers)}</div>
-                                <div class="stat-label">کاربران</div>
-                            </div>
-                            <div class="stat">
-                                <div class="stat-value">${Utils.formatNumber(stats.activeToday)}</div>
-                                <div class="stat-label">فعال امروز</div>
-                            </div>
-                            <div class="stat">
-                                <div class="stat-value">${Utils.formatNumber(stats.totalMessages)}</div>
-                                <div class="stat-label">کل پیام‌ها</div>
-                            </div>
-                            <div class="stat">
-                                <div class="stat-value">${Utils.formatNumber(stats.todayMessages)}</div>
-                                <div class="stat-label">پیام امروز</div>
-                            </div>
-                            <div class="stat">
-                                <div class="stat-value">${Object.keys(MEGA_CONFIG.ENGINES).length}</div>
-                                <div class="stat-label">موتور AI</div>
-                            </div>
-                            <div class="stat">
-                                <div class="stat-value">${cacheStats.hitRate}</div>
-                                <div class="stat-label">Cache Hit Rate</div>
-                            </div>
-                        </div>
-                        
-                        <div class="features">
-                            <div class="feature">12 موتور هوش مصنوعی قدرتمند</div>
-                            <div class="feature">سیستم Vision AI برای تحلیل عکس</div>
-                            <div class="feature">حالت انسانی پیشرفته</div>
-                            <div class="feature">سیستم VIP و اشتراک</div>
-                            <div class="feature">سیستم رفرال و امتیازدهی</div>
-                            <div class="feature">پنل ادمین کامل</div>
-                            <div class="feature">آنالیتیکس و گزارش‌گیری</div>
-                            <div class="feature">کش هوشمند و بهینه‌سازی</div>
-                        </div>
-                        
-                        <div class="status">
-                            ✅ سیستم فعال و آماده خدمت‌رسانی
-                        </div>
-                    </div>
-                </body>
-                </html>
-            `, {
-                headers: { 'Content-Type': 'text/html; charset=utf-8' }
-            });
-        }
-        
-        return new Response('Not Found', { status: 404 });
+  async fetch(request: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
+    config = createConfig(env);
+    API_URL = `https://tapi.bale.ai/bot${config.TOKEN}`;
+
+    // اگر مقداردهی اولیه کامل نشده، منتظر بمان
+    if (!isInitialized) {
+      if (!initPromise) {
+        initPromise = initializeBot(env, config).then(() => {
+          isInitialized = true;
+        }).catch(err => {
+          logger.error("Bot initialization failed", err);
+          // در صورت خطا، اجازه نده درخواست‌ها پردازش شوند
+          throw err;
+        });
+      }
+      await initPromise;
     }
+
+    const url = new URL(request.url);
+    const path = url.pathname;
+
+    if (path === "/health") {
+      return await createHealthCheckResponse(env);
+    }
+    
+    if (request.method === "POST" && url.pathname === "/webhook") {
+      try {
+        const update: Update = await request.json();
+        if (!update.update_id) return new Response("Invalid update", { status: 400 });
+        
+        const updatePromise = handleUpdate(update, env, config);
+        
+        const timeoutPromise = new Promise<void>((_, reject) => 
+          setTimeout(() => reject(new Error("Worker timeout")), 30000)
+        );
+        
+        ctx.waitUntil(
+          Promise.race([updatePromise, timeoutPromise]).catch(async (err) => {
+            if (err.message === 'Worker timeout') {
+              logger.error("⏱️ Worker Execution Timeout Hit");
+              if (update.message?.chat?.id) {
+                await sendMessage(update.message.chat.id, "🚦 **سرور به شدت شلوغ است!**\n\nترافیک هوش مصنوعی بالاست. لطفاً مدل خود را عوض کنید (/model) یا چند دقیقه دیگر مجدداً پیام بدهید.", {
+                  reply_to_message_id: update.message.message_id
+                }).catch(() => {});
+              }
+            } else {
+              logger.error("Update processing failed", err);
+            }
+          })
+        );
+        
+        return new Response("OK", { status: 200 });
+        
+      } catch (error) {
+        logger.error("Failed to parse webhook request", error);
+        return new Response("Bad Request", { status: 400 });
+      }
+    }
+    
+    return new Response("Not Found", { status: 404 });
+  },
+  
+  async scheduled(event: ScheduledEvent, env: Env, ctx: ExecutionContext): Promise<void> {
+    try {
+      const now = Date.now();
+
+      if (modelListStates.size > 100) {
+        modelListStates.clear();
+        logger.info("🧹 Cleared model list states");
+      }
+      
+      // ✅ 1. پاکسازی groupContextCache
+      for (const [chatId, context] of groupContextCache.entries()) {
+        if (now - context.lastCleanup > 60 * 60 * 1000) { // 1 hour
+          groupContextCache.delete(chatId);
+        }
+      }
+    
+      // ✅ 2. پاکسازی session load locks
+      for (const [chatId] of sessionLoadLocks.entries()) {
+        sessionLoadLocks.delete(chatId);
+      }
+
+      // ✅ 3. پاکسازی callback rate limits
+      for (const [userId, timestamps] of callbackRateLimits.entries()) {
+        const recent = timestamps.filter(t => now - t < 60000);
+        if (recent.length === 0) {
+          callbackRateLimits.delete(userId);
+        } else {
+          callbackRateLimits.set(userId, recent);
+        }
+      }
+      try {
+        const broadcastJob = await env.SESSIONS.get('broadcast_job:current', 'json') as BroadcastJob | null;
+        if (broadcastJob && broadcastJob.status === 'pending' && broadcastJob.processedIndex < broadcastJob.totalUsers) {
+          logger.info(`🔄 Scheduled broadcast: ${broadcastJob.processedIndex}/${broadcastJob.totalUsers}`);
+          if (!config) config = createConfig(env);
+          if (!API_URL) API_URL = `https://tapi.bale.ai/bot${config.TOKEN}`;
+          await processBroadcastBatch(env);
+        }
+      } catch (broadcastError) {
+        logger.error("Scheduled broadcast processing failed", broadcastError);
+      }
+      
+      logger.info("✅ Scheduled cleanup completed");
+    } catch (error) {
+      logger.error("Scheduled cleanup failed", error);
+    }
+  }
 };
+
+logger.info("🌐 Enhanced webhook server initialized with clean UI and advanced memory system");
